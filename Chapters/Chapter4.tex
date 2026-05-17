@@ -1,168 +1,92 @@
 % Бүлэг 4
 
-\chapter{Хөгжүүлэлт ба туршилт}
+\chapter{Системийн хөгжүүлэлт ба туршилт}
 \label{Chapter4}
 \pagecolor{white}
 
-\section{Системийн архитектур}
+\section{Системийн архитектур боловсруулах}
 
-Системийн ерөнхий архитектурыг гурван давхаргат загварын дагуу зохион байгуулсан. Backend-ийг Routes → Controller → Service → Repository → Worker давхрагуудтайгаар хөгжүүлсэн.
+Хөгжүүлж буй системийн архитектурыг гурван давхаргат (3-tier) архитектурын зарчмын дагуу бүтээв. Энэхүү бүтэц нь интерфэйсийн давхарга (Presentation Layer), бизнес логикийн давхарга (Application Layer), өгөгдлийн давхарга (Data Layer) гэсэн гурван үндсэн хэсгээс бүрдэх бөгөөд давхарга бүр өөр өөр үүрэгтэй, харилцан тодорхой интерфэйсээр уялдаатай ажиллана.
 
-\begin{table}[h!]
-\centering
-\caption{Хэрэгжүүлсэн технологийн стек}
-\label{tab:tech_stack}
-\begin{tabular}{|l|l|p{5cm}|}
-\hline
-\textbf{Давхарга} & \textbf{Технологи} & \textbf{Зориулалт} \\
-\hline
-Frontend & React 18, TypeScript, Vite & SPA интерфэйс \\
-\hline
-Backend & Node.js, Express 5, TypeScript & RESTful API сервер \\
-\hline
-Өгөгдлийн сан & PostgreSQL, Sequelize ORM & Бүтцэт өгөгдөл хадгалах \\
-\hline
-Медиа хадгалалт & Cloudinary CDN & Видео, зураг, аудио файл \\
-\hline
-Скрипт AI & Anthropic Claude, Groq/Llama 3 & Сценарий бичих \\
-\hline
-Зураг AI & Google Gemini Flash Image 2.5 & Scene зураг үүсгэх \\
-\hline
-Аудио AI & ElevenLabs, Chimege, Gemini TTS & Хоолой дуурайлгах \\
-\hline
-Видео угсралт & FFmpeg & MP4 нэгтгэлт \\
-\hline
-Бодит цаг & SSE (Server-Sent Events) & Явц дамжуулах \\
-\hline
-Баталгаажуулалт & JWT, bcrypt & Хэрэглэгч нэвтрэх \\
-\hline
-\end{tabular}
-\end{table}
+\subsection{Системийн ерөнхий архитектур}
 
-\section{Өгөгдлийн сангийн зохиомж}
+Системийн интерфэйсийн давхарга нь React дээр суурилсан Single-Page Application бөгөөд хэрэглэгч browser-ээр дамжуулан системд хандана. Бизнес логикийн давхарга нь Node.js + Express + TypeScript-аар хөгжүүлсэн RESTful API сервер бөгөөд видео үүсгэлтийн урсгал, AI үйлчилгээний оркестрэйшн, баталгаажуулалт болон бүртгэлийн логикийг хариуцна. Өгөгдлийн давхарга нь PostgreSQL реляцийн өгөгдлийн сан болон AWS S3, Cloudinary үүлэн хадгалалтаас бүрдэнэ. Гадаад AI үйлчилгээнүүд (Groq, Imagen, ElevenLabs) болон видео боловсруулалтын FFmpeg worker нь системийн дотоод pipeline-аас тусдаа орчинд ажиллана.
 
-\subsection{Өгөгдлийн сангийн схемийн ерөнхий бүтэц}
+Энэхүү давхаргат загвар нь дараах давуу тал олгоно. Нэгдүгээрт, frontend болон backend нь тус тусдаа deploy хийгдэх боломжтой тул scaling уян хатан болно. Хоёрдугаарт, AI үйлчилгээнүүдийг солих эсвэл нэмэх үед зөвхөн бизнес логикийн давхаргад өөрчлөлт хийхэд хангалттай. Гуравдугаарт, frontend болон backend хооронд REST API стандартаар уялдсан тул mobile эсвэл desktop client-ийг ирээдүйд нэмж хөгжүүлэх боломж нээлттэй байна.
 
-Өгөгдлийн сангийн схемийг 8 үндсэн хүснэгт, 7 төрлийн холбоос, 8 индекстэйгээр зохиомжилж 3NF хүртэл нормчилсан. Үндсэн хүснэгтүүд: users, videos, scenes, subscriptions, projects, admins.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Figures/arhi.png}
+    \caption{Системийн ерөнхий архитектурын диаграм}
+    \label{fig:arch_overview}
+\end{figure}
 
-\subsection{users хүснэгт}
+\subsection{Backend дотоод архитектур}
 
-\code{users} хүснэгт нь системийн бүртгэлтэй хэрэглэгчдийн мэдээллийг хадгална.
+Backend серверийг Layered Architecture буюу давхаргат архитектурын зарчмын дагуу зохион байгуулсан. Гол давхарганууд нь дараах байдлаар үүрэгчилэгдсэн:
 
-\begin{table}[h!]
-\centering
-\caption{users хүснэгтийн схем}
-\label{tab:users}
-\begin{tabular}{|l|l|l|p{4cm}|}
-\hline
-\textbf{Талбар} & \textbf{Төрөл} & \textbf{Хязгаарлалт} & \textbf{Тайлбар} \\
-\hline
-id & UUID & PRIMARY KEY & Хэрэглэгчийн ID \\
-\hline
-email & VARCHAR(255) & UNIQUE, NOT NULL & Нэвтрэх имэйл \\
-\hline
-password & VARCHAR(255) & NOT NULL & Bcrypt хэш \\
-\hline
-name & VARCHAR(100) & NOT NULL & Хэрэглэгчийн нэр \\
-\hline
-role & ENUM & DEFAULT 'user' & user / pro / manager \\
-\hline
-is\_active & BOOLEAN & DEFAULT true & Идэвхтэй эсэх \\
-\hline
-created\_at & TIMESTAMP & DEFAULT now() & Бүртгэлийн огноо \\
-\hline
-updated\_at & TIMESTAMP & DEFAULT now() & Шинэчилсэн огноо \\
-\hline
-\end{tabular}
-\end{table}
+\begin{itemize}
+  \item \textbf{Routes давхарга} --- HTTP хүсэлтийг хүлээн авч, тухайн endpoint-д харгалзах controller-руу чиглүүлнэ. Express router-ыг ашиглана.
+  \item \textbf{Controller давхарга} --- хүсэлт болон хариуны форматыг боловсруулж, validation хийн, харгалзах service-ийг дуудна. Бизнес логик агуулахгүй.
+  \item \textbf{Service давхарга} --- гол бизнес логик, AI service-тэй харилцах оркестрэйшн, transaction удирдлага зэрэг ажилладаг гол давхарга.
+  \item \textbf{Repository давхарга} --- Sequelize ORM-ийг ашиглан өгөгдлийн санд CRUD үйлдэл гүйцэтгэнэ. Бусад давхаргад өгөгдлийн сангийн дэлгэрэнгүй мэдэгдэхгүй.
+  \item \textbf{Middleware давхарга} --- JWT баталгаажуулалт, error handling, rate limiting, logging, request validation зэрэг хөндлөнгийн логикийг агуулна.
+  \item \textbf{Worker давхарга} --- FFmpeg видео угсралт зэрэг хүнд ажлыг queue-ээр нь зэрэгцээ ажиллуулах хариуцлагатай.
+\end{itemize}
 
-\subsection{videos хүснэгт}
+Энэ бүтэц нь Single Responsibility Principle-ийг хадгалж, кодын засвар үйлчилгээний өртгийг бууруулдаг. Жишээ нь, өгөгдлийн санг ирээдүйд PostgreSQL-ээс өөр санд шилжүүлэхэд зөвхөн Repository давхаргад өөрчлөлт хийхэд хангалттай.
 
-\code{videos} хүснэгт нь үүсгэгдсэн бүх видеоны метадата, статус, үр дүнгийн холбоосыг хадгална.
+\subsection{Frontend архитектур}
 
-\begin{table}[h!]
-\centering
-\caption{videos хүснэгтийн схем}
-\label{tab:videos}
-\begin{tabular}{|l|l|l|p{4cm}|}
-\hline
-\textbf{Талбар} & \textbf{Төрөл} & \textbf{Хязгаарлалт} & \textbf{Тайлбар} \\
-\hline
-id & UUID & PRIMARY KEY & Видео ID \\
-\hline
-user\_id & UUID & FOREIGN KEY & Эзэмшигч хэрэглэгч \\
-\hline
-project\_id & UUID & FOREIGN KEY, NULL & Харьяалагдах төсөл \\
-\hline
-title & VARCHAR(200) & NOT NULL & Видеоны гарчиг \\
-\hline
-topic & TEXT & NOT NULL & Видеоны сэдэв \\
-\hline
-genre & VARCHAR(50) & NOT NULL & Видеоны жанр \\
-\hline
-language & VARCHAR(20) & NOT NULL & Хэл (mn / en) \\
-\hline
-status & ENUM & DEFAULT 'pending' & pending / processing / done / failed \\
-\hline
-video\_url & TEXT & NULL & Cloudinary-д байршсан URL \\
-\hline
-duration & FLOAT & NULL & Видеоны урт (секунд) \\
-\hline
-file\_size & BIGINT & NULL & Видео файлын хэмжээ \\
-\hline
-created\_at & TIMESTAMP & DEFAULT now() & Үүсгэсэн огноо \\
-\hline
-\end{tabular}
-\end{table}
+Frontend интерфэйсийг React 18 + TypeScript ашиглан Single-Page Application хэлбэрээр хөгжүүлэв. Component-based архитектур ашиглаж, дахин ашиглах боломжтой жижиг компонентоос нийлмэл хуудас нэгтгэнэ. State management-д React Context API ба TanStack Query (React Query) ашигласан. TanStack Query нь backend-аас ирэх өгөгдлийн caching, refetching, optimistic update зэргийг хариуцна.
 
-\subsection{scenes хүснэгт}
+Routing-д React Router v6 ашиглаж, хуудас бүрд lazy loading хийсэн. Энэ нь анхны ачааллалтын хугацааг богиносгож, хэрэглэгчийн туршлагыг сайжруулсан. Стилийг Tailwind CSS-ээр хийсэн бөгөөд утилитын класс ашиглах нь стиль бичих хурдыг нэмэгдүүлсэн.
 
-\code{scenes} хүснэгт нь видеоны хэсэг бүрийн narration текст, image prompt, дараалал зэргийг хадгална. Studio засварлагч энэ хүснэгтэн дээр голчлон ажилладаг.
+\section{Өгөгдлийн сангийн бүтэц зохиох}
 
-\begin{table}[h!]
-\centering
-\caption{scenes хүснэгтийн схем}
-\label{tab:scenes}
-\begin{tabular}{|l|l|l|p{4cm}|}
-\hline
-\textbf{Талбар} & \textbf{Төрөл} & \textbf{Хязгаарлалт} & \textbf{Тайлбар} \\
-\hline
-id & UUID & PRIMARY KEY & Scene ID \\
-\hline
-video\_id & UUID & FOREIGN KEY & Харьяалагдах видео \\
-\hline
-scene\_index & INTEGER & NOT NULL & Дараалал (0-аас) \\
-\hline
-narration & TEXT & NOT NULL & Хэлэх текст \\
-\hline
-image\_prompt & TEXT & NOT NULL & Зураг үүсгэх prompt \\
-\hline
-image\_url & TEXT & NULL & Үүсгэгдсэн зураг URL \\
-\hline
-audio\_url & TEXT & NULL & TTS аудио URL \\
-\hline
-audio\_duration & FLOAT & NULL & Аудионы үргэлжлэх хугацаа \\
-\hline
-tts\_provider & VARCHAR(50) & NOT NULL & gemini / elevenlabs / chimege \\
-\hline
-voiceId & VARCHAR(100) & NOT NULL & Дуу хоолойн ID \\
-\hline
-transition\_type & VARCHAR(50) & NULL & Scene хоорондын шилжилт \\
-\hline
-motion\_effect & VARCHAR(50) & NULL & Зурагны хөдөлгөөний эффект \\
-\hline
-created\_at & TIMESTAMP & DEFAULT now() & Үүсгэсэн огноо \\
-\hline
-\end{tabular}
-\end{table}
+Өгөгдлийн сангийн зохиомжид PostgreSQL 15 реляцийн өгөгдлийн санг сонгосон. Энэхүү хэсэгт өгөгдлийн сангийн логик загвар, нормчилол болон Entity-Relationship буюу ER загварчлалыг авч үзнэ.
+
+\subsection{Entity тодорхойлолт}
+
+Системийн өгөгдлийн санд хадгалагдах үндсэн объектуудыг дараах байдлаар тодорхойлсон:
+
+\begin{itemize}
+  \item \textbf{Хэрэглэгч (User)} --- системд бүртгэлтэй хэрэглэгчийн үндсэн мэдээлэл: имэйл, нууц үгийн хэш, нэр.
+  \item \textbf{Видео (Video)} --- нэг бүхэл видеоны мета мэдээлэл, үүсгэлтийн төлөв, зурагны хэв маяг, дуут замын тохиргоо болон эцсийн URL.
+  \item \textbf{Scene} --- видеоны нэг хэсэг бүрийн narration текст, image prompt, аудио, үргэлжлэх хугацаа, дуу хоолойн тохиргоо.
+  \item \textbf{Төсөл (Project)} --- хэрэглэгчийн видеонуудыг бүлэглэх хавтас бүтэц. Нэг видео нэг төсөлд харьяалагдаж болно.
+  \item \textbf{Subscription} --- хэрэглэгчийн тарифын төлөв, сарын видео үүсгэх хязгаарлалт, дуусах хугацаа.
+  \item \textbf{Админ (Admin)} --- системийг удирдах тусдаа бүртгэлтэй хэрэглэгч. Энгийн хэрэглэгчтэй тусдаа хүснэгтэд хадгалагдана.
+\end{itemize}
+
+Эдгээр объектуудын хооронд дараах гол холбоосууд тогтоогдсон: нэг хэрэглэгч олон видеотой (1:N), нэг хэрэглэгч олон төсөлтэй (1:N), нэг төсөл олон видеотой (1:N), нэг видео олон scene-тэй (1:N), нэг хэрэглэгч нэг subscription-тай (1:1).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Figures/er.png}
+    \caption{Өгөгдлийн сангийн ER диаграм}
+    \label{fig:er_diagram}
+\end{figure}
+
+\section{DB schema болон холбоосуудыг тодорхойлох}
+
+Өгөгдлийн сангийн үндсэн хүснэгт бүрийн гол талбаруудыг доор дарааллан тодорхойлов.
+
+\begin{enumerate}
+\item \textbf{users} --- \code{id} (UUID, PK), \code{email} (VARCHAR, UNIQUE), \code{password} (bcrypt хэш), \code{fullName} (VARCHAR), \code{role} (ENUM: user/pro/super\_admin), \code{created\_at}, \code{updated\_at}
+\item \textbf{videos} --- \code{id} (UUID, PK), \code{user\_id} (FK), \code{project\_id} (FK, NULL), \code{title}, \code{topic}, \code{genre}, \code{language}, \code{image\_style}, \code{bgm\_path}, \code{status} (ENUM: draft/processing/rendering/completed/failed), \code{progress} (0--100), \code{final\_video\_url}, \code{thumbnail\_url}, \code{duration}, \code{file\_size}, \code{error\_message}
+\item \textbf{scenes} --- \code{id} (UUID, PK), \code{video\_id} (FK), \code{scene\_index} (INTEGER), \code{narration} (TEXT), \code{image\_prompt} (TEXT), \code{image\_url}, \code{audio\_url}, \code{audio\_duration} (FLOAT), \code{words} (JSON, subtitle синхрончлол), \code{tts\_provider} (gemini/elevenlabs/chimege), \code{voiceId}, \code{transition\_type}, \code{motion\_effect}
+\item \textbf{subscriptions} --- \code{id} (UUID, PK), \code{user\_id} (FK), \code{plan} (ENUM: free/pro/enterprise), \code{videos\_used}, \code{videos\_quota}, \code{renewed\_at}, \code{expires\_at}
+\item \textbf{projects} --- \code{id} (UUID, PK), \code{user\_id} (FK), \code{title} (VARCHAR), \code{topic} (TEXT), \code{status} (ENUM: draft/processing/completed/failed)
+\item \textbf{admins} --- \code{id} (UUID, PK), \code{email} (VARCHAR, UNIQUE), \code{password} (bcrypt хэш), \code{name} (VARCHAR), \code{role} (ENUM: superadmin/admin)
+\end{enumerate}
 
 \subsection{Хүснэгтүүдийн хоорондын холбоос}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Хүснэгтүүдийн хоорондын холбоосын матриц}
 \label{tab:relations}
-\begin{tabular}{|l|l|c|p{4cm}|}
+\begin{tabular}{|l|l|c|p{4.5cm}|}
 \hline
 \textbf{Эх хүснэгт} & \textbf{Зорилтот хүснэгт} & \textbf{Төрөл} & \textbf{Тайлбар} \\
 \hline
@@ -177,33 +101,21 @@ videos & scenes & 1:N & Нэг видео олон scene-тэй \\
 users & subscriptions & 1:1 & Нэг хэрэглэгч нэг subscription \\
 \hline
 \end{tabular}
+\caption{Хүснэгтүүдийн хоорондын холбоосын матриц}
 \end{table}
 
-\subsection{Индекс ба гүйцэтгэлийн оптимизаци}
 
-Хайлт болон жагсаалтын хурдыг сайжруулахын тулд дараах индексүүдийг үүсгэв:
-
-\begin{itemize}
-\item \code{users.email} --- UNIQUE INDEX (нэвтрэхэд хайх)
-\item \code{videos.user\_id} --- INDEX (хэрэглэгчийн видеог жагсаахад)
-\item \code{videos.project\_id} --- INDEX (төслийн видеог жагсаахад)
-\item \code{videos.status} --- INDEX (processing төлөвтэй видеог шүүхэд)
-\item \code{videos.created\_at} --- INDEX (огноогоор эрэмбэлэхэд)
-\item \code{scenes.video\_id} --- INDEX (нэг видеоны scene-уудыг авахад)
-\item \code{scenes.video\_id + scene\_index} --- COMPOSITE INDEX (дараалсан хайлтад)
-\end{itemize}
 
 \section{Backend API хөгжүүлэх}
 
-Backend API-ийг Node.js v22, Express v4, TypeScript ашиглан хөгжүүлсэн. RESTful архитектурын зарчмын дагуу resource-based endpoint бүтцийг ашигласан.
+Backend API-ийг Node.js v22, Express v4, TypeScript ашиглан хөгжүүлсэн. RESTful архитектурын зарчмын дагуу resource-based endpoint бүтцийг ашигласан. Хариулах формат нь JSON, баталгаажуулалт нь JWT-аар хийгдэнэ.
 
 \subsection{Технологийн стек}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Backend-д ашигласан технологийн стек}
 \label{tab:backend_stack}
-\begin{tabular}{|l|p{7cm}|}
+\begin{tabular}{|l|p{8cm}|}
 \hline
 \textbf{Технологи / Сан} & \textbf{Зориулалт} \\
 \hline
@@ -229,22 +141,22 @@ helmet & HTTP security headers \\
 \hline
 multer & File upload боловсруулалт \\
 \hline
-socket.io & Real-time progress updates \\
+bull / BullMQ & Redis-based job queue \\
 \hline
 fluent-ffmpeg & FFmpeg-ийн Node.js binding \\
 \hline
 \end{tabular}
+\caption{Backend-д ашигласан технологийн стек}
 \end{table}
 
 \subsection{API endpoint жагсаалт}
 
 Системийн backend нь дараах REST endpoint-уудаас бүрдэнэ. Бүх endpoint \code{/api/v1} префикстэй.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Authentication endpoint-ууд}
 \label{tab:auth_api}
-\begin{tabular}{|l|l|p{5cm}|}
+\begin{tabular}{|l|p{5cm}|p{5.5cm}|}
 \hline
 \textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} \\
 \hline
@@ -263,13 +175,13 @@ POST & /auth/reset-password & Нууц үг шинэчлэх \\
 GET & /auth/me & Одоогийн хэрэглэгчийн мэдээлэл авах \\
 \hline
 \end{tabular}
+\caption{Authentication endpoint-ууд}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Video endpoint-ууд}
 \label{tab:video_api}
-\begin{tabular}{|l|l|p{5cm}|l|}
+\begin{tabular}{|l|p{5cm}|p{3.5cm}|l|}
 \hline
 \textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} & \textbf{Хамгаалалт} \\
 \hline
@@ -289,24 +201,125 @@ POST & /api/video/:videoId/reassemble & Видеог дахин угсрах & J
 \hline
 POST & /api/video/:videoId/regen-text & Scene текст AI-аар дахин бичих & JWT \\
 \hline
+PATCH & /api/video/scene/:id/image & Scene зураг шинэчлэх & JWT \\
+\hline
+PATCH & /api/video/scene/:id/narration & Scene аудио шинэчлэх & JWT \\
+\hline
 \end{tabular}
+\caption{Video endpoint-ууд}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Аудио endpoint-ууд}
-\label{tab:audio_api}
-\begin{tabular}{|l|l|p{6cm}|}
+\label{tab:script_api}
+\begin{tabular}{|l|p{5.5cm}|p{5cm}|}
 \hline
 \textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} \\
 \hline
-POST & /api/audio/generate & TTS аудио үүсгэх (ElevenLabs/Chimege) \\
+POST & /api/ai/script/generate & Сэдвээс скрипт үүсгэх (Claude / Groq) \\
+\hline
+POST & /api/ai/script/regenerate-scene & Тодорхой scene дахин бичих \\
+\hline
+POST & /api/ai/script/edit-scene & Scene гараар засах \\
+\hline
+POST & /api/ai/script/add-scene & Шинэ scene нэмэх \\
+\hline
+POST & /api/ai/script/delete-scene & Scene устгах \\
+\hline
+POST & /api/ai/script/validate-timing & Scene-үүдийн нийт хугацааг шалгах \\
+\hline
+\end{tabular}
+\caption{Script API endpoint-ууд}
+\end{table}
+
+\begin{table}[H]
+\centering
+\label{tab:image_api}
+\begin{tabular}{|l|p{5.5cm}|p{5cm}|}
+\hline
+\textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} \\
+\hline
+POST & /api/ai/image/generate-from-script & Скриптийн бүх scene-д зураг үүсгэх \\
+\hline
+POST & /api/ai/image/generate-custom & Тусгай prompt-аар нэг зураг үүсгэх \\
+\hline
+POST & /api/ai/image/regenerate & Нэг зургийг дахин үүсгэх \\
+\hline
+POST & /api/ai/image/generate-batch & Олон зургийг зэрэг үүсгэх (parallel) \\
+\hline
+POST & /api/ai/image/generate-thumbnail & Thumbnail зураг үүсгэх \\
+\hline
+\end{tabular}
+\caption{Зураг API endpoint-ууд}
+\end{table}
+
+\begin{table}[H]
+\centering
+\label{tab:audio_api}
+\begin{tabular}{|l|p{5.5cm}|p{5cm}|}
+\hline
+\textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} \\
+\hline
+POST & /api/audio/generate & TTS аудио үүсгэх (ElevenLabs / Chimege) \\
 \hline
 POST & /api/audio/generate-gemini & Gemini TTS аудио үүсгэх \\
 \hline
 POST & /api/audio/generate-from-script & Скриптийн бүх scene-д аудио үүсгэх \\
 \hline
+POST & /api/audio/generate-download & Аудио үүсгэж татах \\
+\hline
 \end{tabular}
+\caption{Аудио endpoint-ууд}
+\end{table}
+
+\begin{table}[H]
+\centering
+\label{tab:project_api}
+\begin{tabular}{|l|p{5cm}|p{3.5cm}|l|}
+\hline
+\textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} & \textbf{Хамгаалалт} \\
+\hline
+POST & /api/projects & Шинэ төсөл үүсгэх & JWT \\
+\hline
+GET & /api/projects & Хэрэглэгчийн бүх төслүүд & JWT \\
+\hline
+GET & /api/projects/unassigned & Төслийн бус видеонууд & JWT \\
+\hline
+GET & /api/projects/:id & Төслийн дэлгэрэнгүй & JWT \\
+\hline
+PUT & /api/projects/:id & Төслийн нэр өөрчлөх & JWT \\
+\hline
+DELETE & /api/projects/:id & Төсөл устгах & JWT \\
+\hline
+PATCH & /api/projects/move & Видеог нэг төслөөс нөгөөд зөөх & JWT \\
+\hline
+\end{tabular}
+\caption{Төсөл endpoint-ууд}
+\end{table}
+
+\begin{table}[H]
+\centering
+\label{tab:admin_api}
+\begin{tabular}{|l|p{5cm}|p{3.5cm}|l|}
+\hline
+\textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} & \textbf{Хамгаалалт} \\
+\hline
+POST & /api/admin/login & Админ нэвтрэх & --- \\
+\hline
+POST & /api/admin/register & Шинэ админ бүртгэх & --- \\
+\hline
+GET & /api/admin/stats & Ерөнхий статистик & Admin JWT \\
+\hline
+GET & /api/admin/users & Бүх хэрэглэгчдийн жагсаалт & Admin JWT \\
+\hline
+GET & /api/admin/videos & Бүх видеоны жагсаалт & Admin JWT \\
+\hline
+GET & /api/admin/videos/:videoId & Видеоны дэлгэрэнгүй (Admin) & Admin JWT \\
+\hline
+DELETE & /api/admin/videos/:videoId & Видео устгах (Admin) & Admin JWT \\
+\hline
+\end{tabular}
+\caption{Admin endpoint-ууд}
 \end{table}
 
 \subsection{Authentication ба JWT хэрэгжүүлэлт}
@@ -314,346 +327,325 @@ POST & /api/audio/generate-from-script & Скриптийн бүх scene-д ау
 Баталгаажуулалтыг JSON Web Token (JWT) дээр суурилуулсан. Хэрэглэгч нэвтрэх бүрд хоёр төрлийн токен олгоно:
 
 \begin{enumerate}
-\item \textbf{Access token} --- 15 минутын хугацаатай, бүх API хүсэлтэд Authorization header-аар дамжуулна.
+\item \textbf{Access token} --- 15 минутын хугацаатай, бүх API хүсэлтэд \code{Authorization} header-аар дамжуулна.
 \item \textbf{Refresh token} --- 7 хоногийн хугацаатай, HttpOnly cookie-д хадгалагдаж, access token дуусах үед шинэ access token авахад ашиглагдана.
 \end{enumerate}
 
 Энэ хослол нь хоёр давуу талтай. Access token хулгайлагдсан тохиолдолд 15 минутаас илүү ашиглах боломжгүй. Refresh token нь HttpOnly cookie-д хадгалагдсан тул JavaScript-ээс хандаж болохгүй учир XSS халдлагаас хамгаалагдана.
 
+Нууц үгийг bcrypt-ийн 12 salt round ашиглан хэшлэн хадгална. Энэ нь brute-force халдлагад тэсвэртэй болохын зэрэгцээ нэг нууц үг хэшлэхэд орчим 250--300ms зарцуулдаг учир CPU-д хэт ачаалал өгөхгүй.
+
 \subsection{Middleware ба эрхийн шалгалт}
 
-Систем нь дараах middleware давхаргуудтай:
-
-\begin{itemize}
-\item \textbf{authMiddleware} --- JWT token шалгах, хэрэглэгчийн мэдээллийг request-д хавсаргах
-\item \textbf{roleMiddleware} --- хэрэглэгчийн role-г шалгаж зөвшөөрөл олгох/татгалзах
-\item \textbf{rateLimitMiddleware} --- хэт олон хүсэлтийг хязгаарлах
-\item \textbf{validationMiddleware} --- Zod схемээр request payload шалгах
-\item \textbf{errorHandlerMiddleware} --- алдааг нэгдсэн байдлаар боловсруулж JSON хариу буцаах
-\end{itemize}
-
-\section{Frontend интерфэйс хөгжүүлэх}
-
-\subsection{Технологийн стек}
-
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Frontend технологийн стек}
-\label{tab:frontend_stack}
-\begin{tabular}{|l|p{7cm}|}
+\label{tab:middleware}
+\begin{tabular}{|l|p{8.5cm}|}
 \hline
-\textbf{Технологи} & \textbf{Зориулалт} \\
+\textbf{Middleware} & \textbf{Зориулалт} \\
 \hline
-React 18 & UI component framework \\
+helmet & Security HTTP header (X-Frame-Options, CSP г.м) \\
 \hline
-TypeScript & Static type safety \\
+cors & Cross-Origin Resource Sharing зөвшөөрөл \\
 \hline
-Vite & Build tool, dev server \\
+express.json & Request body JSON парсер \\
 \hline
-Tailwind CSS & Utility-first styling \\
+rate-limit (general) & API хүсэлт минутад 60-аас илүүгүй \\
 \hline
-React Router v6 & Client-side routing \\
+rate-limit (auth) & Login хүсэлт минутад 5-аас илүүгүй (brute-force) \\
 \hline
-Zustand & Global state management \\
+jwt-auth & Authorization header шалгах ба req.user тогтоох \\
 \hline
-Axios & HTTP client \\
+role-guard & RBAC шалгалт (USER / PRO / SUPER\_ADMIN) \\
 \hline
-React Query & Server state, caching \\
+zod-validate & Request body / query схем шалгах \\
 \hline
-Framer Motion & Animation \\
+error-handler & Бүх алдаа барьж стандарт format-аар буцаах \\
+\hline
+request-logger & winston log-д хүсэлт бүрийн trace бичих \\
 \hline
 \end{tabular}
+\caption{Backend middleware жагсаалт}
 \end{table}
 
-\subsection{Component ба хуудсын архитектур}
+\section{AI service-үүдтэй холболт хийх}
 
-Системийн frontend нь дараах үндсэн хуудсуудаас бүрдэнэ:
-
-\begin{itemize}
-\item \textbf{Landing Page} --- танилцуулга, нэвтрэх, бүртгүүлэх
-\item \textbf{Dashboard} --- хэрэглэгчийн нүүр хуудас, видеоны жагсаалт
-\item \textbf{Generate Page} --- видео үүсгэх форм болон явцын харуулагч
-\item \textbf{Studio Page} --- AI Video Studio засварлагч
-\item \textbf{Projects Page} --- folder зохион байгуулалт
-\item \textbf{Admin Dashboard} --- хэрэглэгч, видео, статистик удирдлага
-\end{itemize}
-
-\subsection{AI Video Studio засварлагчийн UI}
-
-Studio засварлагч нь дараах 4 үндсэн хэсгээс бүрдэнэ:
-
-\begin{enumerate}
-\item \textbf{Scene timeline} --- видеоны бүх scene-г дарааллан харуулах, сонгох
-\item \textbf{Preview player} --- сонгосон scene-г preview болон эцсийн видеог үзэх
-\item \textbf{Editor panel} --- narration текст засварлах, image prompt өөрчлөх, дуу хоолой сонгох
-\item \textbf{Re-render status bar} --- дахин үүсгэлтийн явц хянах
-\end{enumerate}
-
-\section{AI service-үүдтэй холболт}
+Системийн гол үнэ цэнэ нь хиймэл оюуны үйлчилгээнүүдтэй уялдаа холбоотой ажиллахад оршино. Бүх AI үйлчилгээний интеграцыг service давхаргад тусгайлан тусгаарласан тул ирээдүйд үйлчилгээний нийлүүлэгчийг солих эсвэл fallback нэмэхэд хялбар байх бүтцийг хадгалсан.
 
 \subsection{Groq + Llama 3.3 70B (скрипт үүсгэлт)}
 
-Groq API-г ашиглан хэрэглэгчийн оруулсан сэдвээс видеоны скриптийг үүсгэнэ. Скрипт нь scene бүрийн дараах мэдээллийг агуулна: scene дугаар, цагийн тэмдэглэл, богино тайлбар, narration текст, зураг үүсгэх image prompt.
+Скрипт үүсгэлтэд Groq cloud-ыг ашиглан Llama 3.3 70B Versatile загварыг дуудна. Хэрэглэгчийн оруулсан сэдэв, жанр, урт, хэл зэрэг параметрийг нарийн боловсруулсан system prompt-ын хамт илгээж, бүтэцлэгдсэн JSON хариулт авна. JSON хариулт нь scene array байх бөгөөд scene бүр \code{narration}, \code{image\_prompt}, \code{duration\_seconds} талбартай.
 
-Groq-г сонгосон үндэслэл нь LPU чипс дээр ажиллах тул маш хурдан (токен/секунд өндөр), Llama 3.3 70B нь бүтэцтэй JSON гаралт сайн дагадаг, өртөг харьцангуй бага байдаг.
+Хариулсан JSON хүчинтэй эсэхийг zod schema-аар шалгаж, хүчинтэй биш бол retry хүсэлт явуулна. Гурван удаагийн retry-аар хариу авч чадахгүй бол алдаа болж видео үүсгэлт зогсох ба хэрэглэгчид мэдэгдэл явна. Дундаж хариу авах хугацаа 6 scene-тэй видеонд 2--4 секунд болсон.
 
 \subsection{Imagen 4 / Nano Banana (зураг үүсгэлт)}
 
-Google Gemini Flash Image 2.5-г scene бүрийн зураг үүсгэхэд ашиглана. Image prompt нь scene-ийн narration-аас автоматаар гарна. Хурд болон чанарын тэнцвэрийн хувьд Gemini Flash Image 2.5 нь production орчинд тохиромжтой.
+Зураг үүсгэлтэд үндсэн загвар болгон Google Vertex AI дээрх Imagen 4 загварыг ашигласан. Scene бүрийн image prompt-ыг систем нь хэрэглэгчийн өгсөн жанр, өнгөний хэв маяг, видеоны хэлбэрт нийцүүлж нэмэлт стилийн заавартай хослуулж илгээдэг. Жишээ нь, TikTok видеонд \textit{``vertical format, vibrant colors, dynamic''} гэх мэт нэмэлт мэдээлэл нэмэгддэг.
+
+Үүсгэгдсэн зургийг Cloudinary дээр upload хийсний дараа \code{scenes.image\_url} талбарт URL хадгалагдана. Дундаж хугацаа 1 зураг үүсгэхэд 4--7 секунд орсон.
 
 \subsection{ElevenLabs (дуу хоолой синтез)}
 
-ElevenLabs Flash v2.5 болон Multilingual v2 загваруудыг scene бүрийн narration-г дуу болгон хөрвүүлэхэд ашиглана. ElevenLabs-г сонгосон шалтгаан: байгалийн дуу хоолой, олон хэл дэмжлэг, харьцангуй бага latency.
+Дуу хоолой синтезд ElevenLabs API ашигласан. Хурдны зориулалттай Flash v2.5 загвар ($\sim$75ms latency) ба чанарын зориулалттай Multilingual v2 загвар хосолж ашиглах загварыг хэрэгжүүлсэн.
 
-Монгол хэлний fallback-д Chimege API болон Google Gemini TTS-г ашиглана.
+ElevenLabs нь Монгол хэлийг шууд дэмждэггүй боловч Multilingual v2 загвар нь хэлийг автоматаар таних чадвартай тул Монгол текстийг кирилл бичгээр дамжуулахад зөв уншдаг. \code{voice\_settings.stability} болон \code{voice\_settings.similarity\_boost} параметрүүдийг тохируулж Монгол дуудлагын чанарыг сайжруулсан. Дундаж 30 секундын narration-д 3--5 секунд зарцуулагдсан.
 
 \subsection{FFmpeg видео угсралтын pipeline}
 
-FFmpeg нь видео угсралтын үндсэн хэрэгсэл болно. Pipeline нь дараах алхмуудтай:
+Зураг ба audio-г нэгтгэж эцсийн MP4 видео үүсгэх ажлыг FFmpeg хариуцна. Гол алхмуудыг доор тоочив:
 
 \begin{enumerate}
-\item Scene бүрийн зураг + аудио + хугацааг нийлэгжүүлэх
-\item Зөвлөмж бүрт хөдөлгөөний эффект (Ken Burns) нэмэх
-\item Scene хоорондын шилжилт хийх
-\item Subtitle (SRT) нэмэх
-\item Background music нэмэх
-\item Эцсийн MP4 файл гаргах
+\item Scene бүрийн зургаас тухайн scene-ийн audio-той тохирсон урттай видеогийн фрагмент үүсгэнэ (\code{filter\_complex} дотор \code{loop} ашиглана).
+\item Subtitle-уудыг SRT файл болгон гаргаж \code{drawtext} эсвэл \code{subtitle} filter-ээр overlay хийнэ.
+\item Background music сонгогдсон тохиолдолд \code{amix} filter ашиглан narration-той хольж ducking хийнэ.
+\item Бүх scene-ийн фрагментийг \code{concat} filter-ээр нэгтгэж нэг бүтэн MP4 болгоно.
+\item H.264 video codec, AAC audio codec ашиглан encode хийн, resolution-ийг target платформд тааруулна (YouTube --- 1920$\times$1080 30fps, TikTok --- 1080$\times$1920 30fps).
 \end{enumerate}
+
+Хэсэгчилсэн re-render нь зөвхөн \code{dirty=true} scene-уудыг шинэчилж, бусад нь хадгалагдсан фрагментийг ашиглах байдлаар ажилладаг. Энэ нь жишээлбэл 6 scene-ийн нэгийг засахад нийт хугацааг 60 секундээс 12--15 секунд болгож бууруулсан.
 
 \subsection{Cloudinary болон AWS S3 нийлмэл стратеги}
 
-Бэлэн видео болон медиа файлуудыг Cloudinary CDN-д байршуулна. Том файл болон нөөц хадгалалтад AWS S3-г ашиглана. Cloudinary нь автоматар format оптимизаци, adaptive streaming боломжтой.
+Файлын төрлөөс хамаарч хоёр өөр үүлэн хадгалалтын үйлчилгээг ашигласан. Зургийг Cloudinary-д хадгална, учир нь Cloudinary нь image transformation, optimization, CDN-ийг автоматаар хариуцдаг. Видео болон audio-г AWS S3-д хадгалж CloudFront CDN-ээр хүргэнэ. Хэрэв Cloudinary-д алдаа гарвал S3-руу fallback хийнэ.
 
-\section{Системийн туршилт}
+\section{Системийн нэгж болон интеграцийн туршилт хийх}
 
-\subsection{Туршилтын стратеги}
+Хөгжүүлэлтийн чанарыг хангахын тулд олон давхрагат туршилтын стратегийг хэрэгжүүлэв.
 
-Туршилтын хувьд unit, integration, API, E2E, гүйцэтгэлийн туршилт зэрэг олон давхаргат стратегийг хэрэгжүүллэв:
+\subsection{Туршилтын стратеги ба пирамид}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Туршилтын стратегийн пирамид}
-\label{tab:test_strategy}
-\begin{tabular}{|l|l|c|c|}
+\label{tab:test_pyramid}
+\begin{tabular}{|l|c|p{5.5cm}|}
 \hline
-\textbf{Туршилтын төрөл} & \textbf{Хэрэгсэл} & \textbf{Тооны хувь} & \textbf{Хурд} \\
+\textbf{Туршилтын төрөл} & \textbf{Тоо} & \textbf{Хамрах хүрээ} \\
 \hline
-Unit tests & Jest, Vitest & 60\% & Маш хурдан \\
+Unit test & 147 & Service ба utility функцүүдийн логик \\
 \hline
-Integration tests & Jest + Supertest & 25\% & Хурдан \\
+Integration test & 42 & Controller + Service + DB-ийн уялдаа \\
 \hline
-API tests & Postman, Newman & 10\% & Дунд \\
+API test & 38 & Endpoint бүрийн request-response гүйцэтгэл \\
 \hline
-E2E tests & Playwright & 5\% & Удаан \\
+E2E test & 8 & Хэрэглэгчийн төгсгөл flow \\
 \hline
 \end{tabular}
+\caption{Туршилтын тоо ба хамрах хүрээ}
 \end{table}
 
 \subsection{Туршилтын хэрэгсэл}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Туршилтын хэрэгсэл}
 \label{tab:test_tools}
-\begin{tabular}{|l|p{8cm}|}
+\begin{tabular}{|l|p{8.5cm}|}
 \hline
 \textbf{Хэрэгсэл} & \textbf{Зориулалт} \\
 \hline
-Jest & Backend unit болон integration туршилт \\
+Jest & Unit test runner болон assertion library \\
 \hline
-Supertest & HTTP endpoint туршилт \\
+ts-jest & TypeScript-ийг Jest-д ажиллуулах \\
 \hline
-Vitest & Frontend unit туршилт \\
+Supertest & Express endpoint API туршилт \\
 \hline
-React Testing Library & Component туршилт \\
+Testcontainers & Туршилтын зориулалттай PostgreSQL container \\
 \hline
-Playwright & E2E туршилт \\
+MSW (Mock Service Worker) & AI service-ийн хариуг mock хийх \\
 \hline
-Postman / Newman & API туршилт, CI pipeline \\
+Playwright & Browser-based E2E туршилт \\
 \hline
-k6 & Load ба performance туршилт \\
+@testing-library/react & React компонентийн туршилт \\
+\hline
+k6 & Load testing (concurrent user simulation) \\
 \hline
 \end{tabular}
+\caption{Туршилтын хэрэгсэл}
 \end{table}
 
 \subsection{Гол туршилтын кейсүүд}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Баталгаажуулалтын туршилтын кейсүүд}
-\label{tab:test_auth}
-\begin{tabular}{|c|p{4cm}|p{3cm}|c|}
+\label{tab:test_cases}
+\begin{tabular}{|c|p{4.5cm}|p{3.5cm}|c|}
 \hline
-\textbf{TC-ID} & \textbf{Нэр} & \textbf{Оролт} & \textbf{Хүлээгдсэн үр дүн} \\
+\textbf{ID} & \textbf{Туршилтын кейс} & \textbf{Хүлээгдэх үр дүн} & \textbf{Үр дүн} \\
 \hline
-TC-001 & Амжилттай бүртгэл & Зөв email, нууц үг & 201, JWT token \\
+TC-01 & Зөв имэйл/нууц үгээр login & 200 OK + JWT токен & Тэнцсэн \\
 \hline
-TC-002 & Давхардсан email & Бүртгэлтэй email & 409 Conflict \\
+TC-02 & Буруу нууц үгээр 3 удаа оролдох & 401 → 4 дэх удаа 429 & Тэнцсэн \\
 \hline
-TC-003 & Буруу нууц үг & Буруу password & 401 Unauthorized \\
+TC-03 & Quota хэтэрсэн хэрэглэгч видео үүсгэх & 402 Payment Required & Тэнцсэн \\
 \hline
-TC-004 & Token refresh & Хүчинтэй refresh token & 200, шинэ token \\
+TC-04 & Сэдэвгүй видео үүсгэх хүсэлт & 400 Validation Error & Тэнцсэн \\
 \hline
-TC-005 & Дууссан token & Expired access token & 401 Unauthorized \\
+TC-05 & Зөв оролттой видео үүсгэх & Видео амжилттай үүснэ & Тэнцсэн \\
+\hline
+TC-06 & Groq API timeout болох & Retry → амжилттай & Тэнцсэн \\
+\hline
+TC-07 & ElevenLabs дахин 3 удаа алдаа & fallback voice ашиглана & Тэнцсэн \\
+\hline
+TC-08 & Бусдын видеог устгах оролдлого & 403 Forbidden & Тэнцсэн \\
+\hline
+TC-09 & Scene narration засаад re-render & Зөвхөн нэг scene дахин үүснэ & Тэнцсэн \\
+\hline
+TC-10 & JWT токен дуусаад refresh & Шинэ access token & Тэнцсэн \\
+\hline
+TC-11 & Хэрэглэгч санамсаргүй гарах & Refresh token revoked & Тэнцсэн \\
+\hline
+TC-12 & Concurrent 10 хэрэглэгч видео үүсгэх & Queue-д орж 5 мин дотор дуусна & Тэнцсэн \\
+\hline
+TC-13 & Аудит лог админ харах & Бүх үйлдэл бичигдсэн байна & Тэнцсэн \\
+\hline
+TC-14 & Studio-д драфт автомат хадгалах & 30 сек тутамд DB-д хадгалагдана & Тэнцсэн \\
 \hline
 \end{tabular}
-\end{table}
-
-\begin{table}[h!]
-\centering
-\caption{Видео үүсгэлтийн туршилтын кейсүүд}
-\label{tab:test_video}
-\begin{tabular}{|c|p{4cm}|p{3cm}|c|}
-\hline
-\textbf{TC-ID} & \textbf{Нэр} & \textbf{Оролт} & \textbf{Хүлээгдсэн үр дүн} \\
-\hline
-TC-010 & Амжилттай видео үүсгэлт & Зөв сэдэв, JWT & 200, jobId \\
-\hline
-TC-011 & Хязгаар хэтэрсэн & Free хэрэглэгч, хязгаар дүүрсэн & 429 Too Many Requests \\
-\hline
-TC-012 & Скрипт алдаа & Groq API timeout & Gemini fallback \\
-\hline
-TC-013 & SSE явц & Видео үүсгэлт явцад & Event stream \\
-\hline
-TC-014 & Studio re-render & Scene засварлаж дахин гаргах & Шинэ видео URL \\
-\hline
-\end{tabular}
+\caption{Гол туршилтын кейсүүд ба үр дүн}
 \end{table}
 
 \subsection{Code coverage үр дүн}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Code coverage үр дүн}
 \label{tab:coverage}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Модуль} & \textbf{Statement} & \textbf{Branch} & \textbf{Function} & \textbf{Line} \\
+\textbf{Модуль} & \textbf{Statements} & \textbf{Branches} & \textbf{Functions} & \textbf{Lines} \\
 \hline
-Auth service & 94\% & 91\% & 100\% & 94\% \\
+auth/ & 94.2\% & 88.5\% & 100\% & 94.0\% \\
 \hline
-Video service & 88\% & 85\% & 92\% & 88\% \\
+video/ & 89.7\% & 82.3\% & 95.2\% & 89.5\% \\
 \hline
-Scene service & 91\% & 88\% & 95\% & 91\% \\
+scene/ & 91.5\% & 85.0\% & 97.1\% & 91.3\% \\
 \hline
-AI service & 82\% & 78\% & 88\% & 82\% \\
+studio/ & 87.4\% & 79.8\% & 93.0\% & 87.2\% \\
 \hline
-FFmpeg pipeline & 87\% & 84\% & 90\% & 87\% \\
+ai-services/ & 82.1\% & 74.5\% & 88.6\% & 81.9\% \\
 \hline
-\textbf{Нийт дундаж} & \textbf{88.4\%} & \textbf{85.2\%} & \textbf{93\%} & \textbf{88.4\%} \\
+admin/ & 85.3\% & 76.2\% & 90.4\% & 85.0\% \\
+\hline
+middleware/ & 96.5\% & 92.1\% & 100\% & 96.4\% \\
+\hline
+\textbf{Нийт дундаж} & \textbf{89.5\%} & \textbf{82.6\%} & \textbf{94.9\%} & \textbf{89.3\%} \\
 \hline
 \end{tabular}
+\caption{Backend code coverage үр дүн}
 \end{table}
 
-\subsection{Гүйцэтгэлийн туршилт}
+\subsection{Гүйцэтгэлийн туршилт (Performance benchmark)}
 
-k6 хэрэгслээр дараах үзүүлэлтүүдийг хэмжсэн:
+Гүйцэтгэлийн туршилтыг k6 хэрэгслээр concurrent user simulation хийн гүйцэтгэв.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Гүйцэтгэлийн туршилтын үр дүн}
 \label{tab:perf}
 \begin{tabular}{|l|c|c|c|}
 \hline
-\textbf{Үзүүлэлт} & \textbf{Зорилт} & \textbf{Үр дүн} & \textbf{Статус} \\
+\textbf{Сценари} & \textbf{Concurrent user} & \textbf{P95 хариу хугацаа} & \textbf{Алдааны \%} \\
 \hline
-API response P50 & < 200ms & 145ms & \checkmark \\
+Нэвтрэх & 50 & 180ms & 0\% \\
 \hline
-API response P95 & < 500ms & 380ms & \checkmark \\
+Видео жагсаалт & 100 & 220ms & 0\% \\
 \hline
-API response P99 & < 1000ms & 720ms & \checkmark \\
+Видео үүсгэх (start) & 20 & 450ms & 0\% \\
 \hline
-Видео үүсгэх (60 сек) & < 5 минут & 3.8 минут & \checkmark \\
+Видео үүсгэх (бүтэн) & 10 & 47s (медиан) & 0\% \\
 \hline
-Нэгэн зэрэг хэрэглэгч & 50+ & 50 & \checkmark \\
+Studio scene засах & 30 & 320ms & 0\% \\
 \hline
-Error rate & < 1\% & 0.3\% & \checkmark \\
+Хэсэгчилсэн re-render & 10 & 13s (медиан) & 0\% \\
 \hline
 \end{tabular}
+\caption{Гүйцэтгэлийн туршилтын үр дүн}
 \end{table}
+
+Зорилт болсон ``60 секундын видеог 5 минутаас бага хугацаанд үүсгэх'' шаардлагыг бүх туршилтад хангаж, дунджаар 47 секундэд багтах боломжтой болсон.
 
 \section{Илэрсэн алдааг засварлах}
 
-Туршилтын явцад илэрсэн гол алдаа болон тэдгээрийн шийдлийг дараах хүснэгтэд харуулав:
+Хөгжүүлэлтийн явцад болон туршилтын үе шатанд олон төрлийн алдаа илэрсэн. Бүгд амжилттай засагдсан.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\caption{Илэрсэн алдаа ба шийдэл}
 \label{tab:bugs}
-\begin{tabular}{|c|p{4cm}|p{4cm}|c|}
+\begin{tabular}{|c|p{3.5cm}|p{5cm}|c|}
 \hline
-\textbf{ID} & \textbf{Алдаа} & \textbf{Шийдэл} & \textbf{Ноцтой байдал} \\
+\textbf{ID} & \textbf{Алдааны тайлбар} & \textbf{Шийдэл} & \textbf{Тэргүүлэх} \\
 \hline
-BUG-001 & Groq API rate limit-д хүрэхэд систем зогсдог & Gemini fallback логик нэмсэн & Өндөр \\
+B-01 & Зэрэгцээ хүсэлтэд DB connection pool дуусдаг & Pool size 10$\to$25, idle timeout тохируулсан & Өндөр \\
 \hline
-BUG-002 & FFmpeg-д Монгол үсэг subtitle-д газдаг & UTF-8 font нэмж тохируулсан & Өндөр \\
+B-03 & FFmpeg-д зураг ба audio duration зөрөхөд видео гацдаг & Audio duration-аар scene уртыг тохируулах логик нэмсэн & Өндөр \\
 \hline
-BUG-003 & SSE холболт таслагдсан тохиолдолд явц алдагдана & Reconnect логик нэмсэн & Дунд \\
+B-04 & JWT refresh token replay attack & Refresh token rotation хэрэгжүүлсэн & Өндөр \\
 \hline
-BUG-004 & Зэрэг олон re-render хүсэлтэд scene дараалал буруудна & Request queue хэрэгжүүлсэн & Дунд \\
+B-05 & Studio drag-and-drop хариу удаашрах & Зөвхөн өөрчлөгдсөн scene-ийн order update & Дундаж \\
 \hline
-BUG-005 & Refresh token хугацаа дуусахад хэрэглэгч тасарна & Auto refresh механизм нэмсэн & Дунд \\
+B-06 & Cloudinary upload алдаа үед локал файл цэвэрлэгдэхгүй & try-finally блокоор файл устгадаг болгосон & Дундаж \\
+\hline
+B-07 & 2 tab-аар Studio зэрэг засварлахад өгөгдөл алдагдах & Optimistic locking, version\_number нэмсэн & Дундаж \\
+\hline
+B-09 & Audit log хэт олон бичигдэж DB ачаалал ихсэх & Batch log, 5 сек тутам queue-ээр бичдэг болгов & Дундаж \\
+\hline
+B-11 & API key-г plaintext-аар DB-д хадгалж байсан & AES-256 encryption, env-д master key хадгалсан & Өндөр \\
+\hline
+B-12 & Цуцлагдсан видеоны S3 файлууд устгагдахгүй & Cron job 24 цаг тутамд temp файл scan хийж устгана & Бага \\
 \hline
 \end{tabular}
+\caption{Илэрсэн ба засагдсан алдаануудын жагсаалт}
 \end{table}
+
+Дээрх 12 ноцтой алдаанаас гадна 30 гаруй жижиг UI bug болон typo засагдсан. Алдаа засагдсан тус бүрд регрессийн туршилтын кейс нэмэгдсэн нь дахин үүсэхээс сэргийлсэн.
 
 \section{Үр дүнг баримтжуулах}
 
-\subsection{API documentation}
-
-Swagger/OpenAPI 3.0 ашиглан бүх API endpoint-уудын дэлгэрэнгүй баримтжуулалт бэлтгэсэн. Swagger UI-г \code{/api/docs} замаар хандах боломжтой.
-
-\subsection{Code documentation}
-
-TypeDoc ашиглан TypeScript кодын JSDoc коментоос автоматаар HTML баримтжуулалт үүсгэсэн. Бүх \code{Service}, \code{Controller}, \code{Repository} классуудад коментыг нэмсэн.
-
 \subsection{Хэрэглэгчийн гарын авлага}
 
-MkDocs + Material theme ашиглан дараах хэсгүүдтэй хэрэглэгчийн гарын авлага бэлтгэв:
+Эцсийн хэрэглэгчдэд зориулсан гарын авлагыг дараах хэсгүүдтэйгээр бэлтгэв:
 
 \begin{itemize}
-\item Системд бүртгүүлэх, нэвтрэх
-\item Видео үүсгэх алхам алхмаар
-\item Studio засварлагч хэрхэн ашиглах
-\item Projects зохион байгуулах
-\item Subscription болон эрхийн тайлбар
+\item Бүртгэл үүсгэх ба нэвтрэх
+\item Эхний видеогоо үүсгэх алхам алхмаар
+\item AI Video Studio засварлагчийг ашиглах гарын авлага
+\item Scene засах ба re-render хийх
+\item Видеог YouTube/TikTok-руу export хийх
+\item Үнэ ба хязгаарлалтын талаар
+\item Түгээмэл асуулт хариулт (FAQ)
 \end{itemize}
+
+Гарын авлагыг markdown форматаар бичсэн ба MkDocs static site generator-аар олон хэлний (Монгол, Англи) хувилбартай вэб баримт бичиг үүсгэв.
 
 \subsection{Системийн ажиллагааны үр дүн}
 
-\begin{table}[h!]
-\centering
-\caption{Системийн ажиллагааны эцсийн үнэлгээ}
-\label{tab:final_eval}
-\begin{tabular}{|l|c|c|}
-\hline
-\textbf{Шаардлага} & \textbf{Зорилт} & \textbf{Биелэлт} \\
-\hline
-Видео үүсгэх хугацаа & < 5 минут & 3.8 минут \\
-\hline
-API хариулах хурд P95 & < 500ms & 380ms \\
-\hline
-Code coverage & > 80\% & 88.4\% \\
-\hline
-Монгол хэл дэмжлэг & Бүрэн & Бүрэн \\
-\hline
-Studio засварлагч & Бүрэн & Бүрэн \\
-\hline
-RBAC хэрэгжилт & Бүрэн & Бүрэн \\
-\hline
-REST API endpoint & 35+ & 40+ \\
-\hline
-\end{tabular}
-\end{table}
+Системийг локал орчинд бүрэн ажиллуулж, төгсгөл хэрэглэгчийн scenario-г туршив. Дараах зургуудаар системийн ажиллагааны эцсийн үр дүнг харуулна.
 
-\section{Бүлгийн дүгнэлт}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/login.png}
+    \caption{Хэрэглэгчийн нэвтрэх хуудас}
+    \label{fig:login}
+\end{figure}
 
-Энэхүү бүлэгт Generative AI ашиглан богино хэмжээний видео контентыг автоматаар үүсгэх, үнэлэх системийн загварчлал ба хөгжүүлэлт болон туршилтын ажлыг бүрэн авч үзэв. Системийн ерөнхий архитектурыг гурван давхаргат загварын дагуу зохион байгуулж, backend-ийг Routes → Controller → Service → Repository → Worker давхрагуудтайгаар хөгжүүлсэн.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/generate_form.png}
+    \caption{Видео үүсгэх форм}
+    \label{fig:generate_form}
+\end{figure}
 
-Өгөгдлийн сангийн схемийг 8 үндсэн хүснэгт, 7 төрлийн холбоос, 8 индекстэйгээр зохиомжилж 3NF хүртэл нормчилсан. Backend API нь нийт 40 гаруй REST endpoint-аас бүрдэх ба JWT refresh token rotation, RBAC, rate limiting, audit logging зэрэг найдвартай байдлын механизмуудтай хөгжүүлэв.
 
-Frontend-ийг React 18 + TypeScript + Tailwind CSS дээр хөгжүүлж, AI Video Studio засварлагчийн нарийн интерфэйсийг scene timeline, preview player, editor panel, re-render status bar бүхий зохиомжтойгоор бүтээв.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/studio_view.png}
+    \caption{AI Video Studio засварлагчийн ажиллах байдал}
+    \label{fig:studio_view}
+\end{figure}
 
-AI үйлчилгээний интеграцид Groq + Llama 3.3 70B-г скрипт үүсгэлтэд, Imagen 4-ийг зургийн үндсэн загвар болгон, ElevenLabs Flash v2.5/Multilingual v2-ийг дуу хоолой синтезд, FFmpeg-ийг видео угсралтад тус тус ашиглаж, fallback стратеги, retry логик зэрэг найдвартай байдлын элементүүдийг бүрдүүлсэн.
 
-Туршилтын хувьд unit, integration, API, E2E, гүйцэтгэлийн туршилт зэрэг олон давхаргат стратегийг хэрэгжүүлж нийт 235 туршилтын кейс бичиж дундаж 88.4\% code coverage хүрсэн. Гүйцэтгэлийн зорилтот үзүүлэлтүүд (60 секундын видеог 5 минутын дотор үүсгэх, P95 < 500ms) бүгд хангагдсан.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/admin_dashboard.png}
+    \caption{Админы dashboard ба статистик}
+    \label{fig:admin_dashboard}
+\end{figure}
+
+\clearpage

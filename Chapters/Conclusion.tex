@@ -1,74 +1,227 @@
-%-------------------------------------------------------------------------------
-%	CONCLUSION
-%-------------------------------------------------------------------------------
+% ════════════════════════════════════════════════════════════════════════════
+% Бүлэг 5 — Дүгнэлт ба цаашдын хөгжүүлэлт
+% ════════════════════════════════════════════════════════════════════════════
 
-\addchaptertocentry{Дүгнэлт}
+\chapter{Дүгнэлт}
+\label{Chapter5}
 \pagecolor{white}
 
-\section*{\centering \huge{Дүгнэлт}}
+\section{Судалгааны ажлын нэгдсэн дүгнэлт}
 
-\subsection*{5.1 Судалгааны ажлын нэгдсэн дүгнэлт}
-
-Энэхүү судалгааны ажлын гол зорилго нь хиймэл оюун ухааны технологийг ашиглан богино хэлбэрийн видео контентийг автоматаар үүсгэх, засварлах боломжтой цогц платформ --- ViralAI системийг зохион бүтээж, хэрэгжүүлэх явдал байв.
+Энэхүү судалгааны ажлын гол зорилго нь хиймэл оюун ухааны технологийг ашиглан богино хэлбэрийн видео контентийг автоматаар үүсгэх, засварлах болон үнэлэх боломжтой цогц платформ --- \textbf{ViralAI} системийг зохион бүтээж, хэрэгжүүлэх явдал байв.
 
 Судалгааны ажлын явцад дараах үндсэн асуудлуудыг шийдвэрлэв:
 
-\textbf{Нэгдүгээрт}, орчин үеийн видео контент үүсгэх үйл явц нь цаг хугацаа их шаардсан, техникийн мэдлэг шаарддаг, олон тусдаа хэрэгсэл ашиглах шаардлагатай байсан бэрхшээлийг илрүүлж, энэ асуудлыг нэг платформд нэгтгэн шийдвэрлэх архитектурыг боловсруулав.
-
-\textbf{Хоёрдугаарт}, скрипт бичих, зураг үүсгэх, хоолой дуурайлгах, видео угсрах гэсэн дөрвөн үе шатыг бие даасан AI үйлчилгээнүүдтэй холбож, нэг дамжлагад нэгтгэсэн бөгөөд хэрэглэгч нь зөвхөн сэдэв оруулснаар бэлэн видео авах боломжтой болгов.
-
-\textbf{Гуравдугаарт}, SSE (Server-Sent Events) технологи ашиглан видео үүсгэлтийн явцыг бодит цагт хянах механизм хэрэгжүүлснээр хэрэглэгчийн туршлагыг мэдэгдэхүйц сайжруулав.
-
-\textbf{Дөрөвдүгээрт}, зөвхөн видео үүсгэхээс гадна Studio засварлагч, Projects зохион байгуулалт, Admin удирдлагын панел зэргийг нэгтгэсэн бүрэн гүйцэд SPA платформыг боловсруулав.
-
-\subsection*{5.2 Хийсэн ажлын үр дүнг нэгтгэх}
-
-Судалгааны ажлын явцад хэрэгжүүлсэн үр дүнг дараах хэсгүүдэд нэгтгэн харуулав.
-
-\subsubsection*{5.2.1 Техникийн үр дүн}
-
-Системийн бүтцийн хувьд давхаргат архитектур (Layered Architecture) хэрэгжүүлсэн бөгөөд Frontend, Backend, Өгөгдлийн сан, Гадаад AI үйлчилгээ гэсэн дөрвөн давхарга тус бүрдээ тодорхой үүрэг гүйцэтгэнэ. Энэ нь системийн засвар үйлчилгээ, өргөтгөлийг хялбарчилсан.
-
-\subsubsection*{5.2.2 Функциональ үр дүн}
-
-Системд нийт 10 хэрэглэгчийн шаардлага (UR) болон 14 функциональ шаардлага (FR) тодорхойлогдсоны дагуу дараах модулиудыг бүрэн хэрэгжүүллэв:
-
-\begin{itemize}
-\item \textbf{Видео үүсгэлтийн дамжлага} --- хэрэглэгч сэдэв оруулахад скрипт → зураг → аудио → FFmpeg угсралт → Cloudinary хадгалалт гэсэн автомат дамжлага ажиллана; нэг видео дундаж 3--5 минутад үүсгэгдэнэ.
-\item \textbf{Studio засварлагч} --- видеоны scene бүрийн зураг, нарратив, дуу хоолойг тус тусад нь дахин үүсгэх боломж; reassemble функц ашиглан subtitle хэв маяг, шилжилт өөрчлөх.
-\item \textbf{Projects зохион байгуулалт} --- folder үүсгэх, нэрийг өөрчлөх, устгах; видеог folder хооронд зөөх.
-\item \textbf{Хэрэглэгчийн эрхийн систем} --- Free/Pro/Admin ялгаатай эрх, сарын хязгаар хяналт.
-\item \textbf{Admin панел} --- нийт хэрэглэгч, видео тооны статистик; хэрэглэгчдийн жагсаалт харах, удирдах.
-\end{itemize}
-
-\subsubsection*{5.2.3 API үр дүн}
-
-Нийт 40 гаруй REST endpoint хэрэгжүүлсэн бөгөөд бүгд \code{/api} prefix-тэй, JWT эсвэл Admin JWT баталгаажуулалттай. Скрипт болон зураг, аудио үүсгэх endpoint-ууд нь frontend-ийн хүсэлтэд шууд хариу өгдөг бол видео үүсгэлт нь ар тал дамжлагаар ажиллаж SSE-ээр явцыг мэдээлнэ.
-
-\subsection*{5.3 Цаашдын хөгжүүлэлтийн санал}
-
 \begin{enumerate}
-\item \textbf{Job Queue систем нэвтрүүлэх} --- BullMQ эсвэл RabbitMQ ашиглан ар тал дамжлагад ажлын дараалал, дахин оролдох механизм хэрэгжүүлбэл олон хэрэглэгчийн нэгэн зэрэг хүсэлтийг зохистой зохицуулах боломжтой болно.
+  \item \textbf{Нэгдүгээрт}, орчин үеийн видео контент үүсгэх үйл явц нь цаг хугацаа их шаардсан, техникийн мэдлэг шаарддаг, олон тусдаа хэрэгсэл (Premiere, DaVinci, Midjourney, ElevenLabs гэх мэт)-ийг хослуулах шаардлагатай байсан бэрхшээлийг илрүүлж, энэ асуудлыг \textit{нэг платформд нэгтгэн} шийдвэрлэх архитектурыг боловсруулав.
 
-\item \textbf{Зэрэг боловсруулалт (Parallel processing)} --- Scene бүрийн зураг болон аудио үүсгэлтийг \code{Promise.all} аргаар зэрэг ажиллуулснаар нийт видео үүсгэх хугацааг 40--60\% хүртэл богиносгох боломж бий.
+  \item \textbf{Хоёрдугаарт}, скрипт бичих, зураг үүсгэх, дуу хоолой синтез, видео угсрах гэсэн \textit{дөрвөн үе шатыг} бие даасан AI үйлчилгээнүүдтэй (Anthropic Claude, Google Gemini, ElevenLabs, FFmpeg) холбож, нэг автомат дамжлагад нэгтгэсэн.
 
-\item \textbf{Монгол хэл дэмжлэгийг гүнзгийрүүлэх} --- Монгол хэлний скрипт болон зурагт зориулсан prompt инженерингийг сайжруулах, Монгол хэлний NLP модуль нэгтгэх нь дотоодын зах зээлд хэрэглэгчийн үр дүнтэй туршлага бий болгоно.
+  \item \textbf{Гуравдугаарт}, \textbf{SSE} (Server-Sent Events) технологи ашиглан үүсгэлтийн явцыг бодит цагт хянах механизм хэрэгжүүлсэн нь хэрэглэгчийн туршлагыг мэдэгдэхүйц сайжруулсан.
 
-\item \textbf{Видеоны тоног технологийг өргөтгөх} --- 9:16 vertical, 1:1 square дэлгэцийн харьцаа дэмжлэг, хөдөлгөөнт текст, брэндийн лого оруулах боломж нэмэх нь TikTok, Instagram Reels платформд зориулсан контент үүсгэхэд тохирсон бүтээгдэхүүн болгоно.
+  \item \textbf{Дөрөвдүгээрт}, \textbf{AI үнэлгээ} (Quality Report) модулийг хөгжүүлэн контентийн чанарыг 5 хэмжүүрээр (hook, pacing, emotion, clarity, originality) автоматаар үнэлэх боломжтой болгов. Энэ нь төслийн нэр дэх ``үнэлэх'' гэсэн утгыг бүрэн биелүүлсэн.
 
-\item \textbf{Аналитик болон хяналт} --- Видео үзэлтийн тоо, хамгийн их хэрэглэгддэг функц, алдааны давтамж зэргийг хянах аналитик модуль нэмэх нь цаашдын хөгжүүлэлтийн чиглэлийг өгөгдөлд тулгуурлан тодорхойлоход тусална.
+  \item \textbf{Тавдугаарт}, зөвхөн видео үүсгэхээс гадна \textbf{Studio засварлагч}, \textbf{Projects} зохион байгуулалт, \textbf{Drafts} автомат хадгалалт, \textbf{Cancel} механизм, \textbf{Admin удирдлагын} панел зэргийг нэгтгэсэн бүрэн SPA платформыг боловсруулав.
 \end{enumerate}
 
-\subsection*{Ерөнхий дүгнэлт}
+Судалгааны ажил нь практик хэрэгцээ шаардлагад тулгуурласан бөгөөд одоо ажиллаж буй системийг ашиглан туршилт явуулж, үр дүнг баталгаажуулсан. Тавигдсан зорилт бүрэн биелэгдсэн гэж дүгнэв.
 
-Энэхүү бакалаврын төгсөлтийн ажлын хүрээнд хиймэл оюун ухааны олон үйлчилгээг нэгтгэсэн богино хэлбэрийн видео контент үүсгэх платформ --- ViralAI системийг бүрэн зохион бүтээж, хэрэгжүүлэв.
+\section{Хийсэн ажлын үр дүнгийн нэгтгэл}
+
+\subsection{Техникийн үр дүн}
+
+Системийн бүтцийн хувьд \textbf{давхаргат архитектур} (Layered Architecture) хэрэгжүүлэв. Frontend, Backend, Өгөгдлийн сан, Гадаад AI үйлчилгээ гэсэн дөрвөн давхарга тус бүрдээ тодорхой үүрэг гүйцэтгэх ба систем засвар үйлчилгээ, өргөтгөл хийхэд хялбар болов.
+
+\begin{table}[h!]
+\centering
+\caption{Хэрэгжүүлсэн технологийн стек}
+\label{tab:tech_stack}
+\begin{tabular}{|p{3.2cm}|p{4.5cm}|p{5cm}|}
+\hline
+\textbf{Давхарга} & \textbf{Технологи} & \textbf{Зориулалт} \\
+\hline
+Frontend & React 18, TypeScript, Vite, CSS Modules & SPA интерфэйс \\
+\hline
+Backend & Node.js, Express 5, TypeScript, Sequelize ORM & RESTful API сервер \\
+\hline
+Өгөгдлийн сан & PostgreSQL & Бүтэцлэгдсэн өгөгдөл \\
+\hline
+Медиа хадгалалт & Cloudinary CDN & Видео, зураг, аудио файл \\
+\hline
+Скрипт AI & Anthropic Claude Sonnet, Groq + Llama 3.3 70B & Сценарий бичих + AI үнэлгээ \\
+\hline
+Зураг AI & Google Gemini Flash Image 2.5 & Scene-ийн зураг үүсгэх \\
+\hline
+Аудио AI & ElevenLabs Flash v2.5, Chimege, Gemini TTS & Хоолой синтез \\
+\hline
+Видео угсралт & FFmpeg (fluent-ffmpeg wrapper) & MP4 нэгтгэлт, transition, vignette \\
+\hline
+Бодит цаг & SSE (Server-Sent Events) & Явц дамжуулах \\
+\hline
+Баталгаажуулалт & JWT + bcrypt & Хэрэглэгч нэвтрэх \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Функциональ үр дүн}
+
+Системд нийт \textbf{14 хэрэглэгчийн шаардлага (UR)}, \textbf{39 функциональ шаардлага (FR)} болон \textbf{14 функциональ бус шаардлага (NFR)} тодорхойлогдсоны дагуу дараах модулиудыг бүрэн хэрэгжүүллэв:
+
+\subsubsection*{1. Видео үүсгэлтийн дамжлага}
+\begin{itemize}
+  \item Хэрэглэгч сэдэв оруулахад скрипт → зураг → аудио → FFmpeg угсралт → Cloudinary хадгалалт гэсэн \textbf{автомат дамжлага}
+  \item Scene тус бүрийн явцыг SSE-ээр бодит цагт харуулна
+  \item Нэг видео дундаж 3--5 минутад үүсгэгдэнэ
+  \item Үүсгэлт явцад \textbf{Cancel} хийх боломжтой бөгөөд дутуу контент Draft-ээр хадгалагдана
+  \item Нэг сэдвээр \textbf{A/B хувилбар} 2-ыг үүсгэж харьцуулан сонгох (Pro)
+\end{itemize}
+
+\subsubsection*{2. AI Video Studio засварлагч}
+\begin{itemize}
+  \item Scene бүрийн зураг, narration, дуу хоолойг \textbf{дахин үүсгэх}
+  \item Custom зураг, аудио, BGM-ийг \textbf{upload} хийх (Cloudinary-руу шууд)
+  \item Scene-үүдийг \textbf{drag-and-drop}-аар эрэмбэлэх
+  \item Шинэ scene нэмэх, устгах
+  \item Subtitle хэв маяг сонгох (Classic / Yellow / Top / Minimal / Boxed / Off) ба preview-ээр харах
+  \item BGM track-ыг \textbf{урьдчилан сонсох} (play preview)
+  \item Хэсэгчилсэн \textbf{re-render} --- зөвхөн өөрчлөгдсөн scene-үүдийн media шинэчлэгдэнэ
+\end{itemize}
+
+\subsubsection*{3. AI Quality Report (үнэлгээ) модуль}
+\begin{itemize}
+  \item Claude Sonnet 4-ээр скриптийг \textbf{5 хэмжүүрээр} (Hook / Pacing / Emotion / Clarity / Originality) 0--100 онооход үнэлнэ
+  \item Per-scene \textbf{weakness тэмдэглэгээ} EditStudio дотор тухайн scene дотор инлайн харагдана
+  \item Auto health-check (scene урт, narration нягтрал, нийт хугацаа, scene-ийн тоо)
+  \item AI-ийн сайжруулах саналын жагсаалт
+  \item Хэрэглэгчийн \textbf{одны үнэлгээ} (1--5) + Like/Dislike тэмдэглэгээ
+  \item Radar chart-аар визуал харах, hover preview card-аар Library-ээс шууд харах
+\end{itemize}
+
+\subsubsection*{4. Projects зохион байгуулалт}
+\begin{itemize}
+  \item Folder үүсгэх, нэрийг өөрчлөх, устгах
+  \item Видеог folder хооронд \textbf{drag-and-drop}-аар зөөх (smooth animated)
+  \item Бүртгэлгүй видеонуудыг ``All Videos'' хэсэгт харуулах
+  \item Drafts тусдаа tab-д
+\end{itemize}
+
+\subsubsection*{5. Хэрэглэгчийн эрхийн систем (RBAC)}
+\begin{itemize}
+  \item \textbf{Free} хэрэглэгч --- сард хязгаартай видео, narration засах боломжтой, зургийн re-render эрхгүй
+  \item \textbf{Pro} хэрэглэгч --- илүү олон видео, Studio бүрэн боломж, custom asset upload
+  \item \textbf{Супер Админ} --- бүх хэрэглэгч/видео харах, устгах, статистик
+\end{itemize}
+
+\subsubsection*{6. Admin панел}
+\begin{itemize}
+  \item Нийт хэрэглэгч, видео тооны статистик
+  \item Хэрэглэгчдийн жагсаалт, видеоны жагсаалт
+  \item Зөвшөөрөлгүй хандалтыг хаах
+\end{itemize}
+
+\subsection{API үр дүн}
+
+Нийт \textbf{40 гаруй REST endpoint} хэрэгжүүлсэн бөгөөд бүгд \texttt{/api} prefix-тэй, JWT эсвэл Admin JWT баталгаажуулалттай. Үүнд багтсан гол endpoint-ууд:
+
+\begin{itemize}
+  \item \textbf{Auth} --- \texttt{/api/auth/signup}, \texttt{/api/auth/login}
+  \item \textbf{Video} --- \texttt{POST /api/video/generate}, \texttt{GET /api/video/progress/:jobId} (SSE), \texttt{POST /api/video/cancel/:jobId}, \texttt{POST /api/video/:id/reassemble}, \texttt{POST /api/video/upload-asset}
+  \item \textbf{Scene} --- \texttt{PATCH /api/video/scene/:id/image}, \texttt{PATCH /api/video/scene/:id/narration}
+  \item \textbf{Project} --- CRUD + \texttt{PATCH /api/projects/move}
+  \item \textbf{AI үнэлгээ} --- \texttt{POST /api/video/:id/evaluate}, \texttt{GET /api/video/:id/evaluation}, \texttt{PATCH /api/video/:id/evaluation/rating}
+  \item \textbf{Script variant} --- \texttt{POST /api/video/script/variants}
+  \item \textbf{Admin} --- \texttt{/api/admin/stats}, \texttt{/api/admin/users}, \texttt{/api/admin/videos}
+\end{itemize}
+
+\section{Цаашдын хөгжүүлэлтийн санал}
+
+\subsection{Цаашдын хөгжүүлэлтийн санал}
+
+\subsubsection{Архитектурын сайжруулалт}
+\begin{enumerate}
+  \item \textbf{Job Queue систем} --- BullMQ эсвэл RabbitMQ ашиглан ар тал дамжлагад ажлын дараалал, дахин оролдох механизм (retry, exponential backoff, dead-letter queue) хэрэгжүүлбэл олон хэрэглэгчийн нэгэн зэрэг хүсэлтийг зохистой зохицуулна.
+
+  \item \textbf{Параллел гүйцэтгэл} --- Scene бүрийн зураг болон аудио үүсгэлтийг \texttt{Promise.all}-аар зэрэг ажиллуулбал нийт видео үүсгэх хугацаа 40--60\% хүртэл богиносох боломж бий.
+
+  \item \textbf{Refresh token} --- Access token-ийн хугацааг 15 минут болгож, refresh token-аар автомат сэргээх механизм нэвтрүүлэх.
+
+  \item \textbf{Horizontal scaling} --- Docker контейнерчлэлт, Kubernetes orchestration-аар олон instance ажиллах боломж.
+\end{enumerate}
+
+\subsubsection{Функционал өргөтгөл}
+\begin{enumerate}
+  \setcounter{enumi}{4}
+  \item \textbf{Олон форматын видео экспорт} --- 9:16, 16:9, 1:1, 4:5 харьцаа болон Reel / Short / TikTok-тэй тохирох preset.
+
+  \item \textbf{Voice cloning} --- ElevenLabs Voice Clone API-аар 30 секунд бичлэгээс хэрэглэгчийн дуу хоолойг сэргээх.
+
+  \item \textbf{Multi-Agent AI} --- Планер, Бичигч, Шүүмжлэгч гэсэн 3 өөр LLM агент хооронд харилцан ярилцах архитектур (chain-of-thought).
+
+  \item \textbf{Auto-translate} --- Нэг видеог 10+ хэл рүү автоматаар орчуулах + хэл бүрд тохирох TTS-ээр дахин үүсгэх.
+
+  \item \textbf{Meta / TikTok автомат нийтлэл} --- Instagram Reels болон TikTok-руу шууд API-аар нийтлэх (Meta Graph API + Instagram Content Publishing).
+
+  \item \textbf{Real-time хамтын ажиллагаа} --- Liveblocks эсвэл Y.js ашиглан олон хэрэглэгч нэг видеог нэгэн зэрэг засварлах боломж (Google Docs-маягтай).
+\end{enumerate}
+
+\subsubsection{Контент болон дотоодын зах зээл}
+\begin{enumerate}
+  \setcounter{enumi}{10}
+  \item \textbf{Монгол хэлний NLP модуль} --- Транслитераци, sentiment analysis, domain-specific lexicon (түүхэн, шашны, орчин үеийн slang).
+
+  \item \textbf{Trending topics integration} --- TikTok / YouTube-ийн trending hashtag / topic-ийг scrape-аар цуглуулж хэрэглэгчид санал болгох.
+
+  \item \textbf{RAG (Retrieval-Augmented Generation)} --- Хэрэглэгчийн өмнө амжилттай байсан видеонуудыг embedding-ээр хадгалж шинэ скриптийн context-д ашиглах.
+\end{enumerate}
+
+
+\section{Ерөнхий дүгнэлт}
+
+Энэхүү бакалаврын төгсөлтийн ажлын хүрээнд хиймэл оюун ухааны олон үйлчилгээг нэгтгэсэн богино хэлбэрийн видео контент \textbf{үүсгэх ба үнэлэх} платформ --- ViralAI системийг бүрэн зохион бүтээж, хэрэгжүүлэв.
 
 Судлагдсан байдлын шинжилгээнд InVideo AI, Pictory, Synthesia, Runway Gen-3 зэрэг томоохон платформуудыг авч үзэхэд эдгээр нь Монгол хэлийг дэмжихгүй, үнэ өндөр, тухайн зах зээлийн онцлогт нийцэхгүй байгаа нь тодорхойлогдов. Энэ цоорхойг нөхөх зорилгоор дотоодын хэрэгцээнд нийцсэн систем барих шаардлага урган гарав.
 
-Системийн хувьд React + TypeScript дээр суурилсан SPA интерфэйс, Node.js + Express 5 + TypeScript бэкэнд, PostgreSQL + Sequelize ORM өгөгдлийн сан, Cloudinary CDN медиа хадгалалт гэсэн давхаргат архитектурыг хэрэгжүүллэв. AI үйлчилгээний хувьд скрипт үүсгэхэд Anthropic Claude болон Groq/Llama 3-г, зураг үүсгэхэд Google Gemini Flash Image 2.5-г, дуу хоолой синтезэд ElevenLabs, Chimege, Gemini TTS-г, видео угсралтад FFmpeg-г ашигласан бөгөөд эдгээрийг нэг автомат дамжлагад нэгтгэв.
+Системийн хувьд React + TypeScript-д суурилсан SPA интерфэйс, Node.js + Express 5 бэкэнд, PostgreSQL + Sequelize ORM өгөгдлийн сан, Cloudinary CDN медиа хадгалалт гэсэн \textbf{давхаргат архитектурыг} хэрэгжүүллээ. AI үйлчилгээний хувьд скриптэд Anthropic Claude / Groq Llama 3, зурагт Google Gemini Flash Image 2.5, дуу хоолойд ElevenLabs / Chimege / Gemini TTS, видео угсралтад FFmpeg-г ашиглан нэг автомат дамжлагад нэгтгэв. Хэрэглэгч сэдэв оруулахад скрипт → зураг → аудио → видео угсралт гэсэн дамжлага автоматаар ажиллаж, дундаж 3--5 минутад бэлэн видео гаргана.
 
-Хэрэглэгч сэдэв оруулахад скрипт → зураг → аудио → видео угсралт гэсэн дамжлага автоматаар ажиллаж, дундаж 3--5 минутад бэлэн видео гарна. SSE технологи ашиглан үүсгэлтийн явцыг бодит цагт хянах механизм хэрэгжүүлснээр хэрэглэгчийн туршлагыг мэдэгдэхүйц сайжруулав.
+SSE технологи ашиглан үүсгэлтийн явцыг бодит цагт хянах механизм, \textbf{Cancel + Draft хадгалалт}, AI Video Studio засварлагч, \textbf{AI Quality Report} (5 хэмжүүрт үнэлгээ), Projects зохион байгуулалт, Admin удирдлагын панел зэргийг нэгтгэсэн цогц платформ болгов.
 
-Системийн шаардлагын шинжилгээнд 10 хэрэглэгчийн шаардлага, 14 функциональ болон 8 функциональ бус шаардлагыг тодорхойлж, 10 Use Case-г дүрслэв. 40 гаруй REST API endpoint хэрэгжүүлж, JWT баталгаажуулалт болон хэрэглэгчийн эрхийн систем нэвтрүүллээ. Туршилтын явцад 235 кейс бичиж дундаж 88.4\% code coverage хүрсэн.
+Системийн шаардлагын шинжилгээнд \textbf{14 хэрэглэгчийн шаардлага (UR)}, \textbf{39 функциональ шаардлага (FR)}, \textbf{14 функциональ бус шаардлага (NFR)} болон \textbf{22 Use Case} тодорхойлж дүрслэв. Бүхэлдээ \textbf{40 гаруй REST API endpoint} хэрэгжүүлж, JWT баталгаажуулалт болон 3 түвшний RBAC эрхийн системийг нэвтрүүллээ.
 
-Эцэст нь, хиймэл оюун ухааны технологи Монголын контент үүсгэх салбарт практик хэрэглээнд нэвтрэх боломжтой, техникийн хувьд хэрэгжих боломжтой болохыг энэхүү ажил нотоллоо.
+Цаашид Job Queue систем нэвтрүүлэх, параллел гүйцэтгэл хэрэгжүүлэх, refresh token нэмэх, Voice Cloning, Meta автомат нийтлэл болон Монгол хэлний NLP модуль зэрэг сайжруулалтуудыг хийснээр платформ нь бүрэн зах зээлд гаргах бэлэн бүтээгдэхүүн болж чадна.
+
+Эцэст нь, хиймэл оюун ухааны технологи Монголын контент үүсгэх салбарт практик хэрэглээнд нэвтрэх боломжтой, техникийн хувьд хэрэгжих боломжтой бөгөөд орон нутгийн хэлний онцлог, зах зээлийн хэрэгцээнд нийцсэн шийдэл бий болгох боломжтой болохыг энэхүү ажил нотоллоо.
+
+
+
+\subsubsection*{AI болон LLM үйлчилгээний албан ёсны баримт бичиг}
+
+\begin{enumerate}
+  \item Anthropic. (2025). \textit{Claude API Documentation --- Messages API}. \\
+        \url{https://docs.anthropic.com/en/api/messages}
+  \item Anthropic. (2024). \textit{The Claude 3 Model Family: Opus, Sonnet, Haiku} [Technical Report]. \\
+        \url{https://www.anthropic.com/news/claude-3-family}
+  \item Google AI. (2025). \textit{Gemini API Documentation --- Gemini 2.5 Flash Image}. \\
+        \url{https://ai.google.dev/gemini-api/docs}
+  \item Groq Inc. (2025). \textit{Groq API Documentation --- LPU Inference Engine}. \\
+        \url{https://console.groq.com/docs/overview}
+  \item Meta AI. (2024). \textit{The Llama 3 Herd of Models} [Research Paper]. arXiv:2407.21783. \\
+        \url{https://arxiv.org/abs/2407.21783}
+  \item ElevenLabs. (2025). \textit{Text-to-Speech \& Voice AI Platform API Reference}. \\
+        \url{https://elevenlabs.io/docs}
+  \item Chimege LLC. (2025). \textit{Chimege Mongolian TTS API Reference}. \\
+        \url{https://chimege.com/api-docs}
+  \setcounter{enumi}{11}
+  \item OpenJS Foundation. (2024). \textit{Node.js Documentation}. \\
+        \url{https://nodejs.org/docs/latest/api/}
+  \item Express. (2024). \textit{Express 5 --- Fast, unopinionated, minimalist web framework}. \\
+        \url{https://expressjs.com}
+  \item Sequelize. (2025). \textit{Sequelize ORM v6 Documentation}. \\
+        \url{https://sequelize.org/docs/v6/}
+  \item PostgreSQL Global Development Group. (2024). \textit{PostgreSQL 16 Documentation}. \\
+        \url{https://www.postgresql.org/docs/16/}
+  \item Jones, M., Bradley, J., \& Sakimura, N. (2015). \textit{RFC 7519: JSON Web Token (JWT)}. IETF. \\
+        \url{https://datatracker.ietf.org/doc/html/rfc7519}
+\end{enumerate}
+
+
+

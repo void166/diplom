@@ -16,6 +16,7 @@ headsepline,
 \usepackage[T2A]{fontenc}
 \usepackage[mongolian]{babel}
 
+\usepackage{float}
 \usepackage{titlesec}
 \usepackage[table]{xcolor}
 \usepackage{rotating}
@@ -26,6 +27,7 @@ headsepline,
 \usepackage{array}
 \usepackage{colortbl}
 \usepackage{makecell}
+\usepackage{placeins}
 \tcbuselibrary{skins}
 
 \newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
@@ -147,13 +149,7 @@ columns=flexible,
 \include{Chapters/Chapter4}
 \include{Chapters/Conclusion}
 
-%-------------------------------------------------------------------------------
-%	BIBLIOGRAPHY
-%-------------------------------------------------------------------------------
-\defformat
 
-\addchaptertocentry{Ном зүй}
-\nocite{*}
-\printbibliography[heading=bibliography,title={Ном зүй}]
+
 
 \end{document}
