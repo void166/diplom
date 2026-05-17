@@ -1,31 +1,42 @@
 \babel@toc {mongolian}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Олон улсын системүүдтэй харьцуулалт}}{3}{table.caption.33}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces AI загвар сонголтын шалгуур}}{4}{table.caption.37}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Олон улсын системүүдтэй харьцуулалт}}{3}{table.caption.39}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces AI загвар сонголтын шалгуур}}{4}{table.caption.43}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Script generation загваруудын харьцуулалт}}{5}{table.caption.45}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Image generation загваруудын харьцуулалт}}{6}{table.caption.48}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Voice generation загваруудын харьцуулалт}}{7}{table.caption.52}%
+\contentsline {table}{\numberline {2.6}{\ignorespaces Нэгдсэн загвар сонголт}}{8}{table.caption.56}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Хэрэглэгчийн шаардлагын жагсаалт}}{6}{table.caption.57}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Функциональ шаардлагын жагсаалт}}{7}{table.caption.59}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Функциональ бус шаардлагын жагсаалт}}{7}{table.caption.61}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Хэрэглэгчийн эрхийн матриц}}{8}{table.caption.66}%
-\contentsline {table}{\numberline {3.5}{\ignorespaces UC-01 --- Видео үүсгэх}}{9}{table.caption.72}%
-\contentsline {table}{\numberline {3.6}{\ignorespaces UC-07 --- Studio засварлагчаар scene засварлах}}{9}{table.caption.73}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Хэрэглэгчийн шаардлагын жагсаалт}}{16}{table.caption.83}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Системийн хэрэглэгчийн төрлүүд}}{17}{table.caption.85}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Энгийн хэрэглэгчийн функциональ шаардлага}}{17}{table.caption.88}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Pro хэрэглэгчийн функциональ шаардлага}}{21}{table.caption.90}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Супер Админы функциональ шаардлага}}{22}{table.caption.92}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Функциональ бус шаардлага}}{23}{table.caption.94}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Хэрэглэгчийн эрхийн матриц}}{24}{table.caption.97}%
+\contentsline {table}{\numberline {3.8}{\ignorespaces UC-03 --- Видео үүсгэх}}{25}{table.caption.102}%
+\contentsline {table}{\numberline {3.9}{\ignorespaces UC-06 --- Үүсгэлт цуцлах ба Draft хадгалах}}{26}{table.caption.103}%
+\contentsline {table}{\numberline {3.10}{\ignorespaces UC-10 --- Studio засварлагч ашиглах}}{26}{table.caption.105}%
+\contentsline {table}{\numberline {3.11}{\ignorespaces UC-14 --- Scene нэмэх / устгах / эрэмбэлэх}}{27}{table.caption.106}%
+\contentsline {table}{\numberline {3.12}{\ignorespaces UC-17 --- AI Quality Report үүсгэх / харах}}{27}{table.caption.108}%
+\contentsline {table}{\numberline {3.13}{\ignorespaces UC-20 --- Видеог folder руу зөөх (Drag-and-drop)}}{28}{table.caption.110}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Хэрэгжүүлсэн технологийн стек}}{10}{table.caption.77}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces users хүснэгтийн схем}}{10}{table.caption.81}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces videos хүснэгтийн схем}}{11}{table.caption.83}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces scenes хүснэгтийн схем}}{11}{table.caption.85}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Хүснэгтүүдийн хоорондын холбоосын матриц}}{12}{table.caption.87}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Backend-д ашигласан технологийн стек}}{12}{table.caption.91}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces Authentication endpoint-ууд}}{13}{table.caption.93}%
-\contentsline {table}{\numberline {4.8}{\ignorespaces Video endpoint-ууд}}{13}{table.caption.94}%
-\contentsline {table}{\numberline {4.9}{\ignorespaces Аудио endpoint-ууд}}{13}{table.caption.95}%
-\contentsline {table}{\numberline {4.10}{\ignorespaces Frontend технологийн стек}}{14}{table.caption.102}%
-\contentsline {table}{\numberline {4.11}{\ignorespaces Туршилтын стратегийн пирамид}}{16}{table.caption.123}%
-\contentsline {table}{\numberline {4.12}{\ignorespaces Туршилтын хэрэгсэл}}{16}{table.caption.125}%
-\contentsline {table}{\numberline {4.13}{\ignorespaces Баталгаажуулалтын туршилтын кейсүүд}}{16}{table.caption.127}%
-\contentsline {table}{\numberline {4.14}{\ignorespaces Видео үүсгэлтийн туршилтын кейсүүд}}{17}{table.caption.128}%
-\contentsline {table}{\numberline {4.15}{\ignorespaces Code coverage үр дүн}}{17}{table.caption.130}%
-\contentsline {table}{\numberline {4.16}{\ignorespaces Гүйцэтгэлийн туршилтын үр дүн}}{17}{table.caption.132}%
-\contentsline {table}{\numberline {4.17}{\ignorespaces Илэрсэн алдаа ба шийдэл}}{18}{table.caption.134}%
-\contentsline {table}{\numberline {4.18}{\ignorespaces Системийн ажиллагааны эцсийн үнэлгээ}}{19}{table.caption.140}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Хэрэгжүүлсэн технологийн стек}}{29}{table.caption.114}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces users хүснэгтийн схем}}{29}{table.caption.118}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces videos хүснэгтийн схем}}{30}{table.caption.120}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces scenes хүснэгтийн схем}}{30}{table.caption.122}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Хүснэгтүүдийн хоорондын холбоосын матриц}}{31}{table.caption.124}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Backend-д ашигласан технологийн стек}}{31}{table.caption.128}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Authentication endpoint-ууд}}{32}{table.caption.130}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Video endpoint-ууд}}{32}{table.caption.131}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Аудио endpoint-ууд}}{32}{table.caption.132}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Frontend технологийн стек}}{33}{table.caption.139}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Туршилтын стратегийн пирамид}}{35}{table.caption.160}%
+\contentsline {table}{\numberline {4.12}{\ignorespaces Туршилтын хэрэгсэл}}{35}{table.caption.162}%
+\contentsline {table}{\numberline {4.13}{\ignorespaces Баталгаажуулалтын туршилтын кейсүүд}}{35}{table.caption.164}%
+\contentsline {table}{\numberline {4.14}{\ignorespaces Видео үүсгэлтийн туршилтын кейсүүд}}{36}{table.caption.165}%
+\contentsline {table}{\numberline {4.15}{\ignorespaces Code coverage үр дүн}}{36}{table.caption.167}%
+\contentsline {table}{\numberline {4.16}{\ignorespaces Гүйцэтгэлийн туршилтын үр дүн}}{36}{table.caption.169}%
+\contentsline {table}{\numberline {4.17}{\ignorespaces Илэрсэн алдаа ба шийдэл}}{37}{table.caption.171}%
+\contentsline {table}{\numberline {4.18}{\ignorespaces Системийн ажиллагааны эцсийн үнэлгээ}}{38}{table.caption.177}%

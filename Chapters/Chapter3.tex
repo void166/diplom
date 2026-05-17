@@ -1,250 +1,583 @@
 % Бүлэг 3
 
-\chapter{Системийн шаардлага}
+\chapter{Системийн шинжилгээ}
 \label{Chapter3}
 \pagecolor{white}
 
-\section{Системийн ерөнхий тодорхойлолт}
+\section{Системийн зорилго, үндсэн функцууд}
 
-ViralAI систем нь хэрэглэгч зөвхөн сэдэв оруулахад скрипт үүсгэх, зураг үүсгэх, дуу хоолой синтез хийх, видео угсрах гэсэн 4 үндсэн үе шатыг автоматаар гүйцэтгэж богино хэмжээний видео контент бэлдэдэг цогц веб систем юм. Система нь гурван үндсэн актортой: Хэрэглэгч (User), Контент Менежер (Content Manager), Супер Админ (Super Admin).
+ViralAI системийн гол зорилго нь хэрэглэгч зөвхөн сэдэв, жанр, видеоны үргэлжлэх хугацаа зэрэг үндсэн параметрийг оруулахад хиймэл оюуны технологид суурилан скрипт бичих, scene-ийн зураг үүсгэх, дуу хоолой синтез хийх, видеог нэгтгэн боловсруулах бүх үйл ажиллагааг автоматаар гүйцэтгэж, цаашлаад \textbf{AI Video Studio засварлагчаар} scene түвшинд боловсруулах, \textbf{AI үнэлгээний тогтолцоогоор} (Quality Report) контентийн чанарыг үнэлэх боломж бүхий цогц веб платформ бий болгоход оршино.
 
-\section{Хэрэглэгчийн шаардлага}
+Системийн үндсэн функцууд нь дараах есөн модулиас бүрдэнэ:
+
+\begin{enumerate}
+  \item \textbf{Контент үүсгэх модуль} — Anthropic Claude эсвэл Groq + Llama 3.3 70B загварыг хэрэглэгчийн сонголтоор ашиглан scene бүрийн narration, image prompt, thumbnail concept бүхий бүтэцлэгдсэн скрипт автоматаар үүсгэнэ.
+
+  \item \textbf{Зураг үүсгэх модуль} — Google Gemini Flash Image 2.5 загварыг ашиглан scene бүрд 9:16 портрейт хэлбэрийн зургийг параллел үүсгэж Cloudinary CDN-д хадгална. Хэрэглэгч өөрийн зургаа upload хийх боломжтой.
+
+  \item \textbf{Дуу хоолой синтезийн модуль} — ElevenLabs Flash v2.5 / Multilingual v2, Chimege (Монгол хэлд тусгайлсан), Google Gemini TTS гэсэн 3 өөр TTS-провайдерыг хэрэглэгчийн сонголтоор ашиглана. Хэрэглэгч өөрийн дуу хоолой upload хийх боломжтой.
+
+  \item \textbf{Видео угсралтын модуль} — FFmpeg ашиглан scene-үүдийн зураг, narration аудио, subtitle (SRT), background music (BGM)-ийг nbsp{transitions, vignette, zoompan} эффект бүхий MP4 файл болгон нэгтгэнэ.
+
+  \item \textbf{AI Video Studio засварлах модуль} — хэрэглэгчид scene бүрийн narration, зураг, дуу хоолой, background music, subtitle-ийг визуал интерфэйсээр засварлах, scene-үүдийг чирж эрэмбэлэх (drag-and-drop), шинэ scene нэмэх, өөрчлөгдсөн scene-үүдтэй хэсэгчилсэн re-render хийх боломжийг олгоно.
+
+  \item \textbf{AI үнэлгээний (Quality Report) модуль} — Claude Sonnet-аар скриптийг \textit{Hook, Pacing, Emotion, Clarity, Originality} гэсэн 5 хэмжүүрээр 0–100 онооход үнэлж, тус бүрийн сул scene-уудыг тэмдэглэх, сайжруулах санал гаргана. Нэмж scene уртын тэнцвэр, narration нягтрал гэх мэт автомат health check хийнэ. Хэрэглэгчийн өөрийн үнэлгээ (одны үнэлгээ, like/dislike) ч мөн бүртгэнэ.
+
+  \item \textbf{Project удирдлагын модуль} — хэрэглэгч folder үүсгэж, видеонуудаа drag-and-drop-аар зөөж, ангилан удирдана. Дутуу үүсгэгдсэн контент Drafts хэсэгт автоматаар хадгалагдана.
+
+  \item \textbf{Үүлэн хадгалалт ба хүргэлтийн модуль} — видео, зураг, аудиог Cloudinary CDN-д байршуулна. Локал /output замаар шууд stream хийх dual-path стратеги ашигладаг.
+
+  \item \textbf{Хэрэглэгч ба админ удирдлагын модуль} — JWT баталгаажуулалт, RBAC (Role-Based Access Control) загвар дээр суурилсан хандалтын хяналт, Subscription удирдлага, админ самбараас бүх хэрэглэгч/видео харах, статистик харах боломжийг хангана.
+\end{enumerate}
+
+\section{Хэрэглэгчийн шаардлагууд}
+
+Хэрэглэгчийн шаардлага (User Requirement, UR) нь системээс хэрэглэгчид олох ёстой үнэ цэнийг өндөр түвшинд илэрхийлдэг бөгөөд функциональ шаардлагаас ялгаатайгаар техникийн нарийвчлал биш, харин хэрэглэгчийн зорилгод тулгуурладаг.
+
+Хэрэглэгчийн судалгаагаар үндсэн зорилтот хэрэглэгчид болох контент бүтээгчид, жижиг бизнес эрхлэгчид, маркетингийн мэргэжилтнүүд, боловсролын байгууллагуудтай ярилцаж дараах ерөнхий шаардлагуудыг тогтоов:
 
 \begin{table}[h!]
 \centering
-\caption{Хэрэглэгчийн шаардлагын жагсаалт}
 \label{tab:user_req}
-\begin{tabular}{|c|p{4cm}|p{7cm}|}
+\begin{tabular}{|c|p{4cm}|p{8.5cm}|}
 \hline
 \textbf{ID} & \textbf{Шаардлага} & \textbf{Тайлбар} \\
 \hline
-UR-01 & Бүртгэл, нэвтрэлт & Хэрэглэгч бүртгүүлж, нэвтрэх боломжтой байна \\
+UR-01 & Хялбар үүсгэх & Хэрэглэгч зөвхөн сэдэв оруулахад техникийн ур чадваргүйгээр чанартай видео үүсгэх боломжтой байх \\
 \hline
-UR-02 & Видео үүсгэх & Сэдэв оруулахад автоматаар видео үүсгэгдэнэ \\
+UR-02 & Монгол хэлний дэмжлэг & Монгол хэл дээр narration бүхий видео үүсгэх боломжтой байх (Chimege TTS) \\
 \hline
-UR-03 & Явц хянах & Видео үүсгэлтийн явцыг бодит цагт харна \\
+UR-03 & Бодит цагийн явц & Үүсгэлтийн алхам бүрийн явцыг (script / image / audio / assembly) SSE-ээр бодит цагт хянах \\
 \hline
-UR-04 & Studio засварлагч & Видеогоо scene бүрт засварлах боломжтой \\
+UR-04 & Scene түвшний засвар & Видеогоо Studio засварлагчаар scene бүрт нарийвчлан засварлах боломж \\
 \hline
-UR-05 & Видео жагсаалт & Өөрийн бүх видеог харах, удирдах \\
+UR-05 & Хэсэгчилсэн re-render & Бүх scene-ийг дахин үүсгэхгүйгээр зөвхөн өөрчлөхийг хүссэн scene-ийг шинэчлэх (цаг, өртөг хэмнэх) \\
 \hline
-UR-06 & Projects & Видеог folder бүлгээр зохион байгуулах \\
+UR-06 & Үүсгэлт цуцлах & Явагдаж байгаа үүсгэлтийг цуцлах, цуцлахдаа дутуу контентийг draft байдлаар хадгалж дараа үргэлжлүүлэх \\
 \hline
-UR-07 & Subscription & Сарын хязгаар болон Pro эрхийг удирдах \\
+UR-07 & Custom оруулга & Хэрэглэгч өөрийн зураг, дуу хоолой, BGM-ийг upload хийж scene-д тусгах \\
 \hline
-UR-08 & Admin панел & Бүх хэрэглэгч, видеог харж удирдах (Admin) \\
+UR-08 & Project зохион байгуулалт & Видеонуудаа folder бүлгээр ангилан удирдах, drag-and-drop-аар зөөх \\
 \hline
-UR-09 & Статистик & Систем, хэрэглэгчийн ерөнхий статистик (Admin) \\
+UR-09 & AI Quality үнэлгээ & AI-аар контентийг 5 хэмжүүрээр үнэлүүлэх, сул scene-уудыг илрүүлэх, сайжруулах санал авах \\
 \hline
-UR-10 & Аюулгүй байдал & JWT-д суурилсан баталгаажуулалт \\
+UR-10 & Хэрэглэгчийн үнэлгээ & Хэрэглэгч өөрийн контент дээр одны үнэлгээ, like/dislike тэмдэглэгээ хийх \\
 \hline
-\end{tabular}
-\end{table}
-
-\section{Функциональ шаардлага}
-
-\begin{table}[h!]
-\centering
-\caption{Функциональ шаардлагын жагсаалт}
-\label{tab:func_req}
-\begin{tabular}{|c|p{3cm}|p{7.5cm}|}
+UR-11 & 9:16 формат & TikTok / YouTube Shorts / Instagram Reels-д тохирсон 9:16 босоо видео үүсгэх, татах \\
 \hline
-\textbf{ID} & \textbf{Нэр} & \textbf{Тайлбар} \\
+UR-12 & Subscription & Энгийн болон Pro эрхийг тодорхой хязгаараар удирдах \\
 \hline
-FR-01 & Бүртгэл & Хэрэглэгч email, нууц үгээр бүртгүүлнэ \\
+UR-13 & Админ удирдлага & Админ нь бүх хэрэглэгчийн контентийг хянах, устгах, статистик харах эрхтэй \\
 \hline
-FR-02 & Нэвтрэлт & JWT access + refresh token олгоно \\
-\hline
-FR-03 & Скрипт үүсгэлт & Groq/Claude API-аар scene бүрийн narration үүсгэнэ \\
-\hline
-FR-04 & Зураг үүсгэлт & Gemini Flash Image 2.5-аар scene зураг үүсгэнэ \\
-\hline
-FR-05 & Аудио үүсгэлт & ElevenLabs/Chimege/Gemini TTS-аар дуу хоолой синтез хийнэ \\
-\hline
-FR-06 & Видео угсралт & FFmpeg-ээр зураг+аудио+subtitle нэгтгэж MP4 гаргана \\
-\hline
-FR-07 & Явц дамжуулалт & SSE-ээр бодит цагт явцыг хэрэглэгчид мэдэгдэнэ \\
-\hline
-FR-08 & Cloudinary хадгалалт & Бэлэн видеог CDN-д байршуулна \\
-\hline
-FR-09 & Studio засварлагч & Scene тус бүрийн зураг/аудио/текст дахин үүсгэнэ \\
-\hline
-FR-10 & Re-render & Засварласан scene-г дахин угсарна \\
-\hline
-FR-11 & RBAC & Free/Pro/Admin эрхийн ялгаатай хяналт \\
-\hline
-FR-12 & Projects & Folder үүсгэх, видеог зөөх, устгах \\
-\hline
-FR-13 & Admin удирдлага & Хэрэглэгч, видео харах, устгах, статистик \\
-\hline
-FR-14 & Rate limiting & API хэтрүүлэлтийг хязгаарлана \\
+UR-14 & Аюулгүй байдал & JWT-д суурилсан баталгаажуулалт, bcrypt нууц үг hashing \\
 \hline
 \end{tabular}
-\end{table}
-
-\section{Функциональ бус шаардлага}
-
-\begin{table}[h!]
-\centering
-\caption{Функциональ бус шаардлагын жагсаалт}
-\label{tab:nonfunc_req}
-\begin{tabular}{|c|p{3cm}|p{7.5cm}|}
-\hline
-\textbf{ID} & \textbf{Ангилал} & \textbf{Шаардлага} \\
-\hline
-NFR-01 & Гүйцэтгэл & 60 секундын видеог 5 минутын дотор үүсгэнэ \\
-\hline
-NFR-02 & Хандалт & API response P95 < 500ms байна \\
-\hline
-NFR-03 & Аюулгүй байдал & JWT, bcrypt, HTTPS, rate limiting ашиглана \\
-\hline
-NFR-04 & Найдвартай байдал & 99.5\%+ uptime, fallback AI strategy \\
-\hline
-NFR-05 & Өргөтгөх чадвар & Горизонталь scale хийх боломжтой архитектур \\
-\hline
-NFR-06 & Засварлах чадвар & Layered architecture, TypeScript, unit test \\
-\hline
-NFR-07 & Баримтжуулалт & Swagger API doc, TypeDoc, хэрэглэгчийн гарын авлага \\
-\hline
-NFR-08 & Хэрэглэгчийн туршлага & SPA, responsive дизайн, бодит цагийн явц \\
-\hline
-\end{tabular}
+\caption{Хэрэглэгчийн шаардлагын жагсаалт}
 \end{table}
 
 \section{Системийн хэрэглэгчийн төрлүүд}
 
-Систем нь гурван үндсэн хэрэглэгчийн төрлийг дэмжинэ:
-
-\begin{enumerate}
-\item \textbf{Хэрэглэгч (User)} --- бүртгэлтэй хэрэглэгч. Free болон Pro гэсэн хоёр дэд ангилалтай. Free хэрэглэгч сард хязгаарлагдсан тооны видео үүсгэж зурагны re-render хийх боломжгүй. Pro хэрэглэгч илүү олон видео үүсгэж, бүх Studio боломжийг ашиглана.
-
-\item \textbf{Контент Менежер (Content Manager)} --- системийн контентыг удирдах эрхтэй дунд шатны эрхлэгч.
-
-\item \textbf{Супер Админ (Super Admin)} --- бүх хэрэглэгч, видео, статистикийг харж удирдах хамгийн өндөр эрхтэй хэрэглэгч.
-\end{enumerate}
+Системийг гурван үндсэн актор ашиглана. Ялгаа нь үндсэндээ бичлэгийн квот, Studio-н хэдэн боломж, болон бусад хэрэглэгчийн контент хандах эрхэд байна.
 
 \begin{table}[h!]
 \centering
-\caption{Хэрэглэгчийн эрхийн матриц}
-\label{tab:rbac}
-\begin{tabular}{|l|c|c|c|c|}
+\caption{Системийн хэрэглэгчийн төрлүүд}
+\label{tab:user_types}
+\begin{tabular}{|p{2.8cm}|p{4.5cm}|p{6.5cm}|}
 \hline
-\textbf{Үйлдэл} & \textbf{Free} & \textbf{Pro} & \textbf{Manager} & \textbf{Admin} \\
+\textbf{Хэрэглэгчийн бүлэг} & \textbf{Тодорхойлолт} & \textbf{Үндсэн үүрэг} \\
 \hline
-Видео үүсгэх & \checkmark (хязгар) & \checkmark & \checkmark & \checkmark \\
+Энгийн хэрэглэгч & Хязгаарлагдмал боломжтой бүртгэлтэй хэрэглэгч & Сард тогтоосон тооны видео үүсгэх, scene narration засварлах, видеогоо харах/татах/устгах. Зургийн re-render хийх эрхгүй. \\
 \hline
-Studio засварлагч & \checkmark (хэсэгчилсэн) & \checkmark & \checkmark & \checkmark \\
+Pro хэрэглэгч & Сарын төлбөртэй, өргөтгөсөн боломжтой хэрэглэгч & Илүү олон видео үүсгэх, AI Video Studio засварлагчийн бүх боломж: scene-ийн зураг / аудио / прmpt дахин үүсгэх, эрэмбэлэх, шинэ scene нэмэх, custom asset upload. \\
 \hline
-Зургийн re-render & \texttimes & \checkmark & \checkmark & \checkmark \\
+Супер Админ & Системийн ерөнхий хариуцлагатай ажилтан & Бүх хэрэглэгчийг удирдах, бүх видеог харах/устгах, статистик мониторинг, API тохиргоо хийх, аудит лог хянах. \\
 \hline
-Projects удирдах & \checkmark & \checkmark & \checkmark & \checkmark \\
+\end{tabular}
+\end{table}
+
+\section{Функциональ шаардлагууд}
+
+\subsection{Энгийн хэрэглэгчийн функциональ шаардлага}
+
+\begin{table}[h!]
+\centering
+\caption{Энгийн хэрэглэгчийн функциональ шаардлага}
+\label{tab:fr_free}
+\begin{tabular}{|c|p{3.5cm}|p{6.5cm}|c|}
 \hline
-Бүх хэрэглэгч харах & \texttimes & \texttimes & \texttimes & \checkmark \\
+\textbf{ID} & \textbf{Шаардлагын нэр} & \textbf{Тайлбар} & \textbf{Тэргүүлэх} \\
 \hline
-Бүх видео харах & \texttimes & \texttimes & \texttimes & \checkmark \\
+FR-F01 & Бүртгэл / Нэвтрэлт & Email + нууц үгээр бүртгүүлж нэвтрэх. JWT токен олгоно. & Өндөр \\
 \hline
-Статистик харах & \texttimes & \texttimes & \texttimes & \checkmark \\
+FR-F02 & Видео үүсгэх (хязгаартай) & Сар бүр Pro-аас бага тооны видео үүсгэнэ. Сэдэв, жанр, урт, хэл, image style оруулна. & Өндөр \\
+\hline
+FR-F03 & Үүсгэлт цуцлах & Үүсгэлтийн явцад цуцлах. Дутуу scene-үүдтэйгээр Draft хадгалагдана. & Өндөр \\
+\hline
+FR-F04 & Явц хянах & SSE-ээр (Server-Sent Events) бодит цагт script / image / audio / assembly алхмыг хянана. & Өндөр \\
+\hline
+FR-F05 & Видео жагсаалт & Өөрийн дууссан видеонуудыг харах. & Өндөр \\
+\hline
+FR-F06 & Drafts харах & Цуцалсан / дутуу үүсгэлтийн жагсаалтыг тусдаа tab-д харах. & Дундаж \\
+\hline
+FR-F07 & Видео үзэх & Cloudinary CDN URL-аар stream хийж үзэх. & Дундаж \\
+\hline
+FR-F08 & Видео татах & MP4 хэлбэрээр локал төхөөрөмж рүү татах. & Дундаж \\
+\hline
+FR-F09 & Видео устгах & Өөрийн видеог устгах. & Дундаж \\
+\hline
+FR-F10 & Studio засвар (хязгаартай) & Scene-ийн narration текст засаж, аудиог дахин үүсгэх. Зургийн re-render хийх эрхгүй. & Дундаж \\
+\hline
+FR-F11 & Projects удирдах & Folder үүсгэх, видеог folder руу зөөх (drag-and-drop). & Дундаж \\
+\hline
+FR-F12 & Профайл засах & Нэр, нууц үг солих. & Бага \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Pro хэрэглэгчийн функциональ шаардлага}
+
+\begin{table}[h!]
+\centering
+\caption{Pro хэрэглэгчийн функциональ шаардлага}
+\label{tab:fr_pro}
+\begin{tabular}{|c|p{3.5cm}|p{6.5cm}|c|}
+\hline
+\textbf{ID} & \textbf{Шаардлагын нэр} & \textbf{Тайлбар} & \textbf{Тэргүүлэх} \\
+\hline
+FR-P01 & Бүх Free боломж & FR-F01-аас FR-F12-г бүгдийг агуулна. & Өндөр \\
+\hline
+FR-P02 & Хязгаар нэмэгдсэн видео үүсгэх & Сар бүр их хэмжээний видео үүсгэх боломж. & Өндөр \\
+\hline
+FR-P03 & Studio засварлагч (бүрэн) & Scene бүрд narration, зураг, аудио, transition, subtitle, BGM-ийг засварлана. & Өндөр \\
+\hline
+FR-P04 & Scene narration AI rewrite & Claude/Groq-аар narration текстийг AI-аар дахин бичүүлэх. & Өндөр \\
+\hline
+FR-P05 & Scene зураг дахин үүсгэх & Image prompt засаж Gemini Flash Image 2.5-аар тухайн scene-ийн зургийг шинээр үүсгэх. & Өндөр \\
+\hline
+FR-P06 & Scene аудио дахин үүсгэх & Narration текст засагдсаны дараа сонгосон TTS провайдероор аудиог шинээр үүсгэх. & Өндөр \\
+\hline
+FR-P07 & Custom зураг upload & Өөрийн зургаа scene-д орлуулж upload хийх. Cloudinary-д хадгалагдана. & Өндөр \\
+\hline
+FR-P08 & Custom аудио upload & Өөрийн дуугаа scene-д орлуулж upload хийх. & Өндөр \\
+\hline
+FR-P09 & Custom BGM upload & Бэлэн BGM library-аас сонгох эсвэл өөрийн хөгжмийн файлыг upload хийх. & Дундаж \\
+\hline
+FR-P10 & BGM урьдчилан сонсох & BGM track тус бүрийн дээр play товч дарж сонсох. & Дундаж \\
+\hline
+FR-P11 & Subtitle preset preview & Subtitle хэв маяг тус бүрийг (Classic / Yellow / Top / Minimal / Boxed) жижиг preview frame-д харах. & Дундаж \\
+\hline
+FR-P12 & Scene нэмэх & Хоосон шинэ scene нэмж, narration болон imagePrompt-г гараар бичих. & Өндөр \\
+\hline
+FR-P13 & Scene устгах & Тодорхой scene-ийг устгах. & Дундаж \\
+\hline
+FR-P14 & Scene эрэмбэ солих & Scene-үүдийг drag-and-drop-аар чирж эрэмбэлэх. & Дундаж \\
+\hline
+FR-P15 & Хэсэгчилсэн re-render & Өөрчлөгдсөн scene-үүдийн зураг / аудиог дахин угсарч MP4 шинэчилнэ. & Өндөр \\
+\hline
+FR-P16 & A/B variant үүсгэлт & Нэг сэдвээр 2 өөр скриптийн хувилбар үүсгэж харьцуулан сонгох. & Дундаж \\
+\hline
+FR-P17 & AI Quality үнэлгээ & Скриптийг Hook / Pacing / Emotion / Clarity / Originality 5 хэмжүүрээр AI-аар үнэлэх. & Өндөр \\
+\hline
+FR-P18 & Per-scene weakness гарал & AI-ийн илрүүлсэн сул scene-уудад тэмдэглэгээ scene картын дотор шууд гарна. & Дундаж \\
+\hline
+FR-P19 & Health check & Scene урт, narration нягтрал, нийт хугацаа, scene-ийн тоо зэрэг автомат шалгалт. & Дундаж \\
+\hline
+FR-P20 & Хэрэглэгчийн үнэлгээ & Видео дээрээ од (1-5) + 👍/👎 тэмдэглэх. & Бага \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Супер Админы функциональ шаардлага}
+
+\begin{table}[h!]
+\centering
+\caption{Супер Админы функциональ шаардлага}
+\label{tab:fr_admin}
+\begin{tabular}{|c|p{3.5cm}|p{6.5cm}|c|}
+\hline
+\textbf{ID} & \textbf{Шаардлагын нэр} & \textbf{Тайлбар} & \textbf{Тэргүүлэх} \\
+\hline
+FR-S01 & Админ нэвтрэлт & Тусдаа admin role-той JWT токен олгоно. & Өндөр \\
+\hline
+FR-S02 & Хэрэглэгч жагсаалт & Бүх хэрэглэгчдийн нэгдсэн жагсаалтыг харах. & Өндөр \\
+\hline
+FR-S03 & Хэрэглэгч удирдах & Хэрэглэгч идэвхгүй болгох, устгах. & Өндөр \\
+\hline
+FR-S04 & Нийт видео харах & Бүх хэрэглэгчдийн видеоны нэгдсэн жагсаалт. & Өндөр \\
+\hline
+FR-S05 & Видеоны дэлгэрэнгүй & Тодорхой видеоны бүх scene, мета мэдээллийг харах. & Дундаж \\
+\hline
+FR-S06 & Видео устгах & Хэний ч видеог админ хүчээр устгах. & Өндөр \\
+\hline
+FR-S07 & Системийн статистик & Нийт хэрэглэгчийн тоо, видеоны тоо, идэвхтэй хэрэглэгчид зэрэг KPI харах. & Дундаж \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Функциональ бус шаардлагууд}
+
+\begin{table}[h!]
+\centering
+\caption{Функциональ бус шаардлага}
+\label{tab:nfr}
+\begin{tabular}{|c|p{3.2cm}|p{8cm}|}
+\hline
+\textbf{ID} & \textbf{Ангилал} & \textbf{Шаардлага} \\
+\hline
+NFR-01 & Гүйцэтгэл & 60 секундын видеог дунджаар 3–5 минутын дотор үүсгэнэ. Хэсэгчилсэн re-render 2 минутаас хэтрэхгүй. \\
+\hline
+NFR-02 & Хариу хугацаа & API response P95 < 500ms (CRUD), SSE event latency < 200ms. \\
+\hline
+NFR-03 & Concurrency & Нэгэн зэрэг 10+ хэрэглэгчийн видео үүсгэх хүсэлтийг дэмжих (parallel image generation, async Cloudinary upload). \\
+\hline
+NFR-04 & Аюулгүй байдал & JWT баталгаажуулалт, HTTPS, bcrypt нууц үг hashing, SQL injection / XSS хамгаалалт, AES-256 API key encryption. \\
+\hline
+NFR-05 & Rate limiting & Нэг хэрэглэгчид өдөрт хязгаартай тооны видео; API хүсэлт минутад хязгаартай. \\
+\hline
+NFR-06 & Найдвартай байдал & AI үйлчилгээний fallback (Claude $\rightarrow$ Groq, ElevenLabs $\rightarrow$ Chimege $\rightarrow$ Gemini), retry логик (3 удаа, exponential backoff), 99.5\%+ uptime. \\
+\hline
+NFR-07 & Хэлбэлзэл тэсвэрлэх & Нэг scene амжилтгүй болоход бусад scene үргэлжлэнэ. AI timeout-ийн үед graceful degradation. \\
+\hline
+NFR-08 & Өргөтгөх боломж & Модульчлагдсан архитектур: шинэ AI provider, image style, TTS voice нэмэх боломжтой. Layered architecture (Frontend / Backend / Data / External AI). \\
+\hline
+NFR-09 & Засварлах чадвар & TypeScript-ээр бичигдсэн, Sequelize ORM, unit test cover, ESLint / Prettier. \\
+\hline
+NFR-10 & Хэрэглэхэд хялбар & 5 алхамт chat-маягийн wizard, drag-and-drop scene reorder, real-time SSE progress, glass-morphism UI. \\
+\hline
+NFR-11 & Responsive дизайн & Desktop болон mobile-д хариу үзүүлэх (CSS Grid, media queries). \\
+\hline
+NFR-12 & Аудит хяналт & Видео үүсгэлт, устгал, Studio засвар, тохиргооны өөрчлөлт бүр лог бичигдэнэ. \\
+\hline
+NFR-13 & Хадгалалт & Видео файлууд Cloudinary CDN дээр хадгалагдана, локал /output замаар dual-serve хийнэ. \\
+\hline
+NFR-14 & Хэрэгслийн чанар & SwaggerAPI doc, TypeDoc, README, хэрэглэгчийн гарын авлага. \\
 \hline
 \end{tabular}
 \end{table}
 
 \section{Use Case-уудын жагсаалт}
 
-Системийн үндсэн Use Case-ууд:
+Системд нийт 18 Use Case тодорхойлогдсон бөгөөд тэдгээрийг үйл ажиллагааны төрлөөр нь дараах байдлаар бүлэглэв:
 
+\subsubsection*{Баталгаажуулалт ба бүртгэлийн Use Case-ууд}
 \begin{itemize}
-\item UC-01: Видео үүсгэх
-\item UC-02: Бүртгэл, нэвтрэлт
-\item UC-03: Видео үүсгэлтийн явц хянах (SSE)
-\item UC-04: Скрипт үүсгэлт
-\item UC-05: Видео болон медиа хадгалалт
-\item UC-06: Subscription удирдах
-\item UC-07: Studio засварлагчаар scene засварлах
-\item UC-08: Хэсэгчилсэн re-render хийх
-\item UC-09: Projects зохион байгуулах
-\item UC-10: Admin удирдлага
+  \item \textbf{UC-01}: Хэрэглэгчийн бүртгэл үүсгэх
+  \item \textbf{UC-02}: Системд нэвтрэх (Login)
 \end{itemize}
+
+\subsubsection*{Видео үүсгэлтийн Use Case-ууд}
+\begin{itemize}
+  \item \textbf{UC-03}: Видео үүсгэх (Generate)
+  \item \textbf{UC-04}: Скрипт автомат үүсгэх (AI)
+  \item \textbf{UC-05}: Үүсгэлтийн явцыг бодит цагт хянах (SSE)
+  \item \textbf{UC-06}: Үүсгэлт цуцлах ба Draft хадгалах
+  \item \textbf{UC-07}: A/B хувилбар үүсгэлт
+  \item \textbf{UC-08}: Видео жагсаалт харах
+  \item \textbf{UC-09}: Видео хадгалах (Cloudinary)
+\end{itemize}
+
+\subsubsection*{AI Video Studio засварлагчийн Use Case-ууд}
+\begin{itemize}
+  \item \textbf{UC-10}: Studio засварлагч ашиглах
+  \item \textbf{UC-11}: Scene narration засах
+  \item \textbf{UC-12}: Scene зураг дахин үүсгэх / upload хийх
+  \item \textbf{UC-13}: Scene аудио дахин үүсгэх / upload хийх
+  \item \textbf{UC-14}: Scene нэмэх / устгах / эрэмбэлэх
+  \item \textbf{UC-15}: BGM сонгох, сонсох, upload хийх
+  \item \textbf{UC-16}: Хэсэгчилсэн re-render
+\end{itemize}
+
+\subsubsection*{Үнэлгээний Use Case-ууд}
+\begin{itemize}
+  \item \textbf{UC-17}: AI Quality Report үүсгэх / харах
+  \item \textbf{UC-18}: Хэрэглэгчийн үнэлгээ (од, like/dislike)
+\end{itemize}
+
+\subsubsection*{Project удирдлагын Use Case-ууд}
+\begin{itemize}
+  \item \textbf{UC-19}: Folder үүсгэх, нэрлэх, устгах
+  \item \textbf{UC-20}: Видеог folder руу зөөх (drag-and-drop)
+\end{itemize}
+
+\subsubsection*{Админы Use Case-ууд}
+\begin{itemize}
+  \item \textbf{UC-21}: Хэрэглэгч удирдах
+  \item \textbf{UC-22}: Системийн статистик харах
+\end{itemize}
+
+\section{Хэрэглэгчийн эрхийн матриц (RBAC)}
+
+Системийн аюулгүй байдлыг хангах зорилгоор Role-Based Access Control (RBAC) загварыг ашиглана.
+
+\begin{table}[h!]
+\centering
+\caption{Хэрэглэгчийн эрхийн матриц}
+\label{tab:rbac}
+\begin{tabular}{|p{5.5cm}|c|c|c|}
+\hline
+\textbf{Функц / Боломж} & \textbf{Энгийн} & \textbf{Pro} & \textbf{Админ} \\
+\hline
+Видео үүсгэх & \checkmark (хязгаартай) & \checkmark & \checkmark \\
+\hline
+Үүсгэлт цуцлах + Draft хадгалах & \checkmark & \checkmark & \checkmark \\
+\hline
+SSE явц хянах & \checkmark & \checkmark & \checkmark \\
+\hline
+A/B хувилбар үүсгэх & \texttimes & \checkmark & \checkmark \\
+\hline
+Өөрийн видео жагсаалт & \checkmark & \checkmark & \checkmark \\
+\hline
+Drafts харах & \checkmark & \checkmark & \checkmark \\
+\hline
+Видео үзэх / татах & \checkmark & \checkmark & \checkmark \\
+\hline
+Studio засварлагч ашиглах & \checkmark (хязгаар) & \checkmark & \checkmark \\
+\hline
+Scene narration засах & \checkmark & \checkmark & \checkmark \\
+\hline
+Scene аудио дахин үүсгэх & \checkmark & \checkmark & \checkmark \\
+\hline
+Scene зураг дахин үүсгэх & \texttimes & \checkmark & \checkmark \\
+\hline
+Custom зураг / аудио / BGM upload & \texttimes & \checkmark & \checkmark \\
+\hline
+Scene нэмэх / устгах / эрэмбэлэх & \texttimes & \checkmark & \checkmark \\
+\hline
+Хэсэгчилсэн re-render & \checkmark (narration only) & \checkmark & \checkmark \\
+\hline
+AI Quality Report & \checkmark & \checkmark & \checkmark \\
+\hline
+Хэрэглэгчийн үнэлгээ (од) & \checkmark & \checkmark & \checkmark \\
+\hline
+Projects удирдах & \checkmark & \checkmark & \checkmark \\
+\hline
+Бүх хэрэглэгчийн видео харах & \texttimes & \texttimes & \checkmark \\
+\hline
+Хэний ч видеог устгах & \texttimes & \texttimes & \checkmark \\
+\hline
+Хэрэглэгч удирдах & \texttimes & \texttimes & \checkmark \\
+\hline
+Системийн статистик & \texttimes & \texttimes & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Use Case диаграм}
 
-Дараах диаграмд системийн гурван үндсэн актор --- Хэрэглэгч, Контент Менежер, Супер Админ --- нарын хийх боломжтой бүх үйлдлүүдийг мөн гадаад AI үйлчилгээнүүдтэй (Groq/Gemini, ElevenLabs) харилцааг дүрслэв.
+Use Case диаграм нь системийн хэрэглэгчид болон тэдний системтэй харьцах үйл ажиллагааг харуулна. Дараах диаграмд системийн гурван үндсэн актор --- \textbf{Энгийн хэрэглэгч}, \textbf{Pro хэрэглэгч}, \textbf{Супер Админ} --- нарын хийх боломжтой бүх үйлдлүүдийг, мөн гадаад AI үйлчилгээнүүдтэй (Anthropic Claude, Groq, Google Gemini, ElevenLabs, Chimege, Cloudinary, FFmpeg) харилцааг дүрслэв.
 
 \begin{figure}[h!]
 \centering
-% \includegraphics[width=0.9\textwidth]{Figures/usecase_diagram.png}
+% \includegraphics[width=0.95\textwidth]{Figures/usecase_diagram.png}
 \caption{ViralAI системийн Use Case диаграм}
 \label{fig:usecase}
 \end{figure}
 
-\section{Use Case тодорхойлолтууд}
+\section{Use Case дэлгэрэнгүй тодорхойлолтууд}
+
+Системийн гол Use Case-уудын дэлгэрэнгүй тодорхойлолтыг хүснэгт хэлбэрээр доор харуулав.
 
 \subsection{Үндсэн үйл ажиллагааны Use Case-ууд}
 
 \begin{table}[h!]
 \centering
-\caption{UC-01 --- Видео үүсгэх}
-\label{tab:uc01}
-\begin{tabular}{|l|p{9cm}|}
+\caption{UC-03 --- Видео үүсгэх}
+\label{tab:uc03}
+\begin{tabular}{|l|p{10cm}|}
 \hline
-\textbf{Use Case ID} & UC-01 \\
+\textbf{Use Case ID} & UC-03 \\
 \hline
 \textbf{Нэр} & Видео үүсгэх \\
 \hline
-\textbf{Актор} & Хэрэглэгч (Free/Pro) \\
+\textbf{Актор} & Энгийн хэрэглэгч / Pro хэрэглэгч \\
 \hline
 \textbf{Зорилго} & Хэрэглэгч сэдэв оруулахад систем автоматаар скрипт, зураг, дуу, видео бүтээнэ \\
 \hline
-\textbf{Trigger} & Хэрэглэгч ``Видео үүсгэх'' товчийг дарна \\
+\textbf{Trigger} & Хэрэглэгч ``Generate Video'' товчийг дарна \\
 \hline
 \textbf{Өмнөх нөхцөл} & Хэрэглэгч системд бүртгэлтэй бөгөөд нэвтэрсэн байна \\
 \hline
 \textbf{Үндсэн урсгал} &
-1. Хэрэглэгч сэдэв, жанр, урт, хэл, зурагны стиль оруулна \newline
-2. Систем Groq API-аар скрипт үүсгэнэ (UC-04) \newline
-3. Систем Gemini-ээр scene бүрт зураг үүсгэнэ \newline
-4. Систем ElevenLabs-аар дуу хоолой синтез хийнэ \newline
-5. Систем FFmpeg-ээр зураг, дуу, текстийг нэгтгэн MP4 үүсгэнэ \newline
-6. Систем видеог Cloudinary-д байршуулна (UC-05) \newline
-7. Хэрэглэгчид холбоос болон мэдэгдэл ирнэ \newline
-8. Хэрэглэгч Studio засварлагч руу шилжих сонголттой болно \\
+1. Хэрэглэгч сэдэв, жанр, урт, хэл, image style, voice, BGM, subtitle сонголтыг оруулна \newline
+2. Систем уникальн jobId үүсгэж SSE холболт нээнэ \newline
+3. Systems Claude/Groq API-аар скриптийг scene-уудтай үүсгэнэ (UC-04) \newline
+4. Систем scene бүрд Gemini Flash Image 2.5-аар зургийг параллел үүсгэнэ \newline
+5. Систем scene бүрийн narration-аас ElevenLabs/Chimege/Gemini TTS-ээр аудио синтезийг тус тус үүсгэнэ \newline
+6. Систем FFmpeg-ээр зураг, аудио, subtitle, BGM-ийг нэгтгэн MP4 үүсгэнэ \newline
+7. Систем видеог Cloudinary CDN-д байршуулна (UC-09) \newline
+8. Үндсэн scene-үүдийн зургийг асинхрон Cloudinary-руу шилжүүлж DB шинэчилнэ \newline
+9. Видеоны thumbnail-ийг background-аар үүсгэн thumbnail\_url-ыг шинэчилнэ \newline
+10. Хэрэглэгчид Studio засварлагч руу шилжих сонголт гарна \\
 \hline
 \textbf{Альтернатив урсгал} &
-2a. Groq timeout болвол Gemini API-д fallback хийнэ \newline
-5a. FFmpeg алдаа гарвал retry логик ажиллана \\
+3a. Claude timeout болвол Groq fallback хийнэ \newline
+5a. TTS амжилтгүй болсон scene-ийг alternativeprovider-аар оролдоно \newline
+6a. FFmpeg алдаа: retry 3 удаа exponential backoff-той \newline
+7a. Cloudinary алдаа: локал /output замаар serve хийнэ \\
 \hline
-\textbf{Дараах нөхцөл} & Видео амжилттай үүсгэгдэж, хэрэглэгчийн жагсаалтад харагдана \\
+\textbf{Дараах нөхцөл} & Видео амжилттай үүсгэгдэж, Library / Project жагсаалтад харагдана \\
 \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[h!]
 \centering
-\caption{UC-07 --- Studio засварлагчаар scene засварлах}
-\label{tab:uc07}
-\begin{tabular}{|l|p{9cm}|}
+\caption{UC-06 --- Үүсгэлт цуцлах ба Draft хадгалах}
+\label{tab:uc06}
+\begin{tabular}{|l|p{10cm}|}
 \hline
-\textbf{Use Case ID} & UC-07 \\
+\textbf{Use Case ID} & UC-06 \\
 \hline
-\textbf{Нэр} & Studio засварлагчаар scene засварлах \\
+\textbf{Нэр} & Үүсгэлт цуцлах ба Draft хадгалах \\
 \hline
-\textbf{Актор} & Хэрэглэгч (Pro), Контент Менежер \\
+\textbf{Актор} & Хэрэглэгч (Энгийн / Pro) \\
 \hline
-\textbf{Зорилго} & Видеоны тодорхой scene-ийн narration, зураг, дуу хоолойг засварлана \\
+\textbf{Зорилго} & Үүсгэлтийн дунд цуцлахдаа дутуу контентийг хадгалж, дараа үргэлжлүүлэх боломж олгох \\
+\hline
+\textbf{Trigger} & Хэрэглэгч generate явцад ``Cancel \& save draft'' товчийг дарна \\
 \hline
 \textbf{Үндсэн урсгал} &
-1. Хэрэглэгч Studio засварлагч нээнэ \newline
-2. Scene timeline-аас засварлах scene-г сонгоно \newline
-3. Narration текстийг засварлах, эсвэл AI-аар дахин бичүүлнэ \newline
-4. Зурагны prompt засварлаж дахин үүсгүүлнэ \newline
-5. Дуу хоолойг дахин синтез хийнэ \newline
-6. Preview-г харна \newline
-7. Reassemble дарж эцсийн видео дахин угсарна \\
+1. Backend дотор jobId → AbortController registry-д хадгалагдсан байна \newline
+2. Frontend POST /api/video/cancel/:jobId хүсэлтийг илгээнэ \newline
+3. Backend сигнал илгээнэ → дараагийн checkpoint-д CancellationError шидэгдэнэ \newline
+4. Controller бэлэн scene-үүдийг partial payload-аар хүлээж авна \newline
+5. Video record-ийг status=`draft', progress=\textit{X}\%-аар хадгалж, бэлэн scene-үүдийг bulkCreate хийнэ \newline
+6. API хариу: \{ cancelled: true, videoId, status: `draft' \} \newline
+7. Frontend toast мессеж + Drafts хэсэгт автоматаар шилжинэ \\
 \hline
-\textbf{Дараах нөхцөл} & Засварласан scene бүхий шинэ видео үүснэ \\
+\textbf{Дараах нөхцөл} & Draft нь Drafts tab-д харагдаж, дарвал шууд EditStudio руу navigate хийнэ. Үлдсэн scene-үүдийг бөглөж re-render хийхэд бүрэн видео болно. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Studio засварлагчийн Use Case-ууд}
+
+\begin{table}[h!]
+\centering
+\caption{UC-10 --- Studio засварлагч ашиглах}
+\label{tab:uc10}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-10 \\
+\hline
+\textbf{Нэр} & Studio засварлагч ашиглах \\
+\hline
+\textbf{Актор} & Pro хэрэглэгч \\
+\hline
+\textbf{Зорилго} & Үүсгэгдсэн видеоны scene бүрийн narration, зураг, дуу хоолой, music, subtitle-ийг засварлах \\
+\hline
+\textbf{Үндсэн урсгал} &
+1. Хэрэглэгч Edit Studio-г нээнэ \newline
+2. Систем бүх scene-ийн зураг, narration текст, audio мэдээллийг харуулна \newline
+3. Хэрэглэгч Subtitle Style (Classic / Yellow / Top / Minimal / Boxed / Off) preview харж сонгоно (UC-15) \newline
+4. Хэрэглэгч BGM track-ыг play товчоор сонсож сонгоно, эсвэл custom BGM upload хийнэ \newline
+5. Хэрэглэгч scene тус бүрд narration AI rewrite, image regenerate, audio regenerate хийнэ (UC-11, UC-12, UC-13) \newline
+6. Хэрэглэгч хүсвэл шинэ scene нэмэх, устгах, drag handle-аар эрэмбэлэх боломжтой (UC-14) \newline
+7. AI Quality Report шинэчлэгдэж сул scene-уудад анхааруулга гарна (UC-17) \newline
+8. Хэрэглэгч ``Re-render'' дарж бүрэн шинэ видео үүсгэнэ (UC-16) \\
+\hline
+\textbf{Дараах нөхцөл} & Шинэчилсэн видео хэрэглэгчийн жагсаалтад харагдана \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{UC-14 --- Scene нэмэх / устгах / эрэмбэлэх}
+\label{tab:uc14}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-14 \\
+\hline
+\textbf{Нэр} & Scene нэмэх / устгах / эрэмбэлэх \\
+\hline
+\textbf{Актор} & Pro хэрэглэгч \\
+\hline
+\textbf{Үндсэн урсгал} &
+1. Хэрэглэгч ``Add new scene'' товч дарна → хоосон scene нэмэгдэнэ \newline
+2. Хэрэглэгч narration, imagePrompt-ыг гараар бичнэ \newline
+3. ``Regen Image'' дарж AI-аар зураг үүсгүүлнэ \newline
+4. ``Regen Audio'' дарж аудио синтез хийлгэнэ \newline
+5. Scene header-ийн зүүн талын drag handle-аар чирж эрэмбэ өөрчилнө \newline
+6. Хоосон scene-ийг хогийн савны icon-оор устгана \\
+\hline
+\textbf{Дараах нөхцөл} & Scene цуглуулга шинэчлэгдэж, дараагийн re-render-ийн үндэс болно \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Үнэлгээний Use Case-ууд}
+
+\begin{table}[h!]
+\centering
+\caption{UC-17 --- AI Quality Report үүсгэх / харах}
+\label{tab:uc17}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-17 \\
+\hline
+\textbf{Нэр} & AI Quality Report үүсгэх \\
+\hline
+\textbf{Актор} & Энгийн / Pro хэрэглэгч \\
+\hline
+\textbf{Зорилго} & AI-аар скриптийг бодитой 5 хэмжүүрээр үнэлж сайжруулах саналыг авах \\
+\hline
+\textbf{Үндсэн урсгал} &
+1. Хэрэглэгч Edit Studio дотор ``Run AI Evaluation'' дарна \newline
+2. Backend бүх scene-ийг евалуатор service-д дамжуулна \newline
+3. Anthropic Claude Sonnet 4 загвар скриптийг JSON форматаар үнэлнэ: hook / pacing / emotion / clarity / originality 0-100 \newline
+4. Per-scene scores (sceneIndex + weakness reason) хариу буцна \newline
+5. Health check (scene урт, narration нягтрал, нийт хугацаа) автоматаар ажилладаг \newline
+6. Evaluation row-г DB-д хадгална: overallScore + grade (A+/A/B+/.../F) \newline
+7. Frontend Quality Report card-аар radar chart + bar breakdown + санал + сул scene-уудыг харуулна \newline
+8. Сул scene-уудын тэмдэглэгээ EditStudio-ийн тухайн scene card-ын зүүн талд автоматаар гарна \\
+\hline
+\textbf{Дараах нөхцөл} & Эвалуатын үр дүн DB-д хадгалагдаж дараа дахин ажиллуулах боломжтой \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Project удирдлагын Use Case-ууд}
+
+\begin{table}[h!]
+\centering
+\caption{UC-20 --- Видеог folder руу зөөх (Drag-and-drop)}
+\label{tab:uc20}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-20 \\
+\hline
+\textbf{Нэр} & Видеог folder руу зөөх (drag-and-drop) \\
+\hline
+\textbf{Актор} & Энгийн / Pro хэрэглэгч \\
+\hline
+\textbf{Үндсэн урсгал} &
+1. Хэрэглэгч Projects хуудас дээр folder-уудаа харна \newline
+2. Видео card-ыг хулганаар чирнэ \newline
+3. Хөвсгөр preview thumbnail хулганы дагалдан хөдөлнө \newline
+4. Folder дээр чирэхэд folder нь cyan glow animation-аар тэмдэглэгдэнэ \newline
+5. Хэрэглэгч folder дээр drop хийнэ \newline
+6. Backend PATCH /api/projects/move хүсэлтийг хүлээж авч projectId-ийг шинэчилнэ \newline
+7. UI шинэчлэгдэж видео шинэ folder-д харагдана \\
+\hline
+\textbf{Дараах нөхцөл} & Видеоны projectId DB-д шинэчлэгдэнэ \\
 \hline
 \end{tabular}
 \end{table}
 
 \section{Бүлгийн дүгнэлт}
 
-Энэ бүлэгт системийн гурван үүрэгтэй хэрэглэгч --- Хэрэглэгч, Контент Менежер, Супер Админ --- нарын 10 хэрэглэгчийн шаардлага (UR), 14 функциональ шаардлага (FR), 8 функциональ бус шаардлага (NFR) болон 10 Use Case-г тодорхойлсон. RBAC эрхийн матрицыг Free/Pro/Admin гэсэн ялгаатайгаар тодорхойлж, Studio засварлагчийн Use Case урсгалыг дэлгэрэнгүүй гаргав.
+Энэхүү бүлэгт ViralAI системийн \textbf{гурван үндсэн актор} (Энгийн хэрэглэгч, Pro хэрэглэгч, Супер Админ)-ыг тодорхойлж, нийт \textbf{14 хэрэглэгчийн шаардлага (UR)}, \textbf{39 функциональ шаардлага (FR)} болон \textbf{14 функциональ бус шаардлага (NFR)}-ыг гаргаж тогтоов. RBAC эрхийн матрицыг Энгийн / Pro / Admin гурван түвшинд нарийвчилж, аль ямар үйлдэл хэн хийх боломжтойг тодорхойлсон.
+
+Системийн нийт \textbf{22 Use Case}-ийг 6 функциональ бүлэгт хуваан зохион байгуулав:
+\begin{itemize}
+  \item \textbf{Баталгаажуулалт} (UC-01, UC-02)
+  \item \textbf{Видео үүсгэлт} (UC-03 -- UC-09): үндсэн pipeline, A/B variant, cancel + draft хадгалалт
+  \item \textbf{Studio засварлагч} (UC-10 -- UC-16): scene түвшний дэлгэрэнгүй засвар, drag-and-drop reorder, custom upload, partial re-render
+  \item \textbf{AI үнэлгээ} (UC-17, UC-18): Quality Report (5-хэмжүүрт радар), хэрэглэгчийн үнэлгээ
+  \item \textbf{Project удирдлага} (UC-19, UC-20): folder, drag-and-drop
+  \item \textbf{Админ удирдлага} (UC-21, UC-22)
+\end{itemize}
+
+Эдгээр шаардлага болон Use Case-уудыг үндэслэн дараагийн бүлэгт системийн \textbf{өгөгдлийн сангийн схем} (Sequelize models, ER diagram), \textbf{архитектурын дизайн} (Layered architecture), \textbf{API endpoint}-ийн тодорхойлолт болон \textbf{Activity / Sequence диаграм}-ыг боловсруулна.
