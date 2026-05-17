@@ -1,0 +1,146 @@
+% Бүлэг 2
+
+\chapter{Судалгаа}
+\label{Chapter2}
+\pagecolor{white}
+
+\section{Төстэй системүүдийн судалгаа}
+
+AI-д суурилсан видео контент үүсгэлтийн чиглэлээр дотоод болон гадаадад хэд хэдэн судалгааны ажил хийгдсэн байна. Олон улсын туршлагаас харвал дараах системүүд амжилттай ажиллаж байна:
+
+\begin{itemize}
+\item \textbf{InVideo AI} (АНУ, 2017 оноос): Текст prompt-оос видео, дуу хоолой, визуал нэгтгэн автоматаар контент үүсгэдэг. 16 сая гаруй медиа хөрөнгөтэй.
+\item \textbf{Pictory AI} (АНУ, 2021 оноос): Скрипт болон блог постоос видео автоматаар үүсгэх, хялбар ашиглалттай платформ.
+\item \textbf{Synthesia} (Их Британи, 2017 оноос): Хиймэл аватар ашиглан корпорейт видео бүтээх, 70+ хэлд дэмжигдсэн.
+\item \textbf{Runway Gen-3} (АНУ): Мэргэжлийн түвшний AI видео үүсгэлт, кино үйлдвэрлэлд хэрэглэгддэг.
+\end{itemize}
+
+Монгол улсын хувьд ижил төстэй автомат видео контент үүсгэлтийн систем одоогоор байхгүй байна. Б.Мөнхбаяр нарын 2024 оны судалгааны ажилд AI ашиглан текстийг дуу хоолойд хөрвүүлэх системийн шинжилгээ хийгдсэн байна.
+
+Харьцуулсан шинжилгээний үр дүнд одоо байгаа бүх системд Монгол хэлний дэмжлэг байхгүй, хэрэглэгч видео үүсгэгдсэний дараа scene түвшинд засварлах боломж хязгаарлагдмал, хэсэгчилсэн re-render хийх боломж байхгүй байгааг тодорхойлов.
+
+\begin{table}[h!]
+\centering
+\caption{Олон улсын системүүдтэй харьцуулалт}
+\label{tab:comparison}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Онцлог шинж} & \textbf{InVideo AI} & \textbf{Pictory} & \textbf{Synthesia} & \textbf{Runway Gen-3} & \textbf{Манай систем} \\
+\hline
+Монгол хэл & \texttimes & \texttimes & \texttimes & \texttimes & \checkmark \\
+\hline
+Scene-by-scene зураг & Хязгаарлагдмал & \texttimes & \texttimes & \checkmark & \checkmark \\
+\hline
+Studio засварлагч & Хэсэгчилсэн & Хэсэгчилсэн & \texttimes & \texttimes & \checkmark \\
+\hline
+Хэсэгчилсэн re-render & \texttimes & \texttimes & \texttimes & \texttimes & \checkmark \\
+\hline
+Background music & \checkmark & \checkmark & \checkmark & \texttimes & \checkmark \\
+\hline
+Subtitle & \checkmark & \checkmark & \checkmark & \texttimes & \checkmark \\
+\hline
+Нээлттэй API & \checkmark & \texttimes & \checkmark & \checkmark & \checkmark \\
+\hline
+Үнэ & Төлбөртэй & Төлбөртэй & Өндөр & Өндөр & Төлбөртэй \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Ашиглах AI загваруудын судалгаа}
+
+\subsection{AI загваруудын харьцуулалт ба сонголтын үндэслэл}
+
+Энэхүү систем нь богино хэмжээний AI видео автоматаар үүсгэдэг тул 3 үндсэн төрлийн загвар сонгох шаардлагатай. Үүнд:
+
+\begin{itemize}
+\item \textbf{Script/Text generation model} --- видеоны гарчиг, scene, narration, image prompt үүсгэх
+\item \textbf{Image generation model} --- scene бүрийн зураг үүсгэх
+\item \textbf{Voice generation model} --- narration-ийг дуу болгон хувиргах
+\end{itemize}
+
+Сонголт хийхдээ зөвхөн чанарыг бус, хурд, өртөг, интеграцийн хялбар байдал, production readiness, multilingual support зэрэг шалгуурыг хамтад нь авч үзэх нь зүйтэй.
+
+\subsubsection{Сонголтын шалгуур}
+
+Манай системийн зорилго нь олон scene бүхий богино видео хурдан үүсгэх тул дараах шалгуурыг ашиглан загваруудыг сонгов.
+
+\begin{table}[h!]
+\centering
+\caption{AI загвар сонголтын шалгуур}
+\label{tab:criteria}
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Шалгуур} & \textbf{Тайлбар} \\
+\hline
+Чанар & Үүсгэсэн үр дүн хэр бодит, уялдаатай, ашиглахад бэлэн эсэх \\
+\hline
+Хурд & Нэг хүсэлтэд хариулах latency болон throughput \\
+\hline
+Өртөг & Токен, character, image, resolution зэргээс хамаарах зардал \\
+\hline
+Prompt дагах чадвар & Заавар, стиль, бүтэц, деталь хэр сайн дагаж байгаа эсэх \\
+\hline
+Multilingual support & Монгол/англи зэрэг олон хэлтэй ажиллах боломж \\
+\hline
+Production readiness & Stable эсэх, rate limit ба найдвартай байдал \\
+\hline
+Интеграцийн хялбар байдал & API, SDK, documentation, workflow-д оруулахад хялбар эсэх \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Скрипт үүсгэлтийн загварууд}
+
+\subsubsection{Groq + Llama 3.3 70B}
+
+Groq нь LPU (Language Processing Unit) хэмээх тусгай чипс ашиглан маш хурдан inference хийдэг платформ юм. Llama 3.3 70B загвар нь текст үүсгэлт, дагаварлалт болон олон хэлтэй ажиллахад давуу талтай. Манай системд скрипт, narration, image prompt үүсгэлтэд голлон ашигладаг.
+
+\subsubsection{Anthropic Claude}
+
+Anthropic Claude нь урт текст, бүтэцтэй гаралт, дагаварлалт болон найдвартай байдлаараа онцлогтой. Скрипт үүсгэлтийн fallback загвар болгон ашиглагдана.
+
+\subsection{Зураг үүсгэлтийн загварууд}
+
+\subsubsection{Google Gemini Flash Image 2.5}
+
+Google-ийн Gemini Flash Image 2.5 нь хурдан, өндөр чанарын зураг үүсгэлтийг харьцангуй бага зардлаар хийдэг загвар юм. Scene бүрт тохирох зураг үүсгэхэд ашиглагдана.
+
+\subsection{Дуу хоолой синтезийн загварууд}
+
+\subsubsection{ElevenLabs}
+
+ElevenLabs нь байгалийн дуу хоолойтой TTS платформ бөгөөд олон хэлд дэмжлэгтэй. Flash v2.5 болон Multilingual v2 загваруудыг ашиглана.
+
+\subsubsection{CHIMEGE}
+
+Chimege нь Монгол хэлний TTS систем бөгөөд дотоодын хэрэглэгчдэд зориулсан байгалийн дуу хоолойг хангана.
+
+\subsubsection{Google Gemini TTS}
+
+Google Gemini-ийн TTS модуль нь олон хэл дэмжиж, Монгол хэлийг хэсэгчилэн дэмждэг.
+
+\section{Ашиглах технологийн судалгаа}
+
+\subsection{Backend: Node.js}
+
+Node.js нь asynchronous, event-driven JavaScript runtime бөгөөд scalable network application хөгжүүлэхэд зориулагдсан. Манай системд AI model API дуудлага, database access, media processing request, file upload, progress update зэрэг олон I/O-bound үйлдэл нэгэн зэрэг явагддаг тул Node.js маш тохиромжтой.
+
+\subsection{Web framework: Express}
+
+Express нь Node.js дээр суурилсан fast, unopinionated, minimalist web framework юм. Routing, middleware architecture нь API хөгжүүлэлтэд хялбар бөгөөд validation, authentication, logging, error handling-ийг middleware хэлбэрээр зохион байгуулах боломжтой.
+
+\subsection{Өгөгдлийн сан: PostgreSQL}
+
+PostgreSQL нь ACID хангалтай, нарийн схемтэй, relations-тэй ажилладаг тул видео, scene, хэрэглэгч, subscription-ийн хоорондын нарийн харилцааг тодорхойлоход тохиромжтой.
+
+\subsection{ORM: Sequelize}
+
+Sequelize v6 нь PostgreSQL-тэй ажиллах боломжийг TypeScript-тэй нийцтэйгээр хангадаг. Model definition, migration, association зэргийг ORM хэлбэрээр зохицуулна.
+
+\subsection{Видео боловсруулалт: FFmpeg}
+
+FFmpeg нь мультимедиа тайлах, кодлох, нэгтгэх, хөрвүүлэх нэгдмэл хэрэгсэл юм. Зураг + аудио + subtitle нэгтгэн MP4 гаргах, re-render хийхэд ашиглагдана.
+
+\section{Бүлгийн дүгнэлт}
+
+Энэ бүлэгт InVideo AI, Pictory, Synthesia, Runway Gen-3 зэрэг олон улсын системүүдтэй харьцуулалт хийж, манай системийн гол давуу тал болох Монгол хэлний дэмжлэг, AI Video Studio засварлагч, хэсэгчилсэн re-render боломжийг тодорхойлов. Мөн Groq/Llama 3.3, Google Gemini Flash Image 2.5, ElevenLabs/Chimege, FFmpeg, PostgreSQL зэрэг технологиудын судалгааг хийж, системд нэгтгэх техникийн үндэслэлийг гаргав.

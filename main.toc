@@ -1,0 +1,81 @@
+\babel@toc {mongolian}{}\relax 
+\contentsline {chapter}{Зохиогчийн эрх хамгаалал}{i}{section*.2}%
+\contentsline {chapter}{Хураангуй}{ii}{section*.2}%
+\contentsline {chapter}{Талархал}{iii}{section*.3}%
+\contentsline {chapter}{Товчилсон үгс}{iv}{table.0.1}%
+\contentsline {chapter}{\numberline {1}Удиртгал}{1}{chapter.8}%
+\contentsline {section}{\numberline {1.1}Сэдэв сонгосон үндэслэл}{1}{section.9}%
+\contentsline {section}{\numberline {1.2}Зорилго}{1}{section.10}%
+\contentsline {section}{\numberline {1.3}Зорилт}{2}{section.18}%
+\contentsline {section}{\numberline {1.4}Бүлгийн дүгнэлт}{2}{section.28}%
+\contentsline {chapter}{\numberline {2}Судалгаа}{3}{chapter.29}%
+\contentsline {section}{\numberline {2.1}Төстэй системүүдийн судалгаа}{3}{section.30}%
+\contentsline {section}{\numberline {2.2}Ашиглах AI загваруудын судалгаа}{3}{section.32}%
+\contentsline {subsection}{\numberline {2.2.1}AI загваруудын харьцуулалт ба сонголтын үндэслэл}{3}{subsection.33}%
+\contentsline {subsubsection}{Сонголтын шалгуур}{4}{subsubsection*.34}%
+\contentsline {subsection}{\numberline {2.2.2}Скрипт үүсгэлтийн загварууд}{4}{subsection.36}%
+\contentsline {subsubsection}{Groq + Llama 3.3 70B}{4}{subsubsection*.37}%
+\contentsline {subsubsection}{Anthropic Claude}{4}{subsubsection*.38}%
+\contentsline {subsection}{\numberline {2.2.3}Зураг үүсгэлтийн загварууд}{4}{subsection.39}%
+\contentsline {subsubsection}{Google Gemini Flash Image 2.5}{4}{subsubsection*.40}%
+\contentsline {subsection}{\numberline {2.2.4}Дуу хоолой синтезийн загварууд}{4}{subsection.41}%
+\contentsline {subsubsection}{ElevenLabs}{4}{subsubsection*.42}%
+\contentsline {subsubsection}{CHIMEGE}{5}{subsubsection*.43}%
+\contentsline {subsubsection}{Google Gemini TTS}{5}{subsubsection*.44}%
+\contentsline {section}{\numberline {2.3}Ашиглах технологийн судалгаа}{5}{section.45}%
+\contentsline {subsection}{\numberline {2.3.1}Backend: Node.js}{5}{subsection.46}%
+\contentsline {subsection}{\numberline {2.3.2}Web framework: Express}{5}{subsection.47}%
+\contentsline {subsection}{\numberline {2.3.3}Өгөгдлийн сан: PostgreSQL}{5}{subsection.48}%
+\contentsline {subsection}{\numberline {2.3.4}ORM: Sequelize}{5}{subsection.49}%
+\contentsline {subsection}{\numberline {2.3.5}Видео боловсруулалт: FFmpeg}{5}{subsection.50}%
+\contentsline {section}{\numberline {2.4}Бүлгийн дүгнэлт}{5}{section.51}%
+\contentsline {chapter}{\numberline {3}Системийн шаардлага}{6}{chapter.52}%
+\contentsline {section}{\numberline {3.1}Системийн ерөнхий тодорхойлолт}{6}{section.53}%
+\contentsline {section}{\numberline {3.2}Хэрэглэгчийн шаардлага}{6}{section.54}%
+\contentsline {section}{\numberline {3.3}Функциональ шаардлага}{6}{section.56}%
+\contentsline {section}{\numberline {3.4}Функциональ бус шаардлага}{6}{section.58}%
+\contentsline {section}{\numberline {3.5}Системийн хэрэглэгчийн төрлүүд}{6}{section.60}%
+\contentsline {section}{\numberline {3.6}Use Case-уудын жагсаалт}{7}{section.65}%
+\contentsline {section}{\numberline {3.7}Use Case диаграм}{8}{section.66}%
+\contentsline {section}{\numberline {3.8}Use Case тодорхойлолтууд}{8}{section.68}%
+\contentsline {subsection}{\numberline {3.8.1}Үндсэн үйл ажиллагааны Use Case-ууд}{8}{subsection.69}%
+\contentsline {section}{\numberline {3.9}Бүлгийн дүгнэлт}{8}{section.72}%
+\contentsline {chapter}{\numberline {4}Хөгжүүлэлт ба туршилт}{10}{chapter.73}%
+\contentsline {section}{\numberline {4.1}Системийн архитектур}{10}{section.74}%
+\contentsline {section}{\numberline {4.2}Өгөгдлийн сангийн зохиомж}{10}{section.76}%
+\contentsline {subsection}{\numberline {4.2.1}Өгөгдлийн сангийн схемийн ерөнхий бүтэц}{10}{subsection.77}%
+\contentsline {subsection}{\numberline {4.2.2}users хүснэгт}{10}{subsection.78}%
+\contentsline {subsection}{\numberline {4.2.3}videos хүснэгт}{10}{subsection.80}%
+\contentsline {subsection}{\numberline {4.2.4}scenes хүснэгт}{11}{subsection.82}%
+\contentsline {subsection}{\numberline {4.2.5}Хүснэгтүүдийн хоорондын холбоос}{11}{subsection.84}%
+\contentsline {subsection}{\numberline {4.2.6}Индекс ба гүйцэтгэлийн оптимизаци}{11}{subsection.86}%
+\contentsline {section}{\numberline {4.3}Backend API хөгжүүлэх}{12}{section.87}%
+\contentsline {subsection}{\numberline {4.3.1}Технологийн стек}{12}{subsection.88}%
+\contentsline {subsection}{\numberline {4.3.2}API endpoint жагсаалт}{13}{subsection.90}%
+\contentsline {subsection}{\numberline {4.3.3}Authentication ба JWT хэрэгжүүлэлт}{13}{subsection.94}%
+\contentsline {subsection}{\numberline {4.3.4}Middleware ба эрхийн шалгалт}{14}{subsection.97}%
+\contentsline {section}{\numberline {4.4}Frontend интерфэйс хөгжүүлэх}{14}{section.98}%
+\contentsline {subsection}{\numberline {4.4.1}Технологийн стек}{14}{subsection.99}%
+\contentsline {subsection}{\numberline {4.4.2}Component ба хуудсын архитектур}{14}{subsection.101}%
+\contentsline {subsection}{\numberline {4.4.3}AI Video Studio засварлагчийн UI}{15}{subsection.102}%
+\contentsline {section}{\numberline {4.5}AI service-үүдтэй холболт}{15}{section.107}%
+\contentsline {subsection}{\numberline {4.5.1}Groq + Llama 3.3 70B (скрипт үүсгэлт)}{15}{subsection.108}%
+\contentsline {subsection}{\numberline {4.5.2}Imagen 4 / Nano Banana (зураг үүсгэлт)}{15}{subsection.109}%
+\contentsline {subsection}{\numberline {4.5.3}ElevenLabs (дуу хоолой синтез)}{15}{subsection.110}%
+\contentsline {subsection}{\numberline {4.5.4}FFmpeg видео угсралтын pipeline}{15}{subsection.111}%
+\contentsline {subsection}{\numberline {4.5.5}Cloudinary болон AWS S3 нийлмэл стратеги}{16}{subsection.118}%
+\contentsline {section}{\numberline {4.6}Системийн туршилт}{16}{section.119}%
+\contentsline {subsection}{\numberline {4.6.1}Туршилтын стратеги}{16}{subsection.120}%
+\contentsline {subsection}{\numberline {4.6.2}Туршилтын хэрэгсэл}{16}{subsection.122}%
+\contentsline {subsection}{\numberline {4.6.3}Гол туршилтын кейсүүд}{16}{subsection.124}%
+\contentsline {subsection}{\numberline {4.6.4}Code coverage үр дүн}{17}{subsection.127}%
+\contentsline {subsection}{\numberline {4.6.5}Гүйцэтгэлийн туршилт}{17}{subsection.129}%
+\contentsline {section}{\numberline {4.7}Илэрсэн алдааг засварлах}{17}{section.131}%
+\contentsline {section}{\numberline {4.8}Үр дүнг баримтжуулах}{18}{section.133}%
+\contentsline {subsection}{\numberline {4.8.1}API documentation}{18}{subsection.134}%
+\contentsline {subsection}{\numberline {4.8.2}Code documentation}{18}{subsection.135}%
+\contentsline {subsection}{\numberline {4.8.3}Хэрэглэгчийн гарын авлага}{18}{subsection.136}%
+\contentsline {subsection}{\numberline {4.8.4}Системийн ажиллагааны үр дүн}{18}{subsection.137}%
+\contentsline {section}{\numberline {4.9}Бүлгийн дүгнэлт}{18}{section.139}%
+\contentsline {chapter}{Дүгнэлт}{20}{section.139}%
+\contentsline {chapter}{Ном зүй}{23}{Item.144}%

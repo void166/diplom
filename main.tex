@@ -1,0 +1,156 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Их сургуулийн оюутны тезис
+% LaTeX Загвар
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+11pt,
+oneside,
+english,
+singlespacing,
+nolistspacing,
+headsepline,
+]{MUST-Thesis}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[mongolian]{babel}
+
+\usepackage{titlesec}
+\usepackage[table]{xcolor}
+\usepackage{rotating}
+\usepackage{multirow}
+
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\tcbuselibrary{skins}
+
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+
+\tcbset{tab2/.style={enhanced,fonttitle=\bfseries,fontupper=\footnotesize\rmfamily,
+		colback=white,colframe=black,colbacktitle=white,
+		coltitle=black,center title,sharp corners=all}}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,automata}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{pagecolor}
+
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+\definecolor{lightlightgray}{gray}{0.9}
+
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Эх код}
+\lstset{
+basicstyle=\ttfamily,
+keywordstyle=\color{OliveGreen},
+commentstyle=\color{CadetBlue},
+numbers=left,
+numberstyle=\tiny,
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{lightlightgray},
+frame=none,
+tabsize=2,
+captionpos=t,
+breaklines=true,
+breakatwhitespace=false,
+showspaces=false,
+showtabs=false,
+columns=flexible,
+}
+
+\usepackage[autostyle=false]{csquotes}
+\usepackage[backend=bibtex,natbib=true,sorting=none,sortcites]{biblatex}
+
+\addbibresource{references.bib}
+
+\newcommand{\authorshipname}{Зохиогчийн эрх хамгаалал}
+\newcommand{\abbrevname}{Товчилсон үгс}
+\newcommand{\symbolsname}{Таних тэмдэгтүүд}
+\newcommand{\acknowledgementname}{Талархал}
+\newcommand{\abstractname}{Хураангуй}
+\newcommand{\conclusionname}{Дүгнэлт}
+
+%-------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%-------------------------------------------------------------------------------
+
+\thesistitle{Generative AI ашиглан богино хэмжээний видео контентыг автоматаар үүсгэх, үнэлэх системийн загварчлал ба хөгжүүлэлт}
+\thesistitleeng{}
+\thesistype{Бакалаврын төгсөлтийн ажил}
+\authorshort{М.Ренчин}
+\authorlong{Мөнхчулууны Ренчин}
+\authorcode{B221940198}
+\addresses{}
+\supervisor{Магистр (M.Sc) П.Нарангэрэл}
+\reader{}
+\advisorA{}
+\advisorB{}
+\degreeind{D061304}
+\degree{Мэдээлэлийн технологи}
+\subject{Мэдээлэлийн технологи}
+\keywords{хиймэл оюун, видео контент, Node.js, TypeScript, Groq, ElevenLabs, FFmpeg, REST API}
+\department{Мэдээлэл, Холбооны Технологийн Тэнхим}
+\deptchair{Доктор (PhD), Дэд профессор, А.Алтангэрэл }
+\group{Мэдээлэлийн технологи}
+\faculty{\href{http://www.sict.edu.mn}{Мэдээлэл, Холбооны Технологийн Сургууль}}
+\university{\href{http://www.must.edu.mn}{Шинжлэх Ухаан, Технологийн Их Сургууль}}
+
+\hypersetup{pdftitle=\ttitle}
+\hypersetup{pdfauthor=\shortname}
+\hypersetup{pdfkeywords=\keywordnames}
+\hypersetup{allcolors=black}
+
+\begin{document}
+
+\frontmatter
+\pagestyle{plain}
+
+\include{FrontBackMatter/Titlepage}
+\include{FrontBackMatter/Plan-Review}
+\include{FrontBackMatter/Declaration}
+\include{FrontBackMatter/Abstract}
+\include{FrontBackMatter/Acknowledgments}
+\include{FrontBackMatter/Abbreviations}
+
+%-------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%-------------------------------------------------------------------------------
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+%-------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%-------------------------------------------------------------------------------
+
+\mainmatter
+\pagestyle{thesis}
+\myformat
+
+\include{Chapters/Chapter1}
+\include{Chapters/Chapter2}
+\include{Chapters/Chapter3}
+\include{Chapters/Chapter4}
+\include{Chapters/Conclusion}
+
+%-------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%-------------------------------------------------------------------------------
+\defformat
+
+\addchaptertocentry{Ном зүй}
+\nocite{*}
+\printbibliography[heading=bibliography,title={Ном зүй}]
+
+\end{document}

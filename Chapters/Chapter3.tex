@@ -1,0 +1,250 @@
+% Бүлэг 3
+
+\chapter{Системийн шаардлага}
+\label{Chapter3}
+\pagecolor{white}
+
+\section{Системийн ерөнхий тодорхойлолт}
+
+ViralAI систем нь хэрэглэгч зөвхөн сэдэв оруулахад скрипт үүсгэх, зураг үүсгэх, дуу хоолой синтез хийх, видео угсрах гэсэн 4 үндсэн үе шатыг автоматаар гүйцэтгэж богино хэмжээний видео контент бэлдэдэг цогц веб систем юм. Система нь гурван үндсэн актортой: Хэрэглэгч (User), Контент Менежер (Content Manager), Супер Админ (Super Admin).
+
+\section{Хэрэглэгчийн шаардлага}
+
+\begin{table}[h!]
+\centering
+\caption{Хэрэглэгчийн шаардлагын жагсаалт}
+\label{tab:user_req}
+\begin{tabular}{|c|p{4cm}|p{7cm}|}
+\hline
+\textbf{ID} & \textbf{Шаардлага} & \textbf{Тайлбар} \\
+\hline
+UR-01 & Бүртгэл, нэвтрэлт & Хэрэглэгч бүртгүүлж, нэвтрэх боломжтой байна \\
+\hline
+UR-02 & Видео үүсгэх & Сэдэв оруулахад автоматаар видео үүсгэгдэнэ \\
+\hline
+UR-03 & Явц хянах & Видео үүсгэлтийн явцыг бодит цагт харна \\
+\hline
+UR-04 & Studio засварлагч & Видеогоо scene бүрт засварлах боломжтой \\
+\hline
+UR-05 & Видео жагсаалт & Өөрийн бүх видеог харах, удирдах \\
+\hline
+UR-06 & Projects & Видеог folder бүлгээр зохион байгуулах \\
+\hline
+UR-07 & Subscription & Сарын хязгаар болон Pro эрхийг удирдах \\
+\hline
+UR-08 & Admin панел & Бүх хэрэглэгч, видеог харж удирдах (Admin) \\
+\hline
+UR-09 & Статистик & Систем, хэрэглэгчийн ерөнхий статистик (Admin) \\
+\hline
+UR-10 & Аюулгүй байдал & JWT-д суурилсан баталгаажуулалт \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Функциональ шаардлага}
+
+\begin{table}[h!]
+\centering
+\caption{Функциональ шаардлагын жагсаалт}
+\label{tab:func_req}
+\begin{tabular}{|c|p{3cm}|p{7.5cm}|}
+\hline
+\textbf{ID} & \textbf{Нэр} & \textbf{Тайлбар} \\
+\hline
+FR-01 & Бүртгэл & Хэрэглэгч email, нууц үгээр бүртгүүлнэ \\
+\hline
+FR-02 & Нэвтрэлт & JWT access + refresh token олгоно \\
+\hline
+FR-03 & Скрипт үүсгэлт & Groq/Claude API-аар scene бүрийн narration үүсгэнэ \\
+\hline
+FR-04 & Зураг үүсгэлт & Gemini Flash Image 2.5-аар scene зураг үүсгэнэ \\
+\hline
+FR-05 & Аудио үүсгэлт & ElevenLabs/Chimege/Gemini TTS-аар дуу хоолой синтез хийнэ \\
+\hline
+FR-06 & Видео угсралт & FFmpeg-ээр зураг+аудио+subtitle нэгтгэж MP4 гаргана \\
+\hline
+FR-07 & Явц дамжуулалт & SSE-ээр бодит цагт явцыг хэрэглэгчид мэдэгдэнэ \\
+\hline
+FR-08 & Cloudinary хадгалалт & Бэлэн видеог CDN-д байршуулна \\
+\hline
+FR-09 & Studio засварлагч & Scene тус бүрийн зураг/аудио/текст дахин үүсгэнэ \\
+\hline
+FR-10 & Re-render & Засварласан scene-г дахин угсарна \\
+\hline
+FR-11 & RBAC & Free/Pro/Admin эрхийн ялгаатай хяналт \\
+\hline
+FR-12 & Projects & Folder үүсгэх, видеог зөөх, устгах \\
+\hline
+FR-13 & Admin удирдлага & Хэрэглэгч, видео харах, устгах, статистик \\
+\hline
+FR-14 & Rate limiting & API хэтрүүлэлтийг хязгаарлана \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Функциональ бус шаардлага}
+
+\begin{table}[h!]
+\centering
+\caption{Функциональ бус шаардлагын жагсаалт}
+\label{tab:nonfunc_req}
+\begin{tabular}{|c|p{3cm}|p{7.5cm}|}
+\hline
+\textbf{ID} & \textbf{Ангилал} & \textbf{Шаардлага} \\
+\hline
+NFR-01 & Гүйцэтгэл & 60 секундын видеог 5 минутын дотор үүсгэнэ \\
+\hline
+NFR-02 & Хандалт & API response P95 < 500ms байна \\
+\hline
+NFR-03 & Аюулгүй байдал & JWT, bcrypt, HTTPS, rate limiting ашиглана \\
+\hline
+NFR-04 & Найдвартай байдал & 99.5\%+ uptime, fallback AI strategy \\
+\hline
+NFR-05 & Өргөтгөх чадвар & Горизонталь scale хийх боломжтой архитектур \\
+\hline
+NFR-06 & Засварлах чадвар & Layered architecture, TypeScript, unit test \\
+\hline
+NFR-07 & Баримтжуулалт & Swagger API doc, TypeDoc, хэрэглэгчийн гарын авлага \\
+\hline
+NFR-08 & Хэрэглэгчийн туршлага & SPA, responsive дизайн, бодит цагийн явц \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Системийн хэрэглэгчийн төрлүүд}
+
+Систем нь гурван үндсэн хэрэглэгчийн төрлийг дэмжинэ:
+
+\begin{enumerate}
+\item \textbf{Хэрэглэгч (User)} --- бүртгэлтэй хэрэглэгч. Free болон Pro гэсэн хоёр дэд ангилалтай. Free хэрэглэгч сард хязгаарлагдсан тооны видео үүсгэж зурагны re-render хийх боломжгүй. Pro хэрэглэгч илүү олон видео үүсгэж, бүх Studio боломжийг ашиглана.
+
+\item \textbf{Контент Менежер (Content Manager)} --- системийн контентыг удирдах эрхтэй дунд шатны эрхлэгч.
+
+\item \textbf{Супер Админ (Super Admin)} --- бүх хэрэглэгч, видео, статистикийг харж удирдах хамгийн өндөр эрхтэй хэрэглэгч.
+\end{enumerate}
+
+\begin{table}[h!]
+\centering
+\caption{Хэрэглэгчийн эрхийн матриц}
+\label{tab:rbac}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Үйлдэл} & \textbf{Free} & \textbf{Pro} & \textbf{Manager} & \textbf{Admin} \\
+\hline
+Видео үүсгэх & \checkmark (хязгар) & \checkmark & \checkmark & \checkmark \\
+\hline
+Studio засварлагч & \checkmark (хэсэгчилсэн) & \checkmark & \checkmark & \checkmark \\
+\hline
+Зургийн re-render & \texttimes & \checkmark & \checkmark & \checkmark \\
+\hline
+Projects удирдах & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+Бүх хэрэглэгч харах & \texttimes & \texttimes & \texttimes & \checkmark \\
+\hline
+Бүх видео харах & \texttimes & \texttimes & \texttimes & \checkmark \\
+\hline
+Статистик харах & \texttimes & \texttimes & \texttimes & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Use Case-уудын жагсаалт}
+
+Системийн үндсэн Use Case-ууд:
+
+\begin{itemize}
+\item UC-01: Видео үүсгэх
+\item UC-02: Бүртгэл, нэвтрэлт
+\item UC-03: Видео үүсгэлтийн явц хянах (SSE)
+\item UC-04: Скрипт үүсгэлт
+\item UC-05: Видео болон медиа хадгалалт
+\item UC-06: Subscription удирдах
+\item UC-07: Studio засварлагчаар scene засварлах
+\item UC-08: Хэсэгчилсэн re-render хийх
+\item UC-09: Projects зохион байгуулах
+\item UC-10: Admin удирдлага
+\end{itemize}
+
+\section{Use Case диаграм}
+
+Дараах диаграмд системийн гурван үндсэн актор --- Хэрэглэгч, Контент Менежер, Супер Админ --- нарын хийх боломжтой бүх үйлдлүүдийг мөн гадаад AI үйлчилгээнүүдтэй (Groq/Gemini, ElevenLabs) харилцааг дүрслэв.
+
+\begin{figure}[h!]
+\centering
+% \includegraphics[width=0.9\textwidth]{Figures/usecase_diagram.png}
+\caption{ViralAI системийн Use Case диаграм}
+\label{fig:usecase}
+\end{figure}
+
+\section{Use Case тодорхойлолтууд}
+
+\subsection{Үндсэн үйл ажиллагааны Use Case-ууд}
+
+\begin{table}[h!]
+\centering
+\caption{UC-01 --- Видео үүсгэх}
+\label{tab:uc01}
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Use Case ID} & UC-01 \\
+\hline
+\textbf{Нэр} & Видео үүсгэх \\
+\hline
+\textbf{Актор} & Хэрэглэгч (Free/Pro) \\
+\hline
+\textbf{Зорилго} & Хэрэглэгч сэдэв оруулахад систем автоматаар скрипт, зураг, дуу, видео бүтээнэ \\
+\hline
+\textbf{Trigger} & Хэрэглэгч ``Видео үүсгэх'' товчийг дарна \\
+\hline
+\textbf{Өмнөх нөхцөл} & Хэрэглэгч системд бүртгэлтэй бөгөөд нэвтэрсэн байна \\
+\hline
+\textbf{Үндсэн урсгал} &
+1. Хэрэглэгч сэдэв, жанр, урт, хэл, зурагны стиль оруулна \newline
+2. Систем Groq API-аар скрипт үүсгэнэ (UC-04) \newline
+3. Систем Gemini-ээр scene бүрт зураг үүсгэнэ \newline
+4. Систем ElevenLabs-аар дуу хоолой синтез хийнэ \newline
+5. Систем FFmpeg-ээр зураг, дуу, текстийг нэгтгэн MP4 үүсгэнэ \newline
+6. Систем видеог Cloudinary-д байршуулна (UC-05) \newline
+7. Хэрэглэгчид холбоос болон мэдэгдэл ирнэ \newline
+8. Хэрэглэгч Studio засварлагч руу шилжих сонголттой болно \\
+\hline
+\textbf{Альтернатив урсгал} &
+2a. Groq timeout болвол Gemini API-д fallback хийнэ \newline
+5a. FFmpeg алдаа гарвал retry логик ажиллана \\
+\hline
+\textbf{Дараах нөхцөл} & Видео амжилттай үүсгэгдэж, хэрэглэгчийн жагсаалтад харагдана \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{UC-07 --- Studio засварлагчаар scene засварлах}
+\label{tab:uc07}
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Use Case ID} & UC-07 \\
+\hline
+\textbf{Нэр} & Studio засварлагчаар scene засварлах \\
+\hline
+\textbf{Актор} & Хэрэглэгч (Pro), Контент Менежер \\
+\hline
+\textbf{Зорилго} & Видеоны тодорхой scene-ийн narration, зураг, дуу хоолойг засварлана \\
+\hline
+\textbf{Үндсэн урсгал} &
+1. Хэрэглэгч Studio засварлагч нээнэ \newline
+2. Scene timeline-аас засварлах scene-г сонгоно \newline
+3. Narration текстийг засварлах, эсвэл AI-аар дахин бичүүлнэ \newline
+4. Зурагны prompt засварлаж дахин үүсгүүлнэ \newline
+5. Дуу хоолойг дахин синтез хийнэ \newline
+6. Preview-г харна \newline
+7. Reassemble дарж эцсийн видео дахин угсарна \\
+\hline
+\textbf{Дараах нөхцөл} & Засварласан scene бүхий шинэ видео үүснэ \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Бүлгийн дүгнэлт}
+
+Энэ бүлэгт системийн гурван үүрэгтэй хэрэглэгч --- Хэрэглэгч, Контент Менежер, Супер Админ --- нарын 10 хэрэглэгчийн шаардлага (UR), 14 функциональ шаардлага (FR), 8 функциональ бус шаардлага (NFR) болон 10 Use Case-г тодорхойлсон. RBAC эрхийн матрицыг Free/Pro/Admin гэсэн ялгаатайгаар тодорхойлж, Studio засварлагчийн Use Case урсгалыг дэлгэрэнгүүй гаргав.

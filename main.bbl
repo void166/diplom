@@ -1,0 +1,308 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global/global}
+  \entry{groq2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=G}{%
+         family={{Groq Inc.}},
+         familyi={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{G2}
+    \strng{fullhash}{G2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Groq API Documentation: LPU Inference Engine}
+    \verb{url}
+    \verb https://console.groq.com/docs/overview
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{google2025gemini}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=G}{%
+         family={{Google AI}},
+         familyi={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{G1}
+    \strng{fullhash}{G1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Gemini API --- Google AI Developer Documentation}
+    \verb{url}
+    \verb https://ai.google.dev/gemini-api/docs
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{elevenlabs2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=E}{%
+         family={{ElevenLabs}},
+         familyi={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{E2}
+    \strng{fullhash}{E2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Text-to-Speech \& Voice AI Platform Documentation}
+    \verb{url}
+    \verb https://elevenlabs.io/docs
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{magichour2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=M}{%
+         family={{Magic Hour AI}},
+         familyi={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{M1}
+    \strng{fullhash}{M1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Image \& Video Generation API Reference}
+    \verb{url}
+    \verb https://magichour.ai/api
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{clippie2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=C}{%
+         family={{Clippie AI}},
+         familyi={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{C1}
+    \strng{fullhash}{C1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{AI Video Creation Trends 2025--2026}
+    \verb{url}
+    \verb https://clippie.ai/blog
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{edenai2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=E}{%
+         family={{Eden AI}},
+         familyi={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{E1}
+    \strng{fullhash}{E1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Best AI Video Generation APIs in 2025}
+    \verb{url}
+    \verb https://www.edenai.co/post/best-ai-video-generation-apis-in-2025
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{blogginglift2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=B}{%
+         family={{BloggingLift}},
+         familyi={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{B1}
+    \strng{fullhash}{B1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Pictory AI vs InVideo AI 2025 Comparison}
+    \verb{url}
+    \verb https://blogginglift.com/pictory-ai-vs-invideo-ai/
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{cloudinary2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=C}{%
+         family={{Cloudinary}},
+         familyi={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{C2}
+    \strng{fullhash}{C2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Cloudinary vs. S3: Choosing the Right Solution}
+    \verb{url}
+    \verb https://cloudinary.com/guides/ecosystems/cloudinary-vs-s3
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{axis2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=A}{%
+         family={{Axis Intelligence}},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{A1}
+    \strng{fullhash}{A1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{27 Best AI Video Generators: Scientific Analysis}
+    \verb{url}
+    \verb https://axis-intelligence.com/best-ai-video-generator-2025-analysis/
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{ffmpeg2024}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=F}{%
+         family={{Fluent-FFmpeg}},
+         familyi={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{F1}
+    \strng{fullhash}{F1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Node.js FFmpeg API Documentation}
+    \verb{url}
+    \verb https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
+    \endverb
+    \field{year}{2024}
+  \endentry
+
+  \entry{sequelize2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={{Sequelize}},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Sequelize ORM v6 Documentation}
+    \verb{url}
+    \verb https://sequelize.org/docs/v6/
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{openai2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=O}{%
+         family={{OpenAI}},
+         familyi={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{O1}
+    \strng{fullhash}{O1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{OpenAI Node.js SDK Reference}
+    \verb{url}
+    \verb https://platform.openai.com/docs/libraries
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{nodejs2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=N}{%
+         family={{Node.js Foundation}},
+         familyi={N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{N1}
+    \strng{fullhash}{N1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Node.js Official Documentation}
+    \verb{url}
+    \verb https://nodejs.org/en/docs/
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{react2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=M}{%
+         family={{Meta Open Source}},
+         familyi={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{M2}
+    \strng{fullhash}{M2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{React --- The library for web and native user interfaces}
+    \verb{url}
+    \verb https://react.dev
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{postgresql2025}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=P}{%
+         family={{PostgreSQL Global Development Group}},
+         familyi={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{P1}
+    \strng{fullhash}{P1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{PostgreSQL 16 Documentation}
+    \verb{url}
+    \verb https://www.postgresql.org/docs/
+    \endverb
+    \field{year}{2025}
+  \endentry
+
+  \entry{munkbayar2024}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=�}{%
+         family={Б.Мөнхбаяр},
+         familyi={�\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{�1}
+    \strng{fullhash}{�1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{AI ашиглан текстийг дуу хоолойд
+  хөрвүүлэх системийн шинжилгээ}
+    \field{journaltitle}{МХТС-ийн эрдэм шинжилгээний
+  бүтээл}
+    \field{year}{2024}
+  \endentry
+\enddatalist
+\endinput
