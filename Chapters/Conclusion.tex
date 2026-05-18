@@ -32,7 +32,7 @@
 
 Системийн бүтцийн хувьд \textbf{давхаргат архитектур} (Layered Architecture) хэрэгжүүлэв. Frontend, Backend, Өгөгдлийн сан, Гадаад AI үйлчилгээ гэсэн дөрвөн давхарга тус бүрдээ тодорхой үүрэг гүйцэтгэх ба систем засвар үйлчилгээ, өргөтгөл хийхэд хялбар болов.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \caption{Хэрэгжүүлсэн технологийн стек}
 \label{tab:tech_stack}
@@ -135,9 +135,7 @@ Backend & Node.js, Express 5, TypeScript, Sequelize ORM & RESTful API серве
 
 \section{Цаашдын хөгжүүлэлтийн санал}
 
-\subsection{Цаашдын хөгжүүлэлтийн санал}
-
-\subsubsection{Архитектурын сайжруулалт}
+\subsection{Архитектурын сайжруулалт}
 \begin{enumerate}
   \item \textbf{Job Queue систем} --- BullMQ эсвэл RabbitMQ ашиглан ар тал дамжлагад ажлын дараалал, дахин оролдох механизм (retry, exponential backoff, dead-letter queue) хэрэгжүүлбэл олон хэрэглэгчийн нэгэн зэрэг хүсэлтийг зохистой зохицуулна.
 
@@ -148,7 +146,7 @@ Backend & Node.js, Express 5, TypeScript, Sequelize ORM & RESTful API серве
   \item \textbf{Horizontal scaling} --- Docker контейнерчлэлт, Kubernetes orchestration-аар олон instance ажиллах боломж.
 \end{enumerate}
 
-\subsubsection{Функционал өргөтгөл}
+\subsection{Функционал өргөтгөл}
 \begin{enumerate}
   \setcounter{enumi}{4}
   \item \textbf{Олон форматын видео экспорт} --- 9:16, 16:9, 1:1, 4:5 харьцаа болон Reel / Short / TikTok-тэй тохирох preset.
@@ -164,7 +162,7 @@ Backend & Node.js, Express 5, TypeScript, Sequelize ORM & RESTful API серве
   \item \textbf{Real-time хамтын ажиллагаа} --- Liveblocks эсвэл Y.js ашиглан олон хэрэглэгч нэг видеог нэгэн зэрэг засварлах боломж (Google Docs-маягтай).
 \end{enumerate}
 
-\subsubsection{Контент болон дотоодын зах зээл}
+\subsection{Контент болон дотоодын зах зээл}
 \begin{enumerate}
   \setcounter{enumi}{10}
   \item \textbf{Монгол хэлний NLP модуль} --- Транслитераци, sentiment analysis, domain-specific lexicon (түүхэн, шашны, орчин үеийн slang).
@@ -191,9 +189,11 @@ SSE технологи ашиглан үүсгэлтийн явцыг бодит
 
 Эцэст нь, хиймэл оюун ухааны технологи Монголын контент үүсгэх салбарт практик хэрэглээнд нэвтрэх боломжтой, техникийн хувьд хэрэгжих боломжтой бөгөөд орон нутгийн хэлний онцлог, зах зээлийн хэрэгцээнд нийцсэн шийдэл бий болгох боломжтой болохыг энэхүү ажил нотоллоо.
 
+\clearpage
 
 
-\subsubsection*{AI болон LLM үйлчилгээний албан ёсны баримт бичиг}
+
+\subsubsection*{Ашигласан материал}
 
 \begin{enumerate}
   \item Anthropic. (2025). \textit{Claude API Documentation --- Messages API}. \\
@@ -210,7 +210,12 @@ SSE технологи ашиглан үүсгэлтийн явцыг бодит
         \url{https://elevenlabs.io/docs}
   \item Chimege LLC. (2025). \textit{Chimege Mongolian TTS API Reference}. \\
         \url{https://chimege.com/api-docs}
-  \setcounter{enumi}{11}
+\end{enumerate}
+
+\subsubsection*{Backend технологийн баримт бичиг}
+
+\begin{enumerate}
+  \setcounter{enumi}{7}
   \item OpenJS Foundation. (2024). \textit{Node.js Documentation}. \\
         \url{https://nodejs.org/docs/latest/api/}
   \item Express. (2024). \textit{Express 5 --- Fast, unopinionated, minimalist web framework}. \\
