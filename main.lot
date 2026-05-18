@@ -11,43 +11,43 @@
 \contentsline {table}{\numberline {3.1}{\ignorespaces Хэрэглэгчийн шаардлагын жагсаалт}}{15}{table.caption.81}%
 \contentsline {table}{\numberline {3.2}{\ignorespaces Системийн хэрэглэгчийн төрлүүд}}{16}{table.caption.83}%
 \contentsline {table}{\numberline {3.3}{\ignorespaces Энгийн хэрэглэгчийн функциональ шаардлага}}{16}{table.caption.86}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Pro хэрэглэгчийн функциональ шаардлага}}{18}{table.caption.88}%
-\contentsline {table}{\numberline {3.5}{\ignorespaces Супер Админы функциональ шаардлага}}{19}{table.caption.90}%
-\contentsline {table}{\numberline {3.6}{\ignorespaces Функциональ бус шаардлага}}{20}{table.caption.92}%
-\contentsline {table}{\numberline {3.7}{\ignorespaces Хэрэглэгчийн эрхийн матриц}}{22}{table.caption.95}%
-\contentsline {table}{\numberline {3.8}{\ignorespaces UC-01 --- Хэрэглэгчийн бүртгэл үүсгэх}}{23}{table.caption.100}%
-\contentsline {table}{\numberline {3.9}{\ignorespaces UC-02 --- Системд нэвтрэх}}{23}{table.caption.101}%
-\contentsline {table}{\numberline {3.10}{\ignorespaces UC-03 --- Видео үүсгэх}}{24}{table.caption.103}%
-\contentsline {table}{\numberline {3.11}{\ignorespaces UC-04 --- Скрипт автомат үүсгэх}}{25}{table.caption.104}%
-\contentsline {table}{\numberline {3.12}{\ignorespaces UC-05 --- Үүсгэлтийн явцыг бодит цагт хянах (SSE)}}{25}{table.caption.105}%
-\contentsline {table}{\numberline {3.13}{\ignorespaces UC-06 --- Үүсгэлт цуцлах ба Draft хадгалах}}{26}{table.caption.106}%
-\contentsline {table}{\numberline {3.14}{\ignorespaces UC-10 --- Studio засварлагч ашиглах}}{27}{table.caption.108}%
-\contentsline {table}{\numberline {3.15}{\ignorespaces UC-11 --- Scene narration засах}}{27}{table.caption.109}%
-\contentsline {table}{\numberline {3.16}{\ignorespaces UC-12 --- Scene зураг дахин үүсгэх / upload хийх}}{28}{table.caption.110}%
-\contentsline {table}{\numberline {3.17}{\ignorespaces UC-13 --- Scene аудио дахин үүсгэх / upload хийх}}{28}{table.caption.111}%
-\contentsline {table}{\numberline {3.18}{\ignorespaces UC-14 --- Scene нэмэх / устгах / эрэмбэлэх}}{29}{table.caption.112}%
-\contentsline {table}{\numberline {3.19}{\ignorespaces UC-17 --- AI Quality Report үүсгэх / харах}}{29}{table.caption.114}%
-\contentsline {table}{\numberline {3.20}{\ignorespaces UC-18 --- Хэрэглэгчийн үнэлгээ}}{30}{table.caption.115}%
-\contentsline {table}{\numberline {3.21}{\ignorespaces UC-19 --- Folder үүсгэх, нэрлэх, устгах}}{30}{table.caption.117}%
-\contentsline {table}{\numberline {3.22}{\ignorespaces UC-20 --- Видеог folder руу зөөх (Drag-and-drop)}}{30}{table.caption.118}%
-\contentsline {table}{\numberline {3.23}{\ignorespaces UC-21 --- Хэрэглэгч удирдах}}{31}{table.caption.120}%
-\contentsline {table}{\numberline {3.24}{\ignorespaces UC-22 --- Системийн статистик харах}}{31}{table.caption.121}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Pro хэрэглэгчийн функциональ шаардлага}}{17}{table.3.4}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Супер Админы функциональ шаардлага}}{18}{table.caption.89}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Функциональ бус шаардлага}}{19}{table.caption.91}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Хэрэглэгчийн эрхийн матриц}}{21}{table.caption.94}%
+\contentsline {table}{\numberline {3.8}{\ignorespaces UC-01 --- Хэрэглэгчийн бүртгэл үүсгэх}}{22}{table.caption.99}%
+\contentsline {table}{\numberline {3.9}{\ignorespaces UC-02 --- Системд нэвтрэх}}{22}{table.caption.100}%
+\contentsline {table}{\numberline {3.10}{\ignorespaces UC-03 --- Видео үүсгэх}}{23}{table.caption.102}%
+\contentsline {table}{\numberline {3.11}{\ignorespaces UC-04 --- Скрипт автомат үүсгэх}}{24}{table.caption.103}%
+\contentsline {table}{\numberline {3.12}{\ignorespaces UC-05 --- Үүсгэлтийн явцыг бодит цагт хянах (SSE)}}{24}{table.caption.104}%
+\contentsline {table}{\numberline {3.13}{\ignorespaces UC-06 --- Үүсгэлт цуцлах ба Draft хадгалах}}{25}{table.caption.105}%
+\contentsline {table}{\numberline {3.14}{\ignorespaces UC-10 --- Studio засварлагч ашиглах}}{26}{table.caption.107}%
+\contentsline {table}{\numberline {3.15}{\ignorespaces UC-11 --- Scene narration засах}}{26}{table.caption.108}%
+\contentsline {table}{\numberline {3.16}{\ignorespaces UC-12 --- Scene зураг дахин үүсгэх / upload хийх}}{27}{table.caption.109}%
+\contentsline {table}{\numberline {3.17}{\ignorespaces UC-13 --- Scene аудио дахин үүсгэх / upload хийх}}{27}{table.caption.110}%
+\contentsline {table}{\numberline {3.18}{\ignorespaces UC-14 --- Scene нэмэх / устгах / эрэмбэлэх}}{28}{table.caption.111}%
+\contentsline {table}{\numberline {3.19}{\ignorespaces UC-17 --- AI Quality Report үүсгэх / харах}}{28}{table.caption.113}%
+\contentsline {table}{\numberline {3.20}{\ignorespaces UC-18 --- Хэрэглэгчийн үнэлгээ}}{29}{table.caption.114}%
+\contentsline {table}{\numberline {3.21}{\ignorespaces UC-19 --- Folder үүсгэх, нэрлэх, устгах}}{29}{table.caption.116}%
+\contentsline {table}{\numberline {3.22}{\ignorespaces UC-20 --- Видеог folder руу зөөх (Drag-and-drop)}}{29}{table.caption.117}%
+\contentsline {table}{\numberline {3.23}{\ignorespaces UC-21 --- Хэрэглэгч удирдах}}{30}{table.caption.119}%
+\contentsline {table}{\numberline {3.24}{\ignorespaces UC-22 --- Системийн статистик харах}}{30}{table.caption.120}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Хүснэгтүүдийн хоорондын холбоосын матриц}}{39}{table.caption.143}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Backend-д ашигласан технологийн стек}}{39}{table.caption.146}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Authentication endpoint-ууд}}{40}{table.caption.148}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Video endpoint-ууд}}{40}{table.caption.149}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Script API endpoint-ууд}}{40}{table.caption.150}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Зураг API endpoint-ууд}}{41}{table.caption.151}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces Аудио endpoint-ууд}}{41}{table.caption.152}%
-\contentsline {table}{\numberline {4.8}{\ignorespaces Төсөл endpoint-ууд}}{41}{table.caption.153}%
-\contentsline {table}{\numberline {4.9}{\ignorespaces Admin endpoint-ууд}}{42}{table.caption.154}%
-\contentsline {table}{\numberline {4.10}{\ignorespaces Backend middleware жагсаалт}}{42}{table.caption.159}%
-\contentsline {table}{\numberline {4.11}{\ignorespaces Туршилтын тоо ба хамрах хүрээ}}{44}{table.caption.173}%
-\contentsline {table}{\numberline {4.12}{\ignorespaces Туршилтын хэрэгсэл}}{44}{table.caption.175}%
-\contentsline {table}{\numberline {4.13}{\ignorespaces Гол туршилтын кейсүүд ба үр дүн}}{45}{table.caption.177}%
-\contentsline {table}{\numberline {4.14}{\ignorespaces Backend code coverage үр дүн}}{45}{table.caption.179}%
-\contentsline {table}{\numberline {4.15}{\ignorespaces Гүйцэтгэлийн туршилтын үр дүн}}{46}{table.caption.181}%
-\contentsline {table}{\numberline {4.16}{\ignorespaces Илэрсэн ба засагдсан алдаануудын жагсаалт}}{46}{table.caption.183}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Хүснэгтүүдийн хоорондын холбоосын матриц}}{38}{table.caption.142}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Backend-д ашигласан технологийн стек}}{38}{table.caption.145}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Authentication endpoint-ууд}}{39}{table.caption.147}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Video endpoint-ууд}}{39}{table.caption.148}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Script API endpoint-ууд}}{39}{table.caption.149}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Зураг API endpoint-ууд}}{40}{table.caption.150}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Аудио endpoint-ууд}}{40}{table.caption.151}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Төсөл endpoint-ууд}}{40}{table.caption.152}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Admin endpoint-ууд}}{41}{table.caption.153}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Backend middleware жагсаалт}}{41}{table.caption.158}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Туршилтын тоо ба хамрах хүрээ}}{43}{table.caption.172}%
+\contentsline {table}{\numberline {4.12}{\ignorespaces Туршилтын хэрэгсэл}}{43}{table.caption.174}%
+\contentsline {table}{\numberline {4.13}{\ignorespaces Гол туршилтын кейсүүд ба үр дүн}}{44}{table.caption.176}%
+\contentsline {table}{\numberline {4.14}{\ignorespaces Backend code coverage үр дүн}}{44}{table.caption.178}%
+\contentsline {table}{\numberline {4.15}{\ignorespaces Гүйцэтгэлийн туршилтын үр дүн}}{45}{table.caption.180}%
+\contentsline {table}{\numberline {4.16}{\ignorespaces Илэрсэн ба засагдсан алдаануудын жагсаалт}}{45}{table.caption.182}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Хэрэгжүүлсэн технологийн стек}}{51}{table.caption.200}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Хэрэгжүүлсэн технологийн стек}}{50}{table.caption.199}%
