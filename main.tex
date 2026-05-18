@@ -13,8 +13,22 @@ headsepline,
 ]{MUST-Thesis}
 
 \usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
-\usepackage[mongolian]{babel}
+\usepackage[T2A,T1]{fontenc}
+\usepackage[english,main=mongolian]{babel}
+
+% ─── Мөрнөөс давсан текстийг засах тохиргоо ───
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\emergencystretch=10em                % LaTeX-д мөрийг маш их сунгахыг зөвшөөрнө
+\tolerance=9999                       % бараг бүх зүйлийг тэвчинэ
+\hbadness=10000                       % hbox warning-уудыг хаах
+\hyphenpenalty=50                     % үг таслахыг урамшуулна
+\exhyphenpenalty=50
+\sloppy                               % уян хатан мөрний зайлуулалт
+
+% Латин үгсийг таслах боломжийн hint
+\hyphenation{Insta-gram You-Tube Tik-Tok Cloud-i-nary Post-greSQL Type-Script Java-Script
+  Express Anthro-pic Eleven-Labs Cli-ppie Magic-Hour Open-AI Synth-esia Pic-tory In-Video
+  Run-way Mid-jour-ney Sequel-ize bcrypt Free-pik Java-Mail Word-Press Word-Net}
 
 \usepackage{float}
 \usepackage{titlesec}
