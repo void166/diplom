@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.17)  17 MAY 2026 17:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.17)  18 MAY 2026 15:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1513,28 +1513,28 @@ Package babel Info: 'mongolian' activates 'mongolian' shorthands.
 (./Chapters/Chapter4.aux) (./Chapters/Conclusion.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
 Package translations Info: no dictionary file `translations-basic-dictionary-mo
-ngolian.trsl' found. on input line 117.
+ngolian.trsl' found. on input line 118.
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/translations/translations-basic-d
 ictionary-english.trsl
@@ -1542,7 +1542,7 @@ File: translations-basic-dictionary-english.trsl (english translation file `tra
 nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `english'. on input line 117.
+or `english'. on input line 118.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1612,7 +1612,7 @@ Package biblatex Info: Trying to load language 'mongolian'...
 Package biblatex Info: ... file 'mongolian.lbx' not found.
 
 Package biblatex Warning: Language 'mongolian' not supported.
-(biblatex)                Using dummy definitions on input line 117.
+(biblatex)                Using dummy definitions on input line 118.
 
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
@@ -1631,9 +1631,9 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
 
 (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 117.
-Package biblatex Info: Reference segment=0 on input line 117.
-Package hyperref Info: Link coloring ON on input line 117.
+Package biblatex Info: Reference section=0 on input line 118.
+Package biblatex Info: Reference segment=0 on input line 118.
+Package hyperref Info: Link coloring ON on input line 118.
  (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -2418,25 +2418,25 @@ Underfull \hbox (badness 1052) in paragraph at lines 849--850
  []
 
 [30]
-<Figures/context.png, id=882, 828.09375pt x 564.60938pt>
+<Figures/context.png, id=1037, 828.09375pt x 564.60938pt>
 File: Figures/context.png Graphic file (type png)
 <use Figures/context.png>
 Package pdftex.def Info: Figures/context.png  used on input line 883.
 (pdftex.def)             Requested size: 391.93546pt x 267.23595pt.
  [31]
-<Figures/activity.png, id=888, 677.53125pt x 978.65625pt>
+<Figures/activity.png, id=1043, 677.53125pt x 978.65625pt>
 File: Figures/activity.png Graphic file (type png)
 <use Figures/activity.png>
 Package pdftex.def Info: Figures/activity.png  used on input line 890.
 (pdftex.def)             Requested size: 391.93546pt x 566.14265pt.
  [32 <./Figures/context.png>]
-<Figures/hesegrender.png, id=894, 828.09375pt x 941.01563pt>
+<Figures/hesegrender.png, id=1049, 828.09375pt x 941.01563pt>
 File: Figures/hesegrender.png Graphic file (type png)
 <use Figures/hesegrender.png>
 Package pdftex.def Info: Figures/hesegrender.png  used on input line 897.
 (pdftex.def)             Requested size: 391.93546pt x 445.39325pt.
  [33 <./Figures/activity.png>]
-<Figures/sequence.png, id=900, 978.65625pt x 1091.57813pt>
+<Figures/sequence.png, id=1055, 978.65625pt x 1091.57813pt>
 File: Figures/sequence.png Graphic file (type png)
 <use Figures/sequence.png>
 Package pdftex.def Info: Figures/sequence.png  used on input line 904.
@@ -2458,7 +2458,7 @@ Overfull \hbox (2.46617pt too wide) in paragraph at lines 9--10
 ав-хар-га (Presentation Layer),
  []
 
-<Figures/arhi.png, id=916, 677.53125pt x 466.74374pt>
+<Figures/arhi.png, id=1072, 677.53125pt x 466.74374pt>
 File: Figures/arhi.png Graphic file (type png)
 <use Figures/arhi.png>
 Package pdftex.def Info: Figures/arhi.png  used on input line 19.
@@ -2490,7 +2490,7 @@ Overfull \hbox (10.15762pt too wide) in paragraph at lines 54--55
  []
 
 [37]
-<Figures/er.png, id=926, 963.6pt x 677.53125pt>
+<Figures/er.png, id=1082, 963.6pt x 677.53125pt>
 File: Figures/er.png Graphic file (type png)
 <use Figures/er.png>
 Package pdftex.def Info: Figures/er.png  used on input line 66.
@@ -2772,23 +2772,23 @@ Underfull \hbox (badness 3323) in paragraph at lines 591--591
  []
 
 [46]
-<Figures/login.png, id=979, 1470.49374pt x 919.435pt>
+<Figures/login.png, id=1134, 1470.49374pt x 919.435pt>
 File: Figures/login.png Graphic file (type png)
 <use Figures/login.png>
 Package pdftex.def Info: Figures/login.png  used on input line 623.
 (pdftex.def)             Requested size: 371.30595pt x 232.15901pt.
-<Figures/generate_form.png, id=980, 1475.5125pt x 924.45375pt>
+<Figures/generate_form.png, id=1135, 1475.5125pt x 924.45375pt>
 File: Figures/generate_form.png Graphic file (type png)
 <use Figures/generate_form.png>
 Package pdftex.def Info: Figures/generate_form.png  used on input line 630.
 (pdftex.def)             Requested size: 371.30595pt x 232.62221pt.
  [47 <./Figures/login.png>]
-<Figures/studio_view.png, id=987, 1473.505pt x 922.44624pt>
+<Figures/studio_view.png, id=1143, 1473.505pt x 922.44624pt>
 File: Figures/studio_view.png Graphic file (type png)
 <use Figures/studio_view.png>
 Package pdftex.def Info: Figures/studio_view.png  used on input line 638.
 (pdftex.def)             Requested size: 371.30595pt x 232.44078pt.
-<Figures/admin_dashboard.png, id=988, 1475.5125pt x 923.45pt>
+<Figures/admin_dashboard.png, id=1144, 1475.5125pt x 923.45pt>
 File: Figures/admin_dashboard.png Graphic file (type png)
 <use Figures/admin_dashboard.png>
 Package pdftex.def Info: Figures/admin_dashboard.png  used on input line 646.
@@ -2912,7 +2912,7 @@ Here is how much of TeX's memory you used:
  77045 multiletter control sequences out of 15000+600000
  649673 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 138i,20n,135p,1850b,1310s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 138i,20n,135p,1850b,1312s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10
 .pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbi1095.p
@@ -2933,10 +2933,10 @@ ve/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive
 texmf-dist/fonts/type1/public/cm-super/sfsl1095.pfb></usr/local/texlive/2026/te
 xmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2026/texm
 f-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on main.pdf (76 pages, 12525164 bytes).
+Output written on main.pdf (76 pages, 12529950 bytes).
 PDF statistics:
- 1230 PDF objects out of 1440 (max. 8388607)
- 1079 compressed objects within 11 object streams
+ 1386 PDF objects out of 1440 (max. 8388607)
+ 1233 compressed objects within 13 object streams
  311 named destinations out of 1000 (max. 500000)
  836 words of extra memory for PDF output out of 10000 (max. 10000000)
 
