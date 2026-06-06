@@ -1,0 +1,96 @@
+\babel@toc {mongolian}{}\relax 
+\contentsline {chapter}{Зохиогчийн эрх хамгаалал}{i}{section*.2}%
+\contentsline {chapter}{Хураангуй}{ii}{section*.2}%
+\contentsline {chapter}{Талархал}{iii}{section*.3}%
+\contentsline {chapter}{Товчилсон үгс}{iv}{table.0.1}%
+\contentsline {chapter}{\numberline {1}Удиртгал}{1}{chapter.8}%
+\contentsline {section}{\numberline {1.1}Сэдэв сонгосон үндэслэл}{1}{section.9}%
+\contentsline {section}{\numberline {1.2}Зорилго}{1}{section.10}%
+\contentsline {section}{\numberline {1.3}Зорилт}{2}{section.18}%
+\contentsline {chapter}{\numberline {2}Судалгаа}{3}{chapter.28}%
+\contentsline {section}{\numberline {2.1}Төстэй системүүдийн судалгаа}{3}{section.29}%
+\contentsline {section}{\numberline {2.2}Ашиглах AI загваруудын судалгаа}{3}{section.31}%
+\contentsline {subsection}{\numberline {2.2.1}AI загваруудын харьцуулалт ба сонголтын үндэслэл}{3}{subsection.32}%
+\contentsline {subsubsection}{Сонголтын шалгуур}{4}{subsubsection*.33}%
+\contentsline {subsection}{\numberline {2.2.2}Script generation model-уудын харьцуулалт}{4}{subsection.35}%
+\contentsline {subsubsection}{Script model сонголтын дүгнэлт}{5}{subsubsection*.37}%
+\contentsline {subsection}{\numberline {2.2.3}Image generation model-уудын харьцуулалт}{5}{subsection.38}%
+\contentsline {subsubsection}{Image model сонголтын дүгнэлт}{6}{subsubsection*.40}%
+\contentsline {subsubsection}{Эцсийн сонголт}{6}{subsubsection*.41}%
+\contentsline {subsection}{\numberline {2.2.4}Voice generation model-уудын харьцуулалт}{6}{subsection.42}%
+\contentsline {subsubsection}{Voice model сонголтын дүгнэлт}{7}{subsubsection*.44}%
+\contentsline {subsection}{\numberline {2.2.5}CHIMEGE}{8}{subsection.45}%
+\contentsline {subsection}{\numberline {2.2.6}Нэгдсэн эцсийн сонголт}{8}{subsection.46}%
+\contentsline {section}{\numberline {2.3}Ашиглах хөгжүүлэлтийн технологиудын судлагаа}{8}{section.48}%
+\contentsline {subsection}{\numberline {2.3.1}Frontend технологи: React}{8}{subsection.49}%
+\contentsline {subsection}{\numberline {2.3.2}Backend технологи: Node.js}{9}{subsection.50}%
+\contentsline {subsection}{\numberline {2.3.3}Web framework: Express}{9}{subsection.51}%
+\contentsline {subsection}{\numberline {2.3.4}Өгөгдлийн сан: PostgreSQL}{10}{subsection.52}%
+\contentsline {subsection}{\numberline {2.3.5}ORM технологи: Sequelize}{10}{subsection.53}%
+\contentsline {subsection}{\numberline {2.3.6}API архитектур: REST API}{11}{subsection.54}%
+\contentsline {subsection}{\numberline {2.3.7}Бүх түвшний хэл: TypeScript}{11}{subsection.55}%
+\contentsline {subsection}{\numberline {2.3.8}Видео боловсруулалт: FFmpeg}{12}{subsection.56}%
+\contentsline {subsubsection}{Transition ба motion effect}{12}{subsubsection*.57}%
+\contentsline {subsubsection}{Subtitle ба background music нэгтгэлт}{13}{subsubsection*.58}%
+\contentsline {subsubsection}{Хэсэгчилсэн re-render}{13}{subsubsection*.59}%
+\contentsline {subsection}{\numberline {2.3.9}Технологийн нэгдсэн дүгнэлт}{13}{subsection.60}%
+\contentsline {chapter}{\numberline {3}Системийн шаардлага ба шинжилгээ}{14}{chapter.61}%
+\contentsline {section}{\numberline {3.1}Системийн зорилго, үндсэн функцууд}{14}{section.62}%
+\contentsline {section}{\numberline {3.2}Хэрэглэгчийн шаардлагууд}{15}{section.72}%
+\contentsline {section}{\numberline {3.3}Системийн хэрэглэгчийн төрлүүд}{15}{section.74}%
+\contentsline {section}{\numberline {3.4}Функциональ шаардлагууд}{16}{section.76}%
+\contentsline {subsection}{\numberline {3.4.1}Энгийн хэрэглэгчийн функциональ шаардлага}{16}{subsection.77}%
+\contentsline {subsection}{\numberline {3.4.2}Pro хэрэглэгчийн функциональ шаардлага}{16}{subsection.79}%
+\contentsline {subsection}{\numberline {3.4.3}Супер Админы функциональ шаардлага}{18}{subsection.80}%
+\contentsline {section}{\numberline {3.5}Функциональ бус шаардлагууд}{19}{section.82}%
+\contentsline {section}{\numberline {3.6}Use Case-уудын жагсаалт}{19}{section.84}%
+\contentsline {section}{\numberline {3.7}Хэрэглэгчийн эрхийн матриц (RBAC)}{21}{section.85}%
+\contentsline {section}{\numberline {3.8}Use Case диаграм}{21}{section.87}%
+\contentsline {section}{\numberline {3.9}Use Case дэлгэрэнгүй тодорхойлолтууд}{21}{section.89}%
+\contentsline {subsection}{\numberline {3.9.1}Баталгаажуулалт ба бүртгэлийн Use Case-ууд}{22}{subsection.90}%
+\contentsline {subsection}{\numberline {3.9.2}Үндсэн үйл ажиллагааны Use Case-ууд}{23}{subsection.93}%
+\contentsline {subsection}{\numberline {3.9.3}Studio засварлагчийн Use Case-ууд}{26}{subsection.98}%
+\contentsline {subsection}{\numberline {3.9.4}Үнэлгээний Use Case-ууд}{28}{subsection.104}%
+\contentsline {subsection}{\numberline {3.9.5}Project удирдлагын Use Case-ууд}{29}{subsection.107}%
+\contentsline {subsection}{\numberline {3.9.6}Админы Use Case-ууд}{30}{subsection.110}%
+\contentsline {chapter}{\numberline {4}Системийн хөгжүүлэлт ба туршилт}{35}{chapter.117}%
+\contentsline {section}{\numberline {4.1}Системийн архитектур боловсруулах}{35}{section.118}%
+\contentsline {subsection}{\numberline {4.1.1}Системийн ерөнхий архитектур}{35}{subsection.119}%
+\contentsline {subsection}{\numberline {4.1.2}Backend дотоод архитектур}{35}{subsection.121}%
+\contentsline {subsection}{\numberline {4.1.3}Frontend архитектур}{36}{subsection.122}%
+\contentsline {section}{\numberline {4.2}Өгөгдлийн сангийн бүтэц зохиох}{36}{section.123}%
+\contentsline {subsection}{\numberline {4.2.1}Entity тодорхойлолт}{36}{subsection.124}%
+\contentsline {section}{\numberline {4.3}DB schema болон холбоосуудыг тодорхойлох}{37}{section.126}%
+\contentsline {subsection}{\numberline {4.3.1}Хүснэгтүүдийн хоорондын холбоос}{38}{subsection.133}%
+\contentsline {section}{\numberline {4.4}Backend API хөгжүүлэх}{38}{section.135}%
+\contentsline {subsection}{\numberline {4.4.1}Технологийн стек}{38}{subsection.136}%
+\contentsline {subsection}{\numberline {4.4.2}API endpoint жагсаалт}{39}{subsection.138}%
+\contentsline {subsection}{\numberline {4.4.3}Authentication ба JWT хэрэгжүүлэлт}{41}{subsection.146}%
+\contentsline {subsection}{\numberline {4.4.4}Middleware ба эрхийн шалгалт}{41}{subsection.149}%
+\contentsline {section}{\numberline {4.5}AI service-үүдтэй холболт хийх}{42}{section.151}%
+\contentsline {subsection}{\numberline {4.5.1}Groq + Llama 3.3 70B (скрипт үүсгэлт)}{42}{subsection.152}%
+\contentsline {subsection}{\numberline {4.5.2}Imagen 4 / Nano Banana (зураг үүсгэлт)}{42}{subsection.153}%
+\contentsline {subsection}{\numberline {4.5.3}ElevenLabs (дуу хоолой синтез)}{42}{subsection.154}%
+\contentsline {subsection}{\numberline {4.5.4}FFmpeg видео угсралтын pipeline}{42}{subsection.155}%
+\contentsline {subsection}{\numberline {4.5.5}Cloudinary болон AWS S3 нийлмэл стратеги}{43}{subsection.161}%
+\contentsline {section}{\numberline {4.6}Системийн нэгж болон интеграцийн туршилт хийх}{43}{section.162}%
+\contentsline {subsection}{\numberline {4.6.1}Туршилтын стратеги ба пирамид}{43}{subsection.163}%
+\contentsline {subsection}{\numberline {4.6.2}Туршилтын хэрэгсэл}{43}{subsection.165}%
+\contentsline {subsection}{\numberline {4.6.3}Гол туршилтын кейсүүд}{44}{subsection.167}%
+\contentsline {subsection}{\numberline {4.6.4}Code coverage үр дүн}{44}{subsection.169}%
+\contentsline {subsection}{\numberline {4.6.5}Гүйцэтгэлийн туршилт (Performance benchmark)}{44}{subsection.171}%
+\contentsline {section}{\numberline {4.7}Илэрсэн алдааг засварлах}{45}{section.173}%
+\contentsline {section}{\numberline {4.8}Үр дүнг баримтжуулах}{46}{section.175}%
+\contentsline {subsection}{\numberline {4.8.1}Хэрэглэгчийн гарын авлага}{46}{subsection.176}%
+\contentsline {subsection}{\numberline {4.8.2}Системийн ажиллагааны үр дүн}{46}{subsection.177}%
+\contentsline {chapter}{\numberline {5}Дүгнэлт}{49}{chapter.182}%
+\contentsline {section}{\numberline {5.1}Судалгааны ажлын нэгдсэн дүгнэлт}{49}{section.183}%
+\contentsline {section}{\numberline {5.2}Хийсэн ажлын үр дүнгийн нэгтгэл}{49}{section.189}%
+\contentsline {subsection}{\numberline {5.2.1}Техникийн үр дүн}{49}{subsection.190}%
+\contentsline {subsection}{\numberline {5.2.2}Функциональ үр дүн}{50}{subsection.192}%
+\contentsline {subsection}{\numberline {5.2.3}API үр дүн}{51}{subsection.193}%
+\contentsline {section}{\numberline {5.3}Цаашдын хөгжүүлэлтийн санал}{52}{section.194}%
+\contentsline {subsection}{\numberline {5.3.1}Архитектурын сайжруулалт}{52}{subsection.195}%
+\contentsline {subsection}{\numberline {5.3.2}Функционал өргөтгөл}{52}{subsection.200}%
+\contentsline {subsection}{\numberline {5.3.3}Контент болон дотоодын зах зээл}{53}{subsection.207}%
+\contentsline {section}{\numberline {5.4}Ерөнхий дүгнэлт}{53}{section.211}%

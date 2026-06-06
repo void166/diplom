@@ -16,7 +16,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{Figures/arhi.png}
+    \includegraphics[width=0.95\textwidth]{Figures/arhi2.png}
     \caption{Системийн ерөнхий архитектурын диаграм}
     \label{fig:arch_overview}
 \end{figure}
@@ -64,9 +64,10 @@ Routing-д React Router v6 ашиглаж, хуудас бүрд lazy loading х
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{Figures/er.png}
-    \caption{Өгөгдлийн сангийн ER диаграм}
+    \caption{ViralAI системийн өгөгдлийн сангийн Entity-Relationship диаграм}
     \label{fig:er_diagram}
 \end{figure}
+
 
 \section{DB schema болон холбоосуудыг тодорхойлох}
 
@@ -181,7 +182,9 @@ GET & /auth/me & Одоогийн хэрэглэгчийн мэдээлэл ав
 \begin{table}[H]
 \centering
 \label{tab:video_api}
-\begin{tabular}{|l|p{5cm}|p{3.5cm}|l|}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|l|p{6.5cm}|p{3.2cm}|c|}
 \hline
 \textbf{Method} & \textbf{Endpoint} & \textbf{Тайлбар} & \textbf{Хамгаалалт} \\
 \hline
@@ -539,7 +542,8 @@ middleware/ & 96.5\% & 92.1\% & 100\% & 96.4\% \\
 \begin{table}[H]
 \centering
 \label{tab:perf}
-\begin{tabular}{|l|c|c|c|}
+\small
+\begin{tabular}{|p{3.8cm}|p{2cm}|p{2.8cm}|p{2cm}|}
 \hline
 \textbf{Сценари} & \textbf{Concurrent user} & \textbf{P95 хариу хугацаа} & \textbf{Алдааны \%} \\
 \hline
@@ -635,7 +639,7 @@ B-12 & Цуцлагдсан видеоны S3 файлууд устгагдах�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figures/studio_view.png}
+    \includegraphics[width=0.9\textwidth]{Figures/edit.png}
     \caption{AI Video Studio засварлагчийн ажиллах байдал}
     \label{fig:studio_view}
 \end{figure}

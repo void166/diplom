@@ -1,0 +1,284 @@
+% ════════════════════════════════════════════════════════════════════════════
+%  ViralAI · Entity-Relationship Diagram (TikZ)
+%  Preamble: add these packages to your main.tex
+% ════════════════════════════════════════════════════════════════════════════
+%
+%   \usepackage{tikz}
+%   \usetikzlibrary{positioning, arrows.meta, shapes.geometric, calc, shadows}
+%   \usepackage{xcolor}
+%
+% ════════════════════════════════════════════════════════════════════════════
+
+\begin{figure}[!htbp]
+    \centering
+    \definecolor{brandIndigo}{HTML}{4338CA}
+    \definecolor{brandViolet}{HTML}{7C3AED}
+    \definecolor{brandCyan}{HTML}{0891B2}
+    \definecolor{brandTeal}{HTML}{0D9488}
+    \definecolor{brandEmerald}{HTML}{059669}
+    \definecolor{brandAmber}{HTML}{B45309}
+    \definecolor{brandRose}{HTML}{B91C1C}
+    \definecolor{brandFuchsia}{HTML}{A21CAF}
+    
+    \definecolor{bgIndigo}{HTML}{EEF2FF}
+    \definecolor{bgViolet}{HTML}{F5F3FF}
+    \definecolor{bgCyan}{HTML}{ECFEFF}
+    \definecolor{bgTeal}{HTML}{F0FDFA}
+    \definecolor{bgEmerald}{HTML}{ECFDF5}
+    \definecolor{bgAmber}{HTML}{FFFBEB}
+    \definecolor{bgRose}{HTML}{FFF1F2}
+    \definecolor{bgFuchsia}{HTML}{FDF4FF}
+    \definecolor{inkBody}{HTML}{1E293B}
+    \definecolor{inkMuted}{HTML}{64748B}
+    
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        %─── Entity (table) style ────────────────────────────────────
+        entity/.style={
+            rectangle,
+            rounded corners=3pt,
+            draw=#1,
+            line width=1.2pt,
+            fill=white,
+            minimum width=4.6cm,
+            inner sep=0pt,
+            text=inkBody,
+            drop shadow={shadow xshift=0.5pt, shadow yshift=-1pt,
+                         opacity=0.18, shadow blur radius=4pt},
+        },
+        %─── Header band style ───────────────────────────────────────
+        header/.style={
+            rectangle,
+            rounded corners=3pt,
+            fill=#1,
+            minimum width=4.6cm,
+            minimum height=0.85cm,
+            text=white,
+            font=\bfseries\large,
+            inner sep=4pt,
+        },
+        %─── Field row style ─────────────────────────────────────────
+        field/.style={
+            anchor=west,
+            font=\small,
+            text=inkBody,
+            inner sep=2pt,
+        },
+        pk/.style={field, font=\small\bfseries, text=#1},
+        fk/.style={field, font=\small\itshape, text=brandCyan},
+        %─── Relationship line ───────────────────────────────────────
+        relation/.style={
+            -{Latex[length=2.5mm, width=2mm]},
+            line width=0.9pt,
+            draw=inkMuted,
+        },
+        cardlabel/.style={
+            font=\scriptsize\bfseries,
+            text=#1,
+            fill=white,
+            inner sep=1.5pt,
+            rounded corners=1pt,
+        },
+        relname/.style={
+            font=\scriptsize\itshape,
+            text=inkMuted,
+            fill=white,
+            inner sep=1.5pt,
+        },
+    ]
+    
+    %══════════════════════════════════════════════════════════════════
+    %  ENTITY DEFINITIONS
+    %══════════════════════════════════════════════════════════════════
+    
+    % ─── USER (centre-top) ───────────────────────────────────────────
+    \node[entity=brandIndigo] (user) at (0, 6) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandIndigo] {\textbf{User}}; \\[2pt]
+        \quad\textcolor{brandIndigo}{$\bigstar$} \textbf{id}\,:\, UUID \\
+        \quad email\,:\, VARCHAR (UQ) \\
+        \quad password\,:\, VARCHAR \\
+        \quad fullname\,:\, VARCHAR \\
+        \quad \textit{createdAt, updatedAt} \\[2pt]
+        \end{tabular}};
+    
+    % ─── ADMIN (top-right, standalone) ───────────────────────────────
+    \node[entity=brandRose] (admin) at (7.5, 6) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandRose] {\textbf{Admin}}; \\[2pt]
+        \quad\textcolor{brandRose}{$\bigstar$} \textbf{id}\,:\, UUID \\
+        \quad email\,:\, VARCHAR (UQ) \\
+        \quad password\,:\, VARCHAR \\
+        \quad name\,:\, VARCHAR \\
+        \quad role\,:\, ENUM \\
+        \quad \textit{createdAt, updatedAt} \\[2pt]
+        \end{tabular}};
+    
+    % ─── SUBSCRIPTION (left, 1:1 with User) ──────────────────────────
+    \node[entity=brandAmber] (sub) at (-7.5, 6) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandAmber] {\textbf{Subscription}}; \\[2pt]
+        \quad\textcolor{brandAmber}{$\bigstar$} \textbf{id}\,:\, UUID \\
+        \quad\textcolor{brandCyan}{$\multimap$} \textit{userId}\,:\, UUID \\
+        \quad plan\,:\, ENUM (user, pro\_user) \\
+        \quad videosUsed\,:\, INT \\
+        \quad videosQuota\,:\, INT \\
+        \quad renewed\_at\,:\, DATE \\
+        \quad expiresAt\,:\, DATE \\[2pt]
+        \end{tabular}};
+    
+    % ─── PROJECT (middle-left) ───────────────────────────────────────
+    \node[entity=brandTeal] (project) at (-7.5, 0.5) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandTeal] {\textbf{Project}}; \\[2pt]
+        \quad\textcolor{brandTeal}{$\bigstar$} \textbf{id}\,:\, UUID \\
+        \quad\textcolor{brandCyan}{$\multimap$} \textit{userId}\,:\, UUID \\
+        \quad title\,:\, VARCHAR(200) \\
+        \quad topic\,:\, TEXT \\
+        \quad status\,:\, ENUM \\
+        \quad \textit{createdAt, updatedAt} \\[2pt]
+        \end{tabular}};
+    
+    % ─── VIDEO (centre — anchor of the schema) ───────────────────────
+    \node[entity=brandIndigo] (video) at (0, 0.5) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandIndigo, minimum width=4.6cm] {\textbf{Video}}; \\[2pt]
+        \quad\textcolor{brandIndigo}{$\bigstar$} \textbf{id}\,:\, UUID \\
+        \quad\textcolor{brandCyan}{$\multimap$} \textit{userId}\,:\, UUID \\
+        \quad\textcolor{brandCyan}{$\multimap$} \textit{projectId}\,:\, UUID (NULL) \\
+        \quad title\,:\, VARCHAR \\
+        \quad topic\,:\, VARCHAR \\
+        \quad genre, language, imageStyle \\
+        \quad bgmPath, bgmVolume, srtPath \\
+        \quad duration\,:\, FLOAT \\
+        \quad status\,:\, ENUM \\
+        \quad progress\,:\, INT \\
+        \quad final\_video\_url\,:\, TEXT \\
+        \quad thumbnail\_url\,:\, TEXT \\
+        \quad Tfocus, Temotion, ToverLay, \\
+        \quad TvisualHook \\
+        \quad \textit{createdAt, updatedAt} \\[2pt]
+        \end{tabular}};
+    
+    % ─── SCENE (right, child of Video) ───────────────────────────────
+    \node[entity=brandEmerald] (scene) at (7.5, 0.5) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandEmerald] {\textbf{Scene}}; \\[2pt]
+        \quad\textcolor{brandEmerald}{$\bigstar$} \textbf{id}\,:\, UUID \\
+        \quad\textcolor{brandCyan}{$\multimap$} \textit{videoId}\,:\, UUID \\
+        \quad sceneIndex\,:\, INT \\
+        \quad time\,:\, VARCHAR(50) \\
+        \quad scene\,:\, VARCHAR(200) \\
+        \quad narration\,:\, TEXT \\
+        \quad imagePrompt\,:\, TEXT \\
+        \quad imageUrl\,:\, TEXT \\
+        \quad audioUrl\,:\, TEXT \\
+        \quad audioDuration\,:\, FLOAT \\
+        \quad words\,:\, TEXT (JSON) \\
+        \quad transitionType\,:\, VARCHAR \\
+        \quad motionEffect\,:\, VARCHAR \\
+        \quad ttsProvider, voiceId \\
+        \quad \textit{createdAt, updatedAt} \\[2pt]
+        \end{tabular}};
+    
+    % ─── EVALUATION (bottom, 1:1 with Video) ─────────────────────────
+    \node[entity=brandFuchsia] (eval) at (0, -6.2) {
+        \begin{tabular}{@{}l@{}}
+        \tikz \node[header=brandFuchsia, minimum width=6.5cm] {\textbf{Evaluation}}; \\[2pt]
+        \quad\textcolor{brandFuchsia}{$\bigstar$} \textbf{id}\,:\, UUID
+            \qquad \textcolor{brandCyan}{$\multimap$} \textit{videoId}\,:\, UUID (UQ) \\
+        \quad overallScore\,:\, INT \quad\quad grade\,:\, VARCHAR \\
+        \quad hookScore, pacingScore, emotionScore\,:\, INT \\
+        \quad clarityScore, originalityScore\,:\, INT \\
+        \quad sceneScores\,:\, JSON \quad\quad suggestions\,:\, JSON \\
+        \quad healthIssues\,:\, JSON \\
+        \quad userRating\,:\, FLOAT \quad\quad userLiked\,:\, BOOL \\
+        \quad \textit{createdAt, updatedAt} \\[2pt]
+        \end{tabular}};
+    
+    %══════════════════════════════════════════════════════════════════
+    %  RELATIONSHIPS (cardinality + name)
+    %══════════════════════════════════════════════════════════════════
+    
+    % User ↔ Subscription (1:1)
+    \draw[relation] (user.west) -- (sub.east)
+        node[relname, midway, above=1pt] {hasOne}
+        node[cardlabel=brandIndigo,  pos=0.08]  {1}
+        node[cardlabel=brandAmber,   pos=0.92]  {1};
+    
+    % User → Project (1:N)
+    \draw[relation] (user.south west)
+        .. controls (-3.5, 5) and (-7.5, 4.2) .. (project.north)
+        node[relname, pos=0.55, sloped, above=1pt] {hasMany}
+        node[cardlabel=brandIndigo,  pos=0.08]  {1}
+        node[cardlabel=brandTeal,    pos=0.92]  {N};
+    
+    % User → Video (1:N)
+    \draw[relation] (user.south) -- (video.north)
+        node[relname, midway, right=2pt] {hasMany}
+        node[cardlabel=brandIndigo,  pos=0.10]  {1}
+        node[cardlabel=brandIndigo,  pos=0.90]  {N};
+    
+    % Project → Video (1:N, SET NULL)
+    \draw[relation] (project.east) -- (video.west)
+        node[relname, midway, above=1pt] {hasMany}
+        node[font=\tiny\itshape, text=inkMuted, midway, below=1pt]
+            {onDelete: SET NULL}
+        node[cardlabel=brandTeal,    pos=0.07]  {1}
+        node[cardlabel=brandIndigo,  pos=0.93]  {N};
+    
+    % Video → Scene (1:N, CASCADE)
+    \draw[relation] (video.east) -- (scene.west)
+        node[relname, midway, above=1pt] {hasMany}
+        node[font=\tiny\itshape, text=inkMuted, midway, below=1pt]
+            {onDelete: CASCADE}
+        node[cardlabel=brandIndigo,  pos=0.07]  {1}
+        node[cardlabel=brandEmerald, pos=0.93]  {N};
+    
+    % Video → Evaluation (1:1)
+    \draw[relation] (video.south) -- (eval.north)
+        node[relname, midway, right=2pt] {hasOne}
+        node[cardlabel=brandIndigo,  pos=0.10]  {1}
+        node[cardlabel=brandFuchsia, pos=0.90]  {1};
+    
+    %══════════════════════════════════════════════════════════════════
+    %  LEGEND
+    %══════════════════════════════════════════════════════════════════
+    \node[
+        rectangle, rounded corners=3pt,
+        draw=inkMuted, line width=0.5pt,
+        fill=white,
+        inner sep=6pt,
+        anchor=north west,
+    ] at (-11, -8.5) {%
+        \footnotesize
+        \begin{tabular}{@{}l@{\hspace{4pt}}l@{}}
+        \multicolumn{2}{l}{\textbf{\small Тайлбар (Legend)}} \\[3pt]
+        \textcolor{brandIndigo}{$\bigstar$} & Primary Key (PK) \\
+        \textcolor{brandCyan}{$\multimap$}   & Foreign Key (FK) \\
+        UQ                                   & Unique constraint \\
+        1 : 1                                & Нэг харьцаа нэг (hasOne) \\
+        1 : N                                & Нэгээс олон (hasMany) \\
+        CASCADE                              & Эх устгахад хүү автомат устана \\
+        SET NULL                             & Эх устахад хүү null болно \\
+        \end{tabular}%
+    };
+    
+    %══════════════════════════════════════════════════════════════════
+    %  TITLE BAND (top of diagram)
+    %══════════════════════════════════════════════════════════════════
+    \node[
+        font=\Large\bfseries,
+        text=inkBody,
+    ] at (0, 10) {ViralAI · Entity-Relationship Diagram};
+    
+    \node[
+        font=\small\itshape,
+        text=inkMuted,
+    ] at (0, 9.5) {PostgreSQL + Sequelize ORM \quad·\quad 7 entity \quad·\quad 6 relationship \quad·\quad All PKs are UUIDv4};
+    
+    \end{tikzpicture}%
+    }
+    \caption{ViralAI системийн өгөгдлийн сангийн Entity-Relationship диаграм. PostgreSQL дээр Sequelize ORM ашиглан хэрэгжсэн нийт 7 entity, 6 хамаарал бүхий схем.}
+    \label{fig:er_diagram}
+    \end{figure}
